@@ -1,0 +1,198 @@
+.Blog {
+  padding: 3rem;
+}
+.BlogContent {
+  margin: 0 auto;
+  max-width: 1500px;
+}
+.Tag {
+  padding-bottom: 1rem;
+  display: flex;
+  color: rgba(78, 85, 230, 1);
+  border-bottom: 1px solid rgba(68, 68, 68, 1);
+}
+.Tag a {
+  margin-right: 2rem;
+  color: inherit;
+}
+.Title {
+  font-size: 4rem;
+  margin-top: 2rem;
+  color: white;
+}
+.Poster {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4rem;
+}
+.Left {
+  display: flex;
+  align-items: center;
+}
+.Poster div {
+  color: white;
+  font-size: 1.4rem;
+  line-height: 1.4rem;
+}
+.Poster i {
+  font-size: 1.4rem;
+  line-height: 1.4rem;
+
+  color: rgba(196, 196, 196, 1);
+}
+.Date {
+  margin-left: 1rem;
+}
+.Right {
+  margin-left: 1rem;
+}
+.PosterImg {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+.Name {
+  margin-bottom: 0.2rem;
+}
+.PostImage {
+  margin-top: 2rem;
+  width: 100%;
+}
+.PostImage img {
+  width: 100%;
+  border-radius: 0.8rem;
+}
+.Content {
+  color: rgba(196, 196, 196, 1);
+}
+.Content p {
+  margin-top: 2rem;
+  line-height: 2.5rem;
+}
+.List {
+  color: #fff;
+  list-style-type: none;
+}
+.Comment {
+  background: rgba(29, 34, 43, 0.6);
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 2rem;
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+.CommentHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(68, 68, 68, 1);
+}
+.Cap {
+  color: #2930e3;
+  font-weight: bold;
+}
+.Num {
+  color: #888888;
+}
+.HeadRight a {
+  color: #2930e3;
+}
+.Comments {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(68, 68, 68, 1);
+}
+.Commenter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.CommenterRight {
+  margin-left: 1rem;
+  color: #fff;
+}
+.CommentName {
+  font-weight: bold;
+  color: white;
+  margin-bottom: 0.2rem;
+}
+.Time {
+  font-size: 1.4rem;
+}
+.Reply {
+  background-color: transparent;
+  font-size: 1.6rem;
+  color: rgba(196, 196, 196, 1);
+  font-weight: bold;
+  flex-basis: 20%;
+  border: 0;
+  cursor: pointer;
+}
+.comment {
+  color: rgba(196, 196, 196, 1);
+}
+.TextArea {
+  width: 100%;
+  height: 16rem;
+  padding: 2rem;
+  box-sizing: border-box;
+  color: rgba(153, 153, 153, 1);
+  font-family: inherit;
+  border-radius: 0.4rem;
+  resize: none;
+  margin-top: 2rem;
+}
+.TextArea:focus {
+  border: 0;
+  outline: none;
+}
+.Add {
+  background-color: #2930e3;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.4rem;
+  color: #fff;
+  box-sizing: border-box;
+  width: 12.6rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4.3rem;
+
+  border: 0;
+
+  margin-top: 1rem;
+}
+.AddButton {
+  position: relative;
+  justify-content: right;
+  display: flex;
+}
+@media only screen and (max-width: 547px) {
+  .TextArea {
+    height: 10rem;
+  }
+}
+@media only screen and (max-width: 437px) {
+  .Blog {
+    padding: 3rem 1.5rem;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .Comment {
+    padding: 2rem 1rem;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .TextArea {
+    height: 8rem;
+  }
+  .Title {
+    font-size: 3rem;
+  }
+}

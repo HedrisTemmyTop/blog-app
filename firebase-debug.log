@@ -1,0 +1,102 @@
+[debug] [2023-01-05T08:56:21.186Z] ----------------------------------------------------------------------
+[debug] [2023-01-05T08:56:21.189Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-01-05T08:56:21.189Z] CLI Version:   11.16.0
+[debug] [2023-01-05T08:56:21.189Z] Platform:      win32
+[debug] [2023-01-05T08:56:21.190Z] Node Version:  v18.12.1
+[debug] [2023-01-05T08:56:21.191Z] Time:          Thu Jan 05 2023 09:56:21 GMT+0100 (West Africa Standard Time)
+[debug] [2023-01-05T08:56:21.191Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-01-05T08:56:21.296Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-01-05T08:56:21.297Z] > authorizing via signed-in user (hedristemitope2001@gmail.com)
+[debug] [2023-01-05T08:56:21.297Z] [iam] checking project blog-app-178d7 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-01-05T08:56:21.300Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/blog-app-178d7:testIamPermissions [none]
+[debug] [2023-01-05T08:56:21.300Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/blog-app-178d7:testIamPermissions x-goog-quota-user=projects/blog-app-178d7
+[debug] [2023-01-05T08:56:21.301Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/blog-app-178d7:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-01-05T08:56:28.008Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/blog-app-178d7:testIamPermissions 200
+[debug] [2023-01-05T08:56:28.009Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/blog-app-178d7:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-01-05T08:56:28.011Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/blog-app-178d7 [none]
+[debug] [2023-01-05T08:56:30.032Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/blog-app-178d7 200
+[debug] [2023-01-05T08:56:30.033Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/blog-app-178d7 {"projectId":"blog-app-178d7","projectNumber":"640327187146","displayName":"blog-app","name":"projects/blog-app-178d7","resources":{"hostingSite":"blog-app-178d7"},"state":"ACTIVE","etag":"1_cc68f5e5-26fd-4534-bc99-34a1afcc3d98"}
+[info] 
+[info] === Deploying to 'blog-app-178d7'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2023-01-05T08:56:30.046Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/blog-app-178d7/versions [none]
+[debug] [2023-01-05T08:56:30.047Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/blog-app-178d7/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2023-01-05T08:56:35.378Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/blog-app-178d7/versions 200
+[debug] [2023-01-05T08:56:35.378Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/blog-app-178d7/versions {"name":"projects/640327187146/sites/blog-app-178d7/versions/e986764f03064359","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[blog-app-178d7]: beginning deploy... 
+[info] i  hosting[blog-app-178d7]: found 23 files in build/ 
+[debug] [2023-01-05T08:56:35.401Z] [hosting] uploading with 200 concurrency
+[debug] [2023-01-05T08:56:35.666Z] [hosting] hash cache [YnVpbGQ] stored for 23 files
+[debug] [2023-01-05T08:56:35.666Z] [hosting][hash queue][FINAL] {"max":253,"min":8,"avg":40.91304347826087,"active":0,"complete":23,"success":23,"errored":0,"retried":0,"total":23,"elapsed":262}
+[debug] [2023-01-05T08:56:35.667Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/640327187146/sites/blog-app-178d7/versions/e986764f03064359:populateFiles [none]
+[debug] [2023-01-05T08:56:35.667Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/640327187146/sites/blog-app-178d7/versions/e986764f03064359:populateFiles {"files":{"/favicon.ico":"eae62e993eb980ec8a25058c39d5a51feab118bd2100c4deebb2a9c158ec11f9","/logo192.png":"3ee59515172ee198f3be375979df15ac5345183e656720a381b8872b2a39dc8b","/logo512.png":"ee7e2f3fdb8209c4b6fd7bef6ba50d1b9dba30a25bb5c3126df057e1cb6f5331","/manifest.json":"aff3449bdc238776f5d6d967f19ec491b36aed5fb7f23ccff6500736fd58494a","/robots.txt":"bfe106a3fb878dc83461c86818bf74fc1bdc7f28538ba613cd3e775516ce8b49","/asset-manifest.json":"8d23b8ce5aed791b58c7b42bee39cdbbf4703fc4d9dc4453aff529ef1cb2c1d5","/index.html":"1f237df0dff6eecd4ee5c111ca9a7d43d517c7312b9de81da19a5efc4b065210","/static/js/main.97f69c67.js.LICENSE.txt":"67de8cf9a9ba2b34c885fbad32a87303ea506e7e4c9020d475213ddd8ebda646","/static/css/main.dc5439f6.css":"ac75c2bd54b0dc766c53c82ae88c751def995b93bd087c5bfa39199a69d764ca","/static/css/main.dc5439f6.css.map":"2798fb7eba3d784fe22bdf1728766853300592442bc876b1d04e2fc41e4ca8db","/static/media/Frame 73.bc5fd73ede6dc59dfff6.png":"c1f649e049d8c0c962d196a63a4331d88fe11abe70dc0d0c5249b938c2c95c22","/static/media/facebook1.0fb050b388ab6634e699.png":"b671fcd1ac96c7088338529faa981ecafe8a0e3d8b3e4dea9d562991d5b244e9","/static/media/google.c920552d98e3ca0c9df5.webp":"5d10e8f1b91339b5922ca21a6eb65c23e8c5508d78342dbc7c25a893a983c16f","/static/media/Frame 74.341373698212a7a991e1.png":"199a31b5972ab611a9b710dc99c9f1ebf19326c6654f840354aaaf46ba655123","/static/media/Frame55.4063a5176f9dbe4fd0cc.png":"4466f7524e83e8b908129ce40b37f4df26163a467f532b12754063377d54cea8","/static/media/Rectangle 4.4d4f9584549895d0bdd1.png":"0f84fc2faa3158c2282ce29488a188cd8169d583ac6ce1031454f85b688e7bdc","/static/media/Rectangle 6.c42297ed9212fe44bfc5.png":"2f2391aac642f04f11a0471c9f616efc039d9891438c88d9fc318ad5b44f1a0a","/static/js/main.97f69c67.js":"2924cf2eed7f24b8875d86596c5a5cb23358022dcdb56cd215bc45d9beac5176","/static/media/Rectangle 11.3bf34ecb5a9a699169cc.png":"975e95bc8dff7ae055f284daa493fa6eb34597c0c9dbd91963903d47acc64330","/static/media/Rectangle 12.4fff52342630600c6925.png":"842152ded5a7fc9f21efa5ebee47ebbc45273fe071e0020165e69a830e08fa93","/static/media/Rectangle 9.3bc4289aca1af7c4f608.jpg":"c1a4660f0d5a08f965ccb6134b46e2143d0e7c89e649a5667ea63085540a3834","/static/media/Desktop - 2.9fe5901e8277b296f491.png":"c0391336f898b1f9ac2e3a5cb23d5f1b364147c440e78a295c734e9423b7cb8a","/static/js/main.97f69c67.js.map":"0d529815f98030cb6d24e13969febeb4e7d88a19d88fece64bf08af3b4801229"}}
+[debug] [2023-01-05T08:56:39.172Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/640327187146/sites/blog-app-178d7/versions/e986764f03064359:populateFiles 200
+[debug] [2023-01-05T08:56:39.173Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/640327187146/sites/blog-app-178d7/versions/e986764f03064359:populateFiles {"uploadRequiredHashes":["8d23b8ce5aed791b58c7b42bee39cdbbf4703fc4d9dc4453aff529ef1cb2c1d5","ac75c2bd54b0dc766c53c82ae88c751def995b93bd087c5bfa39199a69d764ca","2798fb7eba3d784fe22bdf1728766853300592442bc876b1d04e2fc41e4ca8db","1f237df0dff6eecd4ee5c111ca9a7d43d517c7312b9de81da19a5efc4b065210"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files"}
+[debug] [2023-01-05T08:56:39.175Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/8d23b8ce5aed791b58c7b42bee39cdbbf4703fc4d9dc4453aff529ef1cb2c1d5 [none]
+[debug] [2023-01-05T08:56:39.175Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/8d23b8ce5aed791b58c7b42bee39cdbbf4703fc4d9dc4453aff529ef1cb2c1d5 [stream]
+[debug] [2023-01-05T08:56:39.177Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/ac75c2bd54b0dc766c53c82ae88c751def995b93bd087c5bfa39199a69d764ca [none]
+[debug] [2023-01-05T08:56:39.177Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/ac75c2bd54b0dc766c53c82ae88c751def995b93bd087c5bfa39199a69d764ca [stream]
+[debug] [2023-01-05T08:56:39.178Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/2798fb7eba3d784fe22bdf1728766853300592442bc876b1d04e2fc41e4ca8db [none]
+[debug] [2023-01-05T08:56:39.179Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/2798fb7eba3d784fe22bdf1728766853300592442bc876b1d04e2fc41e4ca8db [stream]
+[debug] [2023-01-05T08:56:39.180Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/1f237df0dff6eecd4ee5c111ca9a7d43d517c7312b9de81da19a5efc4b065210 [none]
+[debug] [2023-01-05T08:56:39.180Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/1f237df0dff6eecd4ee5c111ca9a7d43d517c7312b9de81da19a5efc4b065210 [stream]
+[debug] [2023-01-05T08:56:39.181Z] [hosting][populate queue][FINAL] {"max":3511,"min":3511,"avg":3511,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":3517}
+[debug] [2023-01-05T08:56:39.182Z] [hosting] uploads queued: 4
+[debug] [2023-01-05T08:56:43.556Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/1f237df0dff6eecd4ee5c111ca9a7d43d517c7312b9de81da19a5efc4b065210 200
+[debug] [2023-01-05T08:56:43.556Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/1f237df0dff6eecd4ee5c111ca9a7d43d517c7312b9de81da19a5efc4b065210 [stream]
+[debug] [2023-01-05T08:56:44.824Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/8d23b8ce5aed791b58c7b42bee39cdbbf4703fc4d9dc4453aff529ef1cb2c1d5 200
+[debug] [2023-01-05T08:56:44.824Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/8d23b8ce5aed791b58c7b42bee39cdbbf4703fc4d9dc4453aff529ef1cb2c1d5 [stream]
+[debug] [2023-01-05T08:56:46.860Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/2798fb7eba3d784fe22bdf1728766853300592442bc876b1d04e2fc41e4ca8db 200
+[debug] [2023-01-05T08:56:46.861Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/2798fb7eba3d784fe22bdf1728766853300592442bc876b1d04e2fc41e4ca8db [stream]
+[debug] [2023-01-05T08:56:47.870Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/ac75c2bd54b0dc766c53c82ae88c751def995b93bd087c5bfa39199a69d764ca 200
+[debug] [2023-01-05T08:56:47.871Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/blog-app-178d7/versions/e986764f03064359/files/ac75c2bd54b0dc766c53c82ae88c751def995b93bd087c5bfa39199a69d764ca [stream]
+[debug] [2023-01-05T08:56:47.871Z] [hosting][upload queue][FINAL] {"max":8697,"min":4381,"avg":6603.75,"active":0,"complete":4,"success":4,"errored":0,"retried":0,"total":4,"elapsed":8697}
+[info] +  hosting[blog-app-178d7]: file upload complete 
+[debug] [2023-01-05T08:56:47.874Z] [hosting] deploy completed after 12494ms
+[debug] [2023-01-05T08:56:47.879Z] [
+  {
+    "config": {
+      "public": "build/",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "blog-app-178d7"
+    },
+    "version": "projects/640327187146/sites/blog-app-178d7/versions/e986764f03064359"
+  }
+]
+[info] i  hosting[blog-app-178d7]: finalizing version... 
+[debug] [2023-01-05T08:56:47.883Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/blog-app-178d7/versions/e986764f03064359 updateMask=status%2Cconfig
+[debug] [2023-01-05T08:56:47.884Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/blog-app-178d7/versions/e986764f03064359 {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]}}
+[debug] [2023-01-05T08:56:50.492Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/blog-app-178d7/versions/e986764f03064359 200
+[debug] [2023-01-05T08:56:50.492Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/blog-app-178d7/versions/e986764f03064359 {"name":"projects/640327187146/sites/blog-app-178d7/versions/e986764f03064359","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2023-01-05T08:56:41.266929Z","createUser":{"email":"hedristemitope2001@gmail.com"},"finalizeTime":"2023-01-05T08:56:58.686654Z","finalizeUser":{"email":"hedristemitope2001@gmail.com"}}
+[debug] [2023-01-05T08:56:50.493Z] [hosting] finalized version for blog-app-178d7:[object Object]
+[info] +  hosting[blog-app-178d7]: version finalized 
+[info] i  hosting[blog-app-178d7]: releasing new version... 
+[debug] [2023-01-05T08:56:50.494Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/blog-app-178d7/channels/live/releases versionName=projects%2F640327187146%2Fsites%2Fblog-app-178d7%2Fversions%2Fe986764f03064359
+[debug] [2023-01-05T08:56:50.495Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/blog-app-178d7/channels/live/releases {}
+[debug] [2023-01-05T08:56:53.572Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/blog-app-178d7/channels/live/releases 200
+[debug] [2023-01-05T08:56:53.572Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/blog-app-178d7/channels/live/releases {"name":"projects/640327187146/sites/blog-app-178d7/channels/live/releases/1672909021718519","version":{"name":"projects/640327187146/sites/blog-app-178d7/versions/e986764f03064359","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2023-01-05T08:56:41.266929Z","createUser":{"email":"hedristemitope2001@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/AEdFTp77dbQ0mlV_YqnJQqfjHwELS8Di9KV7tGKroBU_=mo"},"finalizeTime":"2023-01-05T08:56:58.686654Z","finalizeUser":{"email":"hedristemitope2001@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/AEdFTp77dbQ0mlV_YqnJQqfjHwELS8Di9KV7tGKroBU_=mo"}},"type":"DEPLOY","releaseTime":"2023-01-05T08:57:01.718519023Z","releaseUser":{"email":"hedristemitope2001@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/AEdFTp77dbQ0mlV_YqnJQqfjHwELS8Di9KV7tGKroBU_=mo"}}
+[debug] [2023-01-05T08:56:53.572Z] [hosting] release: {"name":"projects/640327187146/sites/blog-app-178d7/channels/live/releases/1672909021718519","version":{"name":"projects/640327187146/sites/blog-app-178d7/versions/e986764f03064359","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2023-01-05T08:56:41.266929Z","createUser":{"email":"hedristemitope2001@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/AEdFTp77dbQ0mlV_YqnJQqfjHwELS8Di9KV7tGKroBU_=mo"},"finalizeTime":"2023-01-05T08:56:58.686654Z","finalizeUser":{"email":"hedristemitope2001@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/AEdFTp77dbQ0mlV_YqnJQqfjHwELS8Di9KV7tGKroBU_=mo"}},"type":"DEPLOY","releaseTime":"2023-01-05T08:57:01.718519023Z","releaseUser":{"email":"hedristemitope2001@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/AEdFTp77dbQ0mlV_YqnJQqfjHwELS8Di9KV7tGKroBU_=mo"}}
+[info] +  hosting[blog-app-178d7]: release complete 
+[info] 
+[info] +  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/blog-app-178d7/overview
+[info] Hosting URL: https://blog-app-178d7.web.app
+[debug] [2023-01-05T08:57:00.993Z] Error: Timed out.
+    at Timeout.<anonymous> (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:253:49)
+    at listOnTimeout (node:internal/timers:564:17)
+    at process.processTimers (node:internal/timers:507:7)
+[error] 
+[error] Error: An unexpected error has occurred.

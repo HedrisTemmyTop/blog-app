@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import SignUp from "./pages/signup";
 import Layout from "./components/ui/Layout";
 import SignIn from "./pages/signin";
+import Blogs from "./pages/Blogs";
 
 import Home from "./pages/home";
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="Blogs/:id" element={<Blogs />} />
         </Route>
 
         <Route path="sign-up" element={<SignUp />} />
