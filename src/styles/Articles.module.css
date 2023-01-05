@@ -189,3 +189,13 @@
     margin-right: 0;
   }
 }
+@media only screen and (max-width: 500px) {
+  .Articles {
+    padding: 3rem;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .Articles {
+    padding: 3rem 2rem;
+  }
+}
