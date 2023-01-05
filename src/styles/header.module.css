@@ -1,0 +1,59 @@
+.Header {
+  background-color: #111926;
+  padding: 2.5rem 6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2.4ren;
+}
+.Logo {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+.SpecialLogo {
+  color: #2930e3;
+}
+.LogoName {
+  color: #fff;
+}
+.HeaderLinks {
+  margin-left: 6rem;
+  display: flex;
+  font-weight: 400;
+  color: #fff;
+  flex-basis: 50%;
+  justify-content: space-between;
+  align-items: center;
+}
+.HeaderLinks a {
+  color: #fff;
+}
+.Menu {
+  display: none;
+  color: white;
+}
+
+.ContactLink {
+  background-color: #2930e3;
+  color: white;
+  padding: 1.2rem 2.4rem;
+  border-radius: 5px;
+  transition: all 0.5s;
+}
+.ContactLink:hover {
+  background-color: transparent;
+  border: 1px solid #2930e3;
+  color: #2930e3;
+}
+@media only screen and (max-width: 1000px) {
+  .HeaderLinks {
+    display: none;
+  }
+  .HeaderContackLink {
+    display: none;
+  }
+  .Menu {
+    display: block;
+  }
+}

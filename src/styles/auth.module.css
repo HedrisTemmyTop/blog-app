@@ -1,0 +1,177 @@
+.Auth {
+  background-color: #2e2d3f;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.Main {
+  background-color: #070b14;
+  padding: 6rem;
+  box-sizing: border-box;
+  max-width: 120rem;
+  border-radius: 1.5rem;
+}
+.Content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Left {
+  flex-basis: 43%;
+}
+.Name {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 4rem;
+}
+.Greet {
+  color: white;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  line-height: 1.7;
+  max-width: 20rem;
+}
+.Text {
+  color: #606472;
+}
+
+.Right {
+  background-color: #14141e;
+  padding: 2rem 3rem;
+  box-sizing: border-box;
+  border-radius: 1rem;
+  max-width: 40rem;
+}
+.FormTitle {
+  color: white;
+  font-weight: 500;
+  font-size: 2.3rem;
+  margin: 0px !important;
+}
+a {
+  text-decoration: none;
+}
+.Link {
+  color: #775da6;
+}
+.Normal {
+  margin-block: 4px !important;
+}
+.Inputs {
+  margin-top: 2rem;
+}
+.Input {
+  background-color: #14141e !important;
+  display: block;
+  font-size: 1.4rem;
+  height: 4rem;
+  padding-left: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #606472;
+  width: 100%;
+  margin-top: 2rem;
+  color: white;
+}
+.Input:focus {
+  background-color: #14141e !important;
+  outline: none;
+}
+.Button {
+  width: 100%;
+  color: white;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  padding-block: 1rem;
+  border-radius: 0.5rem;
+  margin-block: 2rem;
+  background-color: #775da6;
+}
+.Break {
+  display: flex;
+  margin-block: 2rem;
+  text-transform: uppercase;
+  color: #606472;
+  align-items: center;
+}
+.Break::before,
+.Break.Break::after {
+  content: "";
+  margin: 0;
+  width: 50%;
+  height: 1px;
+  transform: translateY(0.3rem);
+  background-color: #606472;
+}
+.Icon {
+  width: 4rem;
+}
+
+.SpecialButtons {
+  display: flex;
+  justify-content: space-between;
+}
+.SpecialButton {
+  background-color: inherit;
+  display: flex;
+  color: white;
+  flex-basis: 40%;
+
+  /* width: 100%; */
+  align-items: center;
+  font-size: 1.6rem;
+  border-radius: 0.5rem;
+  justify-content: center;
+  border: 1px solid #606472;
+}
+.IconFB {
+  width: 3rem;
+  margin-right: 0.5rem;
+}
+.FormFooter {
+  color: #606472;
+  margin-top: 1rem;
+}
+@media only screen and (max-width: 1000px) {
+  .Main {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 750px) {
+  .Content {
+    flex-direction: column;
+    margin: 4rem 0;
+    align-items: flex-start;
+  }
+  .Name {
+    margin-bottom: 0;
+  }
+  .Greet {
+    line-height: 1;
+  }
+  .Right {
+    margin-top: 8rem;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .Main {
+    padding: 2rem;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .Main {
+    padding: 1.5rem;
+  }
+  .SpecialButtons {
+    flex-direction: column;
+  }
+  .SpecialButton {
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+    box-sizing: border-box;
+  }
+}

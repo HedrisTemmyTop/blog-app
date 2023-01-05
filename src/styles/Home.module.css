@@ -1,0 +1,167 @@
+.Home {
+  padding: 3.4rem 6rem;
+  background: linear-gradient(
+      to top,
+      rgb(11, 15, 109, 0.75),
+      rgba(111, 133, 212, 0.5)
+    ),
+    url("../assets/Rectangle\ 9.jpg");
+  width: 100%;
+  background-position: top;
+  background-size: cover;
+}
+.Categories {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+.Category {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-right: 1.9rem;
+}
+.Buttons {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  flex-basis: 90%;
+  overflow-x: scroll;
+  justify-content: space-between;
+
+  width: 90%;
+  box-sizing: border-box;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.Buttons::-webkit-scrollbar {
+  display: none;
+}
+.Buttons a {
+  color: white;
+  padding: 0.8rem 1.6rem;
+  margin-right: 4rem;
+  overflow-x: hidden;
+  flex-shrink: 0;
+
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 100px;
+  transition: all 0.5s;
+  border: 1px solid white;
+}
+.Buttons a:hover {
+  border: 1px solid rgba(0, 0, 0, 0);
+  background-color: #2930e3;
+}
+.Feature {
+  margin-top: 9rem;
+  color: white;
+  font-size: 2rem;
+}
+
+.Feature::after {
+  content: "";
+  display: block;
+  background-color: red;
+  width: 60px;
+  height: 2px;
+}
+.HomeContent {
+  margin-top: 10px;
+  color: white;
+  font-size: 40px;
+  font-style: bold;
+  max-width: 43rem;
+}
+.HomeDivs {
+  display: flex;
+  align-items: center;
+  margin-top: 8.6rem;
+  margin-bottom: 2rem;
+}
+.HomeDiv {
+  background-color: #2930e3;
+  width: 3.2rem;
+  height: 1rem;
+  border-radius: 1.5rem;
+}
+.HomeCircle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid white;
+  margin-left: 0.5rem;
+}
+.Form {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.Input {
+  position: absolute;
+  height: 8rem;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 110rem;
+  border-radius: 100px;
+  border: 0;
+  background-color: white !important;
+  padding: 3.05rem 4rem;
+  font-size: 1.6rem;
+}
+.Input:focus {
+  border: 0px;
+  outline: none;
+}
+.Pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.PaginateButtons {
+  width: 50rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.PaginateButtons button {
+  padding: 0.8rem 1.2rem;
+  border-radius: 1.2rem;
+  cursor: pointer;
+  background-color: transparent;
+  color: white;
+  border: 1px solid rgb(78, 77, 77);
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.PaginateButtons button:hover {
+  background-color: #2930e3;
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+.PaginateButtons div {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+}
+@media only screen and (max-width: 500px) {
+  .Category {
+    display: none;
+  }
+  .Buttons {
+    width: 100%;
+    flex-basis: 100%;
+  }
+  .Home {
+    padding: 3rem;
+  }
+  .Input {
+    height: 10px;
+  }
+}
