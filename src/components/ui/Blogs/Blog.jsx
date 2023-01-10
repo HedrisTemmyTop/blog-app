@@ -1,9 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import classes from "../../../styles/Blog.module.css";
 import user from "../../../assets/Ellipse.png";
 import popular1 from "../../../assets/Rectangle 5.png";
-const Blog = () => {
+import { connect } from "react-redux";
+import { GET_BLOG } from "../../../redux/actions/blogs/blogsAction";
+import axios from "axios";
+import API_URL from "../../../api/URL";
+
+const Blog = (props) => {
+  let { id } = useParams();
+  useEffect(() => {
+    console.log(id);
+    props.getBlog(id);
+    console.log(props);
+  }, []);
+
   return (
     <div className={classes.Blog}>
       <div className={classes.Tag}>
@@ -32,14 +44,7 @@ const Blog = () => {
           <img src={popular1} alt="post image" />
         </div>
         <div className={classes.Content}>
-          <p className={classes.FirstParagraph}>
-            I want to preface this article by saying that the vulnerability we
-            will be discussing does not mean that a "hybrid" application built
-            with Capacitor/Cordova is insecure. This vulnerability is also not
-            limited to Capacitor/Cordova, it would apply to any native
-            application that uses a web view that implements a Javascript
-            interface, or "bridge", from the web view to Native APIs.
-          </p>
+          <p className={classes.FirstParagraph}> {props.text}</p>
           <p>
             Ideally, it should not be possible to execute an XSS (Cross-Site
             Scripting) attack in your application because such attacks would
@@ -69,24 +74,21 @@ const Blog = () => {
             myself yet to confirm that this is the case, but I would assume this
             additional installation step would prevent access to an attacker.
           </p>
-          <p>
+          <div>
             <ul className={classes.List}>
-              <h3>OUTLINE</h3>
+              <strong>OUTLINE</strong>
               <li>1. Before we get started</li>
               <li>2. How Capacitor/Cordova Break out of the Webview Sandbox</li>
               <li>3. How the Attack Works</li>
               <li>4. Mitigating Against the Attack</li>
             </ul>
-          </p>
-          <p>
-            <h3>Before we get started</h3>
-            <p>
-              This article is going to continue on from my previous article on
-              XSS vulnerability: Protecting Against XSS (Cross Site Scripting)
-              Exploits in Ionic. If you do not understand what an XSS attack is
-              or how it works, it would be a good idea to read that article
-              first.
-            </p>
+          </div>
+          <div>
+            <strong>Before we get started</strong>
+            This article is going to continue on from my previous article on XSS
+            vulnerability: Protecting Against XSS (Cross Site Scripting)
+            Exploits in Ionic. If you do not understand what an XSS attack is or
+            how it works, it would be a good idea to read that article first.
             <p>
               When we get to the demonstration of the attack we will be taking
               the same XSS attack example we demonstrated in the Angular
@@ -104,7 +106,7 @@ const Blog = () => {
               On Android, this is achieved through calling the
               addJavascriptInterface method on the web view:
             </p>
-          </p>
+          </div>
         </div>
         <div className={classes.Comment}>
           <div className={classes.CommentHead}>
@@ -162,5 +164,17 @@ const Blog = () => {
     </div>
   );
 };
-
-export default Blog;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    blogs: state.data,
+    text: state.text,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getBlog: (id) => {
+      dispatch(GET_BLOG(id));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Blog);

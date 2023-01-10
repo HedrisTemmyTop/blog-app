@@ -1,14 +1,22 @@
 .Auth {
-  background-color: #2e2d3f;
+  background: linear-gradient(
+      to top,
+      rgba(17, 25, 38, 0.922),
+      rgba(17, 25, 38, 0.922)
+    ),
+    url(../assets/Desktop\ -\ 2.png);
   width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
 }
 .Main {
-  background-color: #070b14;
+  /* background-color: #070b14; */
   padding: 6rem;
   box-sizing: border-box;
   max-width: 120rem;
@@ -39,11 +47,18 @@
 }
 
 .Right {
-  background-color: #14141e;
+  background-color: #111f37c7;
   padding: 2rem 3rem;
   box-sizing: border-box;
   border-radius: 1rem;
   max-width: 40rem;
+}
+.Spinner {
+  width: 40rem;
+  height: 60rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .FormTitle {
   color: white;
@@ -51,11 +66,14 @@
   font-size: 2.3rem;
   margin: 0px !important;
 }
+.Forg {
+  margin-top: 1rem;
+}
 a {
   text-decoration: none;
 }
 .Link {
-  color: #775da6;
+  color: #2930e3;
 }
 .Normal {
   margin-block: 4px !important;
@@ -64,7 +82,7 @@ a {
   margin-top: 2rem;
 }
 .Input {
-  background-color: #14141e !important;
+  background-color: transparent !important;
   display: block;
   font-size: 1.4rem;
   height: 4rem;
@@ -84,11 +102,15 @@ a {
   color: white;
   font-size: inherit;
   cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
   padding-block: 1rem;
   border-radius: 0.5rem;
   margin-block: 2rem;
-  background-color: #775da6;
+  background-color: #2930e3;
 }
 .Break {
   display: flex;
