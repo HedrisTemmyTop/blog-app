@@ -32,8 +32,10 @@ export const rootReducer = (state = initialState, action) => {
   if (action.type === "FETCH_FAIL") {
     return { ...state, loading: false, error: action.error };
   }
-  if (action.type === "FETCH_BLOG_SUCCESS")
+  if (action.type === "FETCH_BLOG_SUCCESS") {
+    console.log(action);
     return { ...state, loading: false, blog: action.blog };
+  }
 
   return state;
 };

@@ -4,6 +4,7 @@ const initialAuthState = {
   error: null,
   registered: false,
   authenticated: false,
+  userId: null,
 };
 export const authReducer = (state = initialAuthState, action) => {
   if (action.type === "RESET_AUTH_STATE") {
@@ -39,7 +40,8 @@ export const authReducer = (state = initialAuthState, action) => {
     console.log(action);
     return {
       ...initialAuthState,
-      token: action.data,
+      token: action.data.token,
+      userId: action.data.userid,
       authenticated: true,
     };
   }

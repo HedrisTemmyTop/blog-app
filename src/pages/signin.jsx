@@ -24,6 +24,7 @@ const SignIn = (props) => {
     if (props.token) {
       localStorage.setItem("auth", props.authenticated);
       localStorage.setItem("token", props.token);
+      localStorage.setItem("userId", props.userId);
       navigate("/");
     }
     console.log(props);
@@ -43,57 +44,56 @@ const SignIn = (props) => {
             </div>
           </div>
           <div className={classes.Right}>
-            {props.loading ? (
-              <div className={classes.Spinner}>
-                <Spinner />
-              </div>
-            ) : (
-              <form
-                className={classes.Form}
-                onSubmit={(e) => submitFormHandler(e)}
-              >
-                <div className={classes.FormHead}>
-                  <h3 className={classes.FormTitle}>Sign up</h3>
-                  <p className={[classes.Text, classes.Normal].join(" ")}>
-                    Don't have an accout ?{" "}
-                    <Link to="/sign-up" className={classes.Link}>
-                      Sign Up
-                    </Link>
-                  </p>
-                </div>
-                <div className={classes.Inputs}>
-                  <input
-                    className={classes.Input}
-                    required
-                    type="email"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
-                    placeholder="Email address"
-                  />
-                  <input
-                    className={classes.Input}
-                    required
-                    type="password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                    placeholder="Password"
-                  />
-                </div>
-                <p className={classes.Forg}>
-                  <Link className={classes.Link} to="/forgot-password">
-                    Forgot password ?
+            <form
+              className={classes.Form}
+              onSubmit={(e) => submitFormHandler(e)}
+            >
+              <div className={classes.FormHead}>
+                <h3 className={classes.FormTitle}>Sign up</h3>
+                <p className={[classes.Text, classes.Normal].join(" ")}>
+                  Don't have an accout ?{" "}
+                  <Link to="/sign-up" className={classes.Link}>
+                    Sign Up
                   </Link>
                 </p>
-
+              </div>
+              <div className={classes.Inputs}>
+                <input
+                  className={classes.Input}
+                  required
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  placeholder="Email address"
+                />
+                <input
+                  className={classes.Input}
+                  required
+                  type="password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  placeholder="Password"
+                />
+              </div>
+              <p className={classes.Forg}>
+                <Link className={classes.Link} to="/forgot-password">
+                  Forgot password ?
+                </Link>
+              </p>
+              {props.loading ? (
+                <div style={{ display: "grid", placeItems: "center" }}>
+                  <Spinner />
+                </div>
+              ) : (
                 <button className={classes.Button} type="submit">
                   Sign In
                 </button>
-              </form>
-            )}
+              )}
+            </form>
 
             <p className={classes.Break}>or</p>
             <div className={classes.SpecialButtons}>
@@ -121,6 +121,7 @@ const mapStateToProps = (state) => {
     token: state.auth.token,
     authenticated: state.auth.authenticated,
     loading: state.auth.loading,
+    userId: state.auth.userId,
   };
 };
 const mapDispatchToProps = (dispatch) => {

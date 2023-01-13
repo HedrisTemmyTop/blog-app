@@ -13,6 +13,7 @@ const Blog = (props) => {
   useEffect(() => {
     console.log(id);
     props.getBlog(id);
+
     console.log(props);
   }, []);
 

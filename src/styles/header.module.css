@@ -1,10 +1,17 @@
 .Header {
-  background-color: #111926;
   padding: 2.5rem 6rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 2.4ren;
+  font-size: 1.6rem;
+  box-shadow: 0px 4px 12px 0px #908f8f1f;
+}
+.HeaderDark {
+  background-color: #111926;
+}
+.HeaderLight {
+  background-color: #fff;
+  box-shadow: 0px 4px 12px 0px #908f8f1f;
 }
 .Logo {
   display: flex;
@@ -14,20 +21,26 @@
 .SpecialLogo {
   color: #2930e3;
 }
-.LogoName {
+.LogoNameDark {
   color: #fff;
 }
+.LogoNameLight {
+  color: #000;
+}
 .HeaderLinks {
-  margin-left: 6rem;
   display: flex;
   font-weight: 400;
   color: #fff;
   flex-basis: 50%;
+  max-width: 62rem;
   justify-content: space-between;
   align-items: center;
 }
-.HeaderLinks a {
+.HeaderLinkDark {
   color: #fff;
+}
+.HeaderLinkLight {
+  color: #444444;
 }
 .Menu {
   display: none;
@@ -46,6 +59,26 @@
   border: 1px solid #2930e3;
   color: #2930e3;
 }
+.User {
+  display: flex;
+  align-items: center;
+}
+.UserDark {
+  color: #fff;
+}
+.UserLight {
+  color: black;
+}
+.userImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #2930e3;
+}
+.UserName {
+  margin-inline: 1rem;
+  font-size: 1.4rem;
+}
 @media only screen and (max-width: 1000px) {
   .HeaderLinks {
     display: none;
@@ -55,5 +88,8 @@
   }
   .Menu {
     display: block;
+  }
+  .User {
+    display: none;
   }
 }

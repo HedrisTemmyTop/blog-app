@@ -23,14 +23,21 @@
   flex-wrap: wrap;
 }
 .Box {
-  background-color: #1d232b;
   margin-right: 4.8rem;
   margin-bottom: 4.4rem;
   flex-basis: 30%;
   min-width: 31.6rem;
   max-width: 50rem;
   padding: 1.2rem;
+  box-shadow: 0px 2px 8px 0px #0000001f;
+
   border-radius: 1.2rem;
+}
+.BoxDark {
+  background-color: #1d232b;
+}
+.BoxLight {
+  background-color: #f5f5f5;
 }
 .Image {
   width: 100%;
@@ -55,7 +62,12 @@
   font-size: 1.8rem;
   text-transform: capitalize;
   line-height: 2.1rem;
+}
+.BoxAboutDark {
   color: white;
+}
+.BoxAboutLight {
+  color: #1d232b;
 }
 .Block {
   padding: 0 0.6rem;
@@ -64,7 +76,12 @@
   font-weight: 300;
   margin: 2rem 0;
   font-size: 1.4rem;
+}
+.ContentDark {
   color: rgb(254, 254, 254, 0.6);
+}
+.ContentLight {
+  color: #333333;
 }
 .Bottom {
   display: flex;

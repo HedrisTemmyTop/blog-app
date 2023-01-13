@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "../../styles/Home.module.css";
 import next from "../../assets/Vector.png";
 import prev from "../../assets/Vector1.png";
+import { ThemeContext } from "../../context/context";
 const PaginationButtons = () => {
+  const darkTheme = useContext(ThemeContext);
   return (
     <div className={classes.Pagination}>
-      <div className={classes.PaginateButtons}>
+      <div
+        className={[
+          classes.PaginateButtons,
+          darkTheme
+            ? classes.PaginateButtonsDark
+            : classes.PaginateButtonsLight,
+        ].join(" ")}
+      >
         <div>
           <img src={prev} alt="prev" />
           <span style={{ marginLeft: "10px" }}>Prev</span>

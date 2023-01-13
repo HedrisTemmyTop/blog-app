@@ -38,8 +38,8 @@ export const GET_BLOG = (id) => {
   return function (dispatch) {
     dispatch(FETCH_START());
     axios
-      .get(`${API_URL}blog/:${id}`)
-      .then((response) => dispatch(FETCH_BLOG_SUCCESS(response.data.posts)))
+      .get(`${API_URL}blogs/${id}`)
+      .then((response) => dispatch(FETCH_BLOG_SUCCESS(response.data.post)))
       .catch((err) => {
         console.log(err);
         dispatch(FETCH_FAIL(err));

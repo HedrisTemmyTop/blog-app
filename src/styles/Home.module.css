@@ -1,3 +1,9 @@
+/* .AppDark {
+  background-color: #111926;
+}
+.AppLight {
+  background-color: #fff;
+} */
 .Home {
   padding: 3.4rem 6rem;
   background: linear-gradient(
@@ -112,6 +118,8 @@
   border: 0;
   background-color: white !important;
   padding: 3.05rem 4rem;
+  box-shadow: 0px 2px 8px 0px #0000001f;
+
   font-size: 1.6rem;
 }
 .Input:focus {
@@ -135,21 +143,36 @@
   cursor: pointer;
   background-color: transparent;
   color: white;
-  border: 1px solid rgb(78, 77, 77);
   box-sizing: border-box;
   transition: all 0.2s;
 }
-
-.PaginateButtons button:hover {
+.PaginateButtonsLight button {
+  border: 1px solid black;
+  color: rgb(78, 77, 77);
+}
+.PaginateButtonsDark button {
+  border: 1px solid white;
+  color: rgb(78, 77, 77);
+}
+.PaginateButtons button:hover,
+.PaginateButtonsDark button:hover {
   background-color: #2930e3;
   border: 1px solid rgba(0, 0, 0, 0);
+  color: #fff;
 }
 .PaginateButtons div {
   display: flex;
-  color: white;
+
   justify-content: space-between;
   align-items: center;
 }
+.PaginateButtonsDark div {
+  color: white;
+}
+.PaginateButtonsDark div {
+  color: black;
+}
+
 @media only screen and (max-width: 500px) {
   .Category {
     display: none;
@@ -163,5 +186,8 @@
   }
   .Input {
     height: 10px;
+  }
+  .Buttons a {
+    margin-right: 2rem;
   }
 }
