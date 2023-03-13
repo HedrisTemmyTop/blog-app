@@ -1,8 +1,126 @@
+.Box {
+  margin-right: 4.8rem;
+  margin-bottom: 4.4rem;
+  flex-basis: 30%;
+  min-width: 31.6rem;
+  max-width: 50rem;
+  padding: 1.2rem;
+  box-shadow: 0px 2px 8px 0px #0000001f;
+  transition: 0.2s;
+  border-radius: 1.2rem;
+  position: relative;
+}
+
+.BoxAbout {
+  color: #1d232b;
+}
+.BoxDark {
+  background-color: #f5f5f5;
+}
+.BoxLight {
+  background-color: #1d232b;
+}
+.Image {
+  width: 100%;
+}
+
+.Hover {
+  /* display: none; */
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  bottom: 0;
+  height: 0;
+  transition: 0.2s;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  left: 0;
+  visibility: hidden;
+  border-radius: 1.2rem;
+}
+.Box:hover .Hover {
+  /* display: block; */
+  visibility: visible;
+  height: 100%;
+}
+.HoverContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.HoverContent button {
+  background-color: #2930e3;
+  padding: 0.8rem 1.6rem;
+  color: #f5f5f5;
+  font-size: 1.6rem;
+  border-radius: 0.5rem;
+  border: 0;
+  cursor: pointer;
+}
+.HoverContent div {
+  margin-block: 1rem;
+}
+.Del {
+  font-size: 1.6rem;
+  text-decoration: underline;
+  color: #f5f5f5;
+  font-weight: bold;
+}
+.HoverContent button span {
+  margin-inline: 1rem;
+}
+.ImagesImg {
+  width: 100%;
+  height: 16rem;
+  border-top-left-radius: 0.8rem;
+  border-top-right-radius: 0.8rem;
+}
+.Links {
+  display: flex;
+  color: rgba(41, 48, 227, 1);
+  justify-content: space-between;
+  font-size: 1.6rem;
+  margin-top: 2rem;
+}
+
+.BoxAbout {
+  margin-top: 1.6rem;
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-transform: capitalize;
+  line-height: 2.1rem;
+}
+.BoxAboutDark {
+  color: #1d232b;
+}
+.BoxAboutLight {
+  color: #f5f5f5;
+}
+
+.CreateButton {
+  border: 1px solid #2930e3;
+  padding: 1rem 2rem;
+  color: #2930e3;
+  font-size: 1.6rem;
+  background-color: transparent;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  text-decoration: none;
+}
 .Articles {
   margin-top: 6rem;
   padding: 3.4rem 6rem;
 }
 
+.ArticleHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .Head {
   font-size: 2.4rem;
   color: #fff;

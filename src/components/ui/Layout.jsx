@@ -15,7 +15,7 @@ const Layout = (props) => {
   //   // }
   // }, []);
   console.log(auth);
-  return auth ? (
+  return (
     <React.Fragment>
       <div
         style={
@@ -29,6 +29,6 @@ const Layout = (props) => {
         <Footer />
       </div>
     </React.Fragment>
-  ) : null;
+  );
 };
 export default Layout;

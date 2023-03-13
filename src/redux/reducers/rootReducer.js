@@ -6,7 +6,6 @@ import user from "../../assets/Ellipse.png";
 import popular1 from "../../assets/Frame 73.png";
 import popular2 from "../../assets/Frame55.png";
 import popular3 from "../../assets/Frame 74.png";
-import { act } from "react-dom/test-utils";
 
 const initialState = {
   blogs: null,

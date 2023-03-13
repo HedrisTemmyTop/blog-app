@@ -78,7 +78,8 @@ const Header = ({ props }) => {
         </li>
       </ul>
       {auth === "true" ? (
-        <div
+        <Link
+          to="/profile"
           className={[
             classes.User,
             darkTheme ? classes.UserDark : classes.UserLight,
@@ -96,7 +97,7 @@ const Header = ({ props }) => {
           ) : (
             <img src={lightIconDown} alt="light icon down" />
           )}
-        </div>
+        </Link>
       ) : (
         <div className={classes.HeaderContackLink}>
           <Link className={classes.ContactLink} to="/sign-up">

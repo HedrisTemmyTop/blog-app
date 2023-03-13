@@ -162,15 +162,32 @@
 }
 .PaginateButtons div {
   display: flex;
-
+  transition: 0.2s;
+  cursor: pointer;
   justify-content: space-between;
   align-items: center;
+  max-width: 8.6rem;
+  padding: 1rem 2rem;
+
+  box-sizing: border-box;
+}
+.PaginateButtonsDark div:disabled {
+  background-color: green !important;
+  color: black;
 }
 .PaginateButtonsDark div {
   color: white;
 }
 .PaginateButtonsDark div {
-  color: black;
+  color: white;
+  background-color: #2930e3;
+  color: white;
+
+  border-radius: 0.2rem;
+}
+.PaginateButtons div:hover {
+  background-color: transparent;
+  border: 1px solid #2930e3;
 }
 
 @media only screen and (max-width: 500px) {

@@ -13,66 +13,37 @@ import popular3 from "../../../assets/Frame 74.png";
 import { connect } from "react-redux";
 import { GET_BLOGS } from "../../../redux/actions/blogs/blogsAction";
 
-import Updates from "./updates";
 import { ThemeContext } from "../../../context/context";
-const Articles = (props) => {
+import { Link } from "react-router-dom";
+const Articles = ({ datas, title, button }) => {
   const darkTheme = useContext(ThemeContext);
-  useEffect(() => {
-    props.getBlogs();
-    console.log(props);
-  }, []);
-  if (props.blogs) {
-    console.log(props.blogs);
-  }
-  const datas = [
-    {
-      id: 1,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 2,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 3,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 4,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-  ];
+
   return (
-    <div className={classes.Articles}>
-      <div
-        className={classes.Head}
-        style={darkTheme ? { color: "#fff" } : { color: "#000" }}
-      >
-        Latest Articles
-      </div>
-      <div className={classes.Container}>
-        <div className={classes.Boxes}>
-          {
-            // props.blog            ? props.blogs.map((data, i) => {
-            //       return <Box data={data} key={i} />;
-            //     })
-            //   :
-            datas.map((data, i) => {
-              return <Box data={data} key={i} />;
-            })
-          }
+    <React.Fragment>
+      <div className={classes.Articles}>
+        <div className={classes.ArticleHead}>
+          <div
+            className={classes.Head}
+            style={darkTheme ? { color: "#fff" } : { color: "#000" }}
+          >
+            {title}
+          </div>
+          {button ? (
+            <Link to="/post-blog" className={classes.CreateButton}>
+              Create Blog
+            </Link>
+          ) : null}
         </div>
-        {/* <Updates data={props.popular} /> */}
+        <div className={classes.Container}>
+          <div className={classes.Boxes}>
+            {datas.map((data, i) => {
+              return <Box data={data} key={i} button={button} />;
+            })}
+          </div>
+          {/* <Updates data={props.popular} /> */}
+        </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 const mapStateToProps = (state) => {

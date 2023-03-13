@@ -8,6 +8,7 @@ import CreateBlog from "./pages/createPost";
 import Home from "./pages/home";
 
 import { ThemeContextProvider } from "./context/context";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -16,8 +17,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="post-blog" element={<CreateBlog />} />
             <Route path="blogs/:id" element={<Blogs />} />
+            <Route path="edit-blog/:id" element={<CreateBlog />} />
           </Route>
 
           <Route path="sign-up" element={<SignUp />} />

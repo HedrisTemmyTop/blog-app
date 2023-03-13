@@ -4,3 +4,102 @@
   margin: 5rem auto;
   height: 40rem;
 }
+.CreateBlogContainer {
+  display: flex;
+  padding-inline: 2rem;
+  margin-top: 4rem;
+  justify-content: space-between;
+}
+
+.ToggleBtns {
+  display: none;
+
+  align-items: center;
+  margin-inline: 2rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+.ToggleBtn {
+  margin-right: 1rem;
+  font-size: 1.6rem;
+  border: 0;
+  color: black;
+  border-radius: 1rem;
+  padding: 2rem 4rem;
+  background-color: #eee;
+}
+.Preview {
+  flex-basis: 49.5%;
+  border: 2px solid #eee;
+  box-sizing: border-box;
+  padding: 1rem;
+  background-color: #fff;
+}
+.AddedTag {
+  background-color: #eee;
+  padding: 1rem 2rem;
+  border-radius: 100px;
+}
+.TagsContainer {
+  display: flex;
+  margin-bottom: 2rem;
+}
+.Form {
+  flex-basis: 49.5%;
+}
+.Form input {
+  width: 100%;
+  height: 5rem;
+  font-size: 1.6rem;
+  box-sizing: border-box;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  border: 0;
+}
+.Form input:focus {
+  border: 0;
+  outline: none;
+}
+.PostBtn {
+  display: grid;
+  place-items: center;
+  background-color: #2930e3;
+  color: #fff;
+  padding: 1.2rem 2.4rem;
+  cursor: pointer;
+  font-size: 1.6rem;
+  border: 0;
+
+  margin-top: 2rem;
+  border-radius: 0.5rem;
+}
+.UploadInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+}
+
+@media only screen and (max-width: 1000px) {
+  .ToggleBtns {
+    display: flex;
+  }
+  .Preview {
+    display: none;
+    flex-basis: 100%;
+    min-height: 50rem;
+  }
+  .Form {
+    flex-basis: 100%;
+  }
+  .CreateBlogContainer {
+    margin: 0;
+  }
+}

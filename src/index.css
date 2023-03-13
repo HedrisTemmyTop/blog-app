@@ -10,9 +10,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 1.6rem;
 }
-html {
-  font-size: 10px;
-}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -74,6 +71,13 @@ ul {
   align-items: center;
   right: 5rem;
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.5);
+}
+.tox {
+  flex-basis: 49.5%;
+  border-radius: 0 !important;
+  box-shadow: 0px 2px 8px 0px rgb(0 0 0 / 5%);
+  max-height: 50rem;
+  resize: none !important;
 }
 @media only screen and (max-width: 350px) {
   html {

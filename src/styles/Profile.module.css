@@ -1,0 +1,40 @@
+.Bio {
+  background: rgba(60, 58, 58, 0.2);
+  display: flex;
+  justify-content: space-between;
+  padding: 4rem;
+  align-items: center;
+  color: white;
+}
+.Left {
+  display: flex;
+  align-items: center;
+}
+.Image img {
+  width: 12rem;
+  height: 12rem;
+  margin-right: 2rem;
+  border-radius: 50%;
+}
+.UserName {
+  font-size: 2rem;
+}
+.Job {
+  margin-top: 1rem;
+  font-style: italic;
+  font-size: 1.6rem;
+}
+blockquote {
+  flex-basis: 50%;
+  font-size: 1.8rem;
+
+  line-height: 2rem;
+}
+@media only screen and (max-width: 790px) {
+  .Bio {
+    flex-direction: column;
+  }
+  blockquote {
+    margin-top: 2.5rem;
+  }
+}
