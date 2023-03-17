@@ -6,10 +6,20 @@ import { useEffect } from "react";
 import { GET_BLOGS } from "../redux/actions/blogs/blogsAction";
 import { connect } from "react-redux";
 import Bio from "../components/ui/Bio/Bio";
+import axios from "axios";
+import API_URL from "../api/URL";
 const Profile = (props) => {
   useEffect(() => {
     props.getBlogs();
     console.log(props);
+    axios
+      .get(API_URL + "user/profile/64075d2d7846cc50d8886415", {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDc1ZDJkNzg0NmNjNTBkODg4NjQxNSIsImlhdCI6MTY3ODIwNDIyNSwiZXhwIjoxNjc4MjA3ODI1fQ.IvPhtzFCXnxFPs5BdZaGL7dPruwGHsP5orsSrtcNeUQ`,
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   }, []);
   if (props.blogs) {
     console.log(props.blogs);
