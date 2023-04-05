@@ -4,108 +4,29 @@ import Articles from "../components/ui/articles/articles";
 import HomeContent from "../components/ui/HomeContentMain";
 import { useEffect } from "react";
 import { GET_BLOGS } from "../redux/actions/blogs/blogsAction";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import Bio from "../components/ui/Bio/Bio";
-import axios from "axios";
-import API_URL from "../api/URL";
+import Pagination, { resultsPerPage } from "../logic/pagination";
+import Spinner from "../components/ui/spinner/spinner";
+import { useNavigate, useParams } from "react-router-dom";
+import { GET_USER_PROFILE } from "../redux/reducers/profileReducer";
 const Profile = (props) => {
+  const { id } = useParams();
+  const token = localStorage.getItem("token");
+  const { loading, user, error } = useSelector((state) => state.user_profile);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
-    props.getBlogs();
-    console.log(props);
-    axios
-      .get(API_URL + "user/profile/64075d2d7846cc50d8886415", {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDc1ZDJkNzg0NmNjNTBkODg4NjQxNSIsImlhdCI6MTY3ODIwNDIyNSwiZXhwIjoxNjc4MjA3ODI1fQ.IvPhtzFCXnxFPs5BdZaGL7dPruwGHsP5orsSrtcNeUQ`,
-        },
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    if (token && id) {
+      console.log(token);
+      dispatch(GET_USER_PROFILE(id, token));
+    } else return navigate("/");
   }, []);
-  if (props.blogs) {
-    console.log(props.blogs);
+  if (props.blogs || user) {
+    console.log(props.blogs, user);
   }
-  const datas = [
-    {
-      id: 1,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 2,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 3,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 4,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 8,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 7,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 6,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 5,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 9,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 10,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 11,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-    {
-      id: 12,
-      tags: ["Photos", "Ionic", "Android"],
-      body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-      reading_time: 2,
-    },
-  ];
-  const resultsPerPage = 3;
   const [currentPage, setCurrentPage] = useState(1);
-  const Pagination = (page = 1) => {
-    const start = (page - 1) * resultsPerPage;
-    const end = page * resultsPerPage;
-    const paginatedData = datas.slice(start, end);
-    return paginatedData;
-  };
+
   const nextPageHandler = () => {
     setCurrentPage((prev) => prev + 1);
     console.log(currentPage);
@@ -113,23 +34,40 @@ const Profile = (props) => {
   const prevPageHandler = () => {
     setCurrentPage((prev) => prev - 1);
   };
-  return (
-    <div>
-      <Bio />
-      <Articles
-        datas={Pagination(currentPage)}
-        title="Your Blogs"
-        button={true}
-      />
-      <PaginationButtons
-        articles={datas}
-        resultsPerPage={resultsPerPage}
-        currentPage={currentPage}
-        nextPageHandler={nextPageHandler}
-        prevPageHandler={prevPageHandler}
-      />
-    </div>
-  );
+  let content = null;
+  if (loading)
+    content = (
+      <div
+        style={{
+          minHeight: "10rem",
+          display: "grid",
+          placeItems: "center",
+          marginTop: "10rem",
+        }}
+      >
+        <Spinner />
+      </div>
+    );
+  if (user && !loading)
+    content = (
+      <div>
+        <Bio username={user.user.username} />
+        <Articles
+          datas={Pagination(user.posts, currentPage)}
+          title="Your Blogs"
+          button={true}
+        />
+        <PaginationButtons
+          articles={user.posts}
+          resultsPerPage={resultsPerPage}
+          currentPage={currentPage}
+          nextPageHandler={nextPageHandler}
+          prevPageHandler={prevPageHandler}
+        />
+      </div>
+    );
+  if (error) content = <div>An error occured</div>;
+  return content;
 };
 const mapStateToProps = (state) => {
   return {

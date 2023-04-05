@@ -151,6 +151,18 @@
   border: 0;
   outline: none;
 }
+.PostBtn {
+  display: grid;
+  place-items: center;
+  background-color: #2930e3;
+  color: #fff;
+  padding: 1.2rem 2.4rem;
+  cursor: pointer;
+  font-size: 1.6rem;
+  border: 0;
+
+  border-radius: 0.5rem;
+}
 .Add {
   background-color: #2930e3;
   padding: 0.8rem 1.2rem;

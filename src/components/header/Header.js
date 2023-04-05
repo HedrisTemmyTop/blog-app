@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import classes from "../../styles/header.module.css";
 import userImg from "../../assets/Ellipse.png";
@@ -6,9 +6,18 @@ import downIcon from "../../assets/Vector2.png";
 import { ThemeContext } from "../../context/context";
 import { useContext } from "react";
 import lightIconDown from "../../assets/VectorLight.png";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_USER_PROFILE } from "../../redux/reducers/profileReducer";
 const Header = ({ props }) => {
   const auth = localStorage.getItem("auth");
   const darkTheme = useContext(ThemeContext);
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user_profile);
+  useEffect(() => {
+    dispatch(GET_USER_PROFILE(userId, token));
+  }, []);
 
   return (
     <header
@@ -79,7 +88,7 @@ const Header = ({ props }) => {
       </ul>
       {auth === "true" ? (
         <Link
-          to="/profile"
+          to={"/profile/" + userId}
           className={[
             classes.User,
             darkTheme ? classes.UserDark : classes.UserLight,
@@ -91,7 +100,9 @@ const Header = ({ props }) => {
             alt="user display picture"
             className={classes.userImg}
           />
-          <div className={classes.UserName}>HedrisTemmyTop</div>
+          <div className={classes.UserName}>
+            {user ? user.user.username : ""}
+          </div>
           {darkTheme ? (
             <img src={downIcon} />
           ) : (

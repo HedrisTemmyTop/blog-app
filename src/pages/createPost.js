@@ -3,13 +3,16 @@ import classes from "../styles/CreateBlog.module.css";
 import { Editor } from "@tinymce/tinymce-react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { POST_BLOG_REQUEST } from "../redux/reducers/blogReducer";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+
 import { GET_BLOG } from "../redux/actions/blogs/blogsAction";
+import axios from "axios";
+import API_URL from "../api/URL";
 
 const CreateBlog = (props) => {
   const token = localStorage.getItem("token");
+
   console.log(token);
 
   const editorRef = useRef(null);
@@ -23,17 +26,30 @@ const CreateBlog = (props) => {
   const [image, setImage] = useState(null);
   const postId = useParams();
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  console.log(postId);
+  const { blogs, post_blog } = useSelector((state) => state);
+
+  const { mssg, loading, error, success } = post_blog;
+  // const { blog } = useSelector((state) => state.blogs);
+  if (blogs) {
+    console.log(blogs);
+  }
   useEffect(() => {
     if (postId.id) {
-      console.log(postId.id);
       dispatch(GET_BLOG(postId.id));
     }
-  });
-  if (state) {
-    console.log(state);
-  }
+    console.log("yes");
+  }, []);
+  useEffect(() => {
+    const { blog } = blogs;
+    if (blogs.blog) {
+      setHtml(blog.body);
+      setTags(blog.tags);
+      setTitle(blog.title);
+      // setImage()
+      // setDescription()
+    }
+  }, [blogs]);
+
   const handleDragOver = (event) => {
     event.preventDefault();
   };
@@ -62,6 +78,7 @@ const CreateBlog = (props) => {
 
   const createTagHandler = (e) => {
     if (e.key === "Enter" && !tags.includes(tagsInput)) {
+      e.preventDefault();
       setTags((prev) => [tagsInput, ...prev]);
       return setTagsInput("");
     }
@@ -81,14 +98,12 @@ const CreateBlog = (props) => {
         onClick={(e) => {
           removeTagHandler(tag);
         }}
-        // onClick={removeTagHandler(tag)}
       >
         {tag}
       </div>
     ));
   }
-  const submitBlogHandler = (e) => {
-    e.preventDefault();
+  const blogFormValidation = (state = "draft") => {
     if (!html) {
       alert("Body is empty");
       return false;
@@ -97,13 +112,27 @@ const CreateBlog = (props) => {
       alert("Add content image");
       return false;
     }
-    const data = {
+    return {
       title: title,
       body: html,
       content_image: image,
       tags: tags,
+      state: "draft",
     };
+  };
+  const submitBlogHandler = (e) => {
+    e.preventDefault();
+    const data = blogFormValidation();
     props.sendBlog(data, token);
+  };
+  const editBlogHandler = (e) => {
+    e.preventDefault();
+    const data = blogFormValidation();
+    axios.put(API_URL + "blogs/" + postId.id, data, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
   };
   return token ? (
     <div>
@@ -131,7 +160,7 @@ const CreateBlog = (props) => {
         <form
           className={classes.Form}
           ref={formRef}
-          onSubmit={submitBlogHandler}
+          onSubmit={postId.id ? submitBlogHandler : editBlogHandler}
         >
           <input
             required
@@ -166,6 +195,7 @@ const CreateBlog = (props) => {
           <Editor
             apiKey="hq72u3l6csp24wgfwbyp8bjoa38ccw4t2fifrabjc5wzkjog"
             onInit={(evt, editor) => (editorRef.current = editor)}
+            value={html ? html : ""}
             initialValue=""
             init={{
               height: 500,
@@ -179,14 +209,14 @@ const CreateBlog = (props) => {
                 });
               },
               plugins:
-                "preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount  charmap quickbars emoticons",
+                "preview importcss  autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount  charmap quickbars emoticons",
               imagetools_cors_hosts: ["picsum.photos"],
               menubar: "file edit view insert format tools table help",
               toolbar:
                 "undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl",
 
               content_style:
-                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                "body { font-family:Helvetica,Arial,sans-serif; font-size:16px }",
             }}
           />
           <div
@@ -212,22 +242,21 @@ const CreateBlog = (props) => {
               <p>Drag an image here to upload</p>
             )}
           </div>
-          <button className={classes.PostBtn}>
-            <span>Post Blog</span>
+          <button
+            className={classes.PostBtn}
+            disabled={loading ? true : false}
+            style={
+              loading ? { backgroundColor: "rgb(17, 25, 38) !important" } : null
+            }
+          >
+            <span>{loading ? "Processing..." : "Post Blog"}</span>
           </button>
         </form>
-        <div className={classes.Preview} ref={previewRef} id="previewCode">
-          <h1
-            style={{
-              fontSize: "4rem",
-              marginTop: "2rem",
-              color: "black",
-            }}
-          >
-            {title}
-          </h1>
-          {/* {html ? html : null} */}
-        </div>
+        <div
+          className={classes.Preview}
+          ref={previewRef}
+          id="previewCode"
+        ></div>
       </div>
     </div>
   ) : (
@@ -236,7 +265,7 @@ const CreateBlog = (props) => {
 };
 const mapStateToProps = (state) => {
   return {
-    ...state,
+    state: state.post_blog,
   };
 };
 const mapDispatchToProps = (dispatch) => {

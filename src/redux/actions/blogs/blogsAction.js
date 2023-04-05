@@ -30,8 +30,14 @@ export const GET_BLOGS = () => {
     dispatch(FETCH_START());
     axios
       .get(`${API_URL}blogs`)
-      .then((response) => dispatch(FETCH_SUCCESS(response.data.posts)))
-      .catch((err) => dispatch(FETCH_FAIL(err)));
+      .then((response) => {
+        console.log(response);
+        return dispatch(FETCH_SUCCESS(response.data.posts));
+      })
+      .catch((err) => {
+        console.log(err);
+        return dispatch(FETCH_FAIL(err));
+      });
   };
 };
 export const GET_BLOG = (id) => {

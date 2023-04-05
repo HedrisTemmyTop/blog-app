@@ -5,8 +5,11 @@ import { IoMdTime } from "react-icons/io";
 import img from "../../../assets/Rectangle 4.png";
 import userImg from "../../../assets/Ellipse.png";
 import { ThemeContext } from "../../../context/context";
+import { CiEdit } from "react-icons/ci";
+import { GrView } from "react-icons/gr";
+import formartDate from "../../../logic/formartDate";
 const Box = ({ data, button }) => {
-  console.log(button);
+  console.log(data.image.length);
   const darkTheme = useContext(ThemeContext);
   return !button ? (
     <Link
@@ -18,7 +21,7 @@ const Box = ({ data, button }) => {
     >
       <div className={classes.Image}>
         <img
-          src={data.image ? data.image : img}
+          src={data.image.length > 0 ? data.image : img}
           alt="blog-image"
           className={classes.ImagesImg}
         />
@@ -37,7 +40,7 @@ const Box = ({ data, button }) => {
             darkTheme ? classes.BoxAboutDark : classes.BoxAboutLight,
           ].join(" ")}
         >
-          Why XSS Attacks Are More Dangerous for Capacitor/Cordova Apps..
+          {data.title}
         </div>
         <div
           className={[
@@ -54,10 +57,10 @@ const Box = ({ data, button }) => {
             </div>
             <div className={classes.LeftContent}>
               <div style={darkTheme ? { color: "#fff" } : { color: "black" }}>
-                Josh Morony
+                {/* {data.owner.firstname} */}
               </div>
               <i style={darkTheme ? { color: "#fff" } : { color: "#888888" }}>
-                February 15, 2021
+                {formartDate(data.createdAt)}
               </i>
             </div>
           </div>
@@ -87,7 +90,7 @@ const Box = ({ data, button }) => {
     >
       <div className={classes.Image}>
         <img
-          src={data.image ? data.image : img}
+          src={data.image.length > 0 ? data.image : img}
           alt="blog-image"
           className={classes.ImagesImg}
         />
@@ -106,7 +109,7 @@ const Box = ({ data, button }) => {
             darkTheme ? classes.BoxAboutDark : classes.BoxAboutLight,
           ].join(" ")}
         >
-          Why XSS Attacks Are More Dangerous for Capacitor/Cordova Apps..
+          {data.title}
         </div>
         <div
           className={[
@@ -123,10 +126,10 @@ const Box = ({ data, button }) => {
             </div>
             <div className={classes.LeftContent}>
               <div style={darkTheme ? { color: "#fff" } : { color: "black" }}>
-                Josh Morony
+                {/* {data.owner.firstname} */}
               </div>
               <i style={darkTheme ? { color: "#fff" } : { color: "#888888" }}>
-                February 15, 2021
+                {formartDate(data.createdAt)}
               </i>
             </div>
           </div>
@@ -149,12 +152,15 @@ const Box = ({ data, button }) => {
         <div className={classes.HoverContent}>
           <Link to={"/edit-blog/" + data._id}>
             <button>
-              <span>i</span>
+              <CiEdit />
               <span>Edit</span>
             </button>
           </Link>
           <div style={{ color: "#fff" }}>or</div>
-          <div className={classes.Del}>Delete Post</div>
+          <Link to={"/blogs/" + data._id}>
+            <GrView style={{ color: "white" }} />
+            <span className={classes.Del}>View Post</span>
+          </Link>
         </div>
       </div>
     </div>

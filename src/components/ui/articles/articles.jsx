@@ -40,7 +40,6 @@ const Articles = ({ datas, title, button }) => {
               return <Box data={data} key={i} button={button} />;
             })}
           </div>
-          {/* <Updates data={props.popular} /> */}
         </div>
       </div>
     </React.Fragment>

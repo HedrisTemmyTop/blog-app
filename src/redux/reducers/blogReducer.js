@@ -14,13 +14,13 @@ const POST_START = () => {
 };
 const POST_SUCCESS = (data) => {
   return {
-    type: "SENDING",
+    type: "SUCCESS",
     data,
   };
 };
 const POST_FAIL = (data) => {
   return {
-    type: "SENDING",
+    type: "FAILED",
     data,
   };
 };
@@ -35,11 +35,12 @@ export const POST_BLOG_REQUEST = (html, token) => {
       })
       .then((response) => {
         console.log(response);
+        window.location = "/blogs/" + response.data.blog._id;
         dispatch(POST_SUCCESS(response));
       })
       .catch((error) => {
         console.log(error);
-        dispatch(POST_FAIL(error));
+        dispatch(POST_FAIL(error.message));
       });
   };
 };
@@ -54,13 +55,14 @@ const blogReducer = (state = initialState, action) => {
       mssg: action.data,
       error: null,
     };
-  if (action.type === "FAILED")
+  if (action.type === "FAILED") {
+    console.log(action);
     return {
       loading: false,
       success: false,
       error: action.error,
     };
-
+  }
   return state;
 };
 

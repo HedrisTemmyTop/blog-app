@@ -2,7 +2,7 @@ import classes from "../../../styles/Profile.module.css";
 
 import img from "../../../assets/Ellipse.png";
 
-const Bio = () => {
+const Bio = ({ username }) => {
   return (
     <div className={classes.Bio}>
       <div className={classes.Left}>
@@ -10,7 +10,7 @@ const Bio = () => {
           <img src={img} alt="display picture" />
         </div>
         <div className={classes.Name}>
-          <div className={classes.UserName}>Hedris TemmyTop</div>
+          <div className={classes.UserName}>{username}</div>
           <div className={classes.Job}>Front-end dev</div>
         </div>
       </div>

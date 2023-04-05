@@ -6,29 +6,18 @@ import { useEffect } from "react";
 import { GET_BLOGS } from "../redux/actions/blogs/blogsAction";
 import Spinner from "../components/ui/spinner/spinner";
 import { connect } from "react-redux";
-import axios from "axios";
-import API_URL from "../api/URL";
+
+import Pagination, { resultsPerPage } from "../logic/pagination";
 const Home = (props) => {
+  const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     props.getBlogs();
     console.log(props);
-    // axios
-    //   .get(API_URL + "users/profile/63cd1c2928bcd97195702cd2")
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
   }, []);
   if (props.blogs) {
     console.log(props.blogs);
   }
 
-  const resultsPerPage = 3;
-  const [currentPage, setCurrentPage] = useState(1);
-  const Pagination = (page = 1) => {
-    const start = (page - 1) * resultsPerPage;
-    const end = page * resultsPerPage;
-    const paginatedData = props.blogs.slice(start, end);
-    return paginatedData;
-  };
   const nextPageHandler = () => {
     setCurrentPage((prev) => prev + 1);
     console.log(currentPage);
@@ -73,7 +62,10 @@ const Home = (props) => {
     if (props.blogs.length > 0) {
       content = (
         <>
-          <Articles datas={Pagination(currentPage)} title="Latest Blogs" />
+          <Articles
+            datas={Pagination(props.blogs, currentPage)}
+            title="Latest Blogs"
+          />
           <PaginationButtons
             articles={props.blogs}
             resultsPerPage={resultsPerPage}
