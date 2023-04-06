@@ -14,15 +14,24 @@ const Blog = (props) => {
   let { id } = useParams();
   const token = localStorage.getItem("token");
   const { blog } = useSelector((state) => state.blogs);
-  const [isPublishing, setIsPublishing] = useState(false);
+  const [shouldDelete, setShouldDelete] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
   const hide = useRef();
   const { loading, error, blogs } = useSelector((state) => state);
   useEffect(() => {
     console.log(id);
     props.getBlog(id);
   }, []);
+  useEffect(() => {
+    if (
+      blogs.blog &&
+      blogs.blog.owner._id === localStorage.getItem("userId") &&
+      blogs.blog.state === "published"
+    )
+      setShouldDelete(true);
+  }, [blogs]);
   const publishBlogHandler = () => {
-    setIsPublishing(true);
+    setisLoading(true);
     axios
       .put(
         API_URL + "blogs/state/" + id,
@@ -34,13 +43,25 @@ const Blog = (props) => {
         }
       )
       .then((response) => {
-        setIsPublishing(false);
-        hide.current.style.display = "none";
+        setisLoading(false);
+        setShouldDelete(true);
       })
       .catch((error) => {
-        setIsPublishing(false);
+        setisLoading(false);
       });
   };
+  const deleteBlogHandler = () => {
+    console.log("deleting ...");
+    axios
+      .delete(API_URL + "blogs/" + id, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  };
+
   let content = null;
   if (loading) {
     content = (
@@ -69,32 +90,40 @@ const Blog = (props) => {
         </div>
         <div className={classes.BlogContent}>
           <div
-            style={
-              blog.state === "draft"
-                ? {
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }
-                : null
-            }
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
           >
             <div className={classes.Title}>{blog.title}</div>
             {blog.state === "draft" ? (
               <button
                 className={classes.PostBtn}
-                disabled={isPublishing ? true : false}
+                disabled={isLoading ? true : false}
                 style={
-                  isPublishing
+                  isLoading
                     ? { backgroundColor: "rgb(17, 25, 38) !important" }
                     : null
                 }
                 onClick={publishBlogHandler}
                 ref={hide}
               >
-                <span>{isPublishing ? "Processing ..." : "Publish"}</span>
+                <span>{isLoading ? "Processing ..." : "Publish"}</span>
               </button>
-            ) : null}
+            ) : (
+              <button
+                className={classes.DelBtn}
+                disabled={isLoading ? true : false}
+                style={
+                  isLoading ? { backgroundColor: "black !important" } : null
+                }
+                onClick={deleteBlogHandler}
+                ref={hide}
+              >
+                <span>{isLoading ? "Processing ..." : "Delete"}</span>
+              </button>
+            )}
           </div>
           <div className={classes.Poster}>
             <div className={classes.Left}>
@@ -124,71 +153,90 @@ const Blog = (props) => {
           {blog.state === "draft" ? (
             <button
               className={classes.PostBtn}
-              disabled={isPublishing ? true : false}
+              disabled={isLoading ? true : false}
               style={
-                isPublishing
+                isLoading
                   ? { backgroundColor: "rgb(17, 25, 38) !important" }
                   : null
               }
               onClick={publishBlogHandler}
             >
-              <span>{isPublishing ? "Processing ..." : "Publish"}</span>
+              <span>{isLoading ? "Processing ..." : "Publish"}</span>
             </button>
           ) : (
-            <div className={classes.Comment}>
-              <div className={classes.CommentHead}>
-                <div className={classes.HeadLeft}>
-                  <span className={classes.Cap}>Comments</span>
-                  <span className={classes.Num}>(10)</span>
+            <>
+              <button
+                className={classes.DelBtn}
+                disabled={isLoading ? true : false}
+                style={
+                  isLoading
+                    ? {
+                        marginTop: "2rem",
+                        backgroundColor: "rgb(17, 25, 38) !important",
+                      }
+                    : {
+                        marginTop: "2rem",
+                      }
+                }
+                onClick={deleteBlogHandler}
+              >
+                <span>{isLoading ? "Processing ..." : "Delete"}</span>
+              </button>
+              <div className={classes.Comment}>
+                <div className={classes.CommentHead}>
+                  <div className={classes.HeadLeft}>
+                    <span className={classes.Cap}>Comments</span>
+                    <span className={classes.Num}>(10)</span>
+                  </div>
+                  <div className={classes.HeadRight}>
+                    <Link to="">View All</Link>
+                  </div>
                 </div>
-                <div className={classes.HeadRight}>
-                  <Link to="">View All</Link>
+                <div className={classes.Comments}>
+                  <div className={classes.CommentsLeft}>
+                    <div className={classes.Commenter}>
+                      <img src={user} alt="comment" />
+                      <div className={classes.CommenterRight}>
+                        <div className={classes.CommentName}>Ani Duncan</div>
+                        <div className={classes.Time}>5 hrs ago</div>
+                      </div>
+                    </div>
+                    <i className={classes.comment}>
+                      Thank you very much for this resources it’s really helpful
+                    </i>
+                  </div>
+                  <button className={classes.Reply}>Reply</button>
                 </div>
-              </div>
-              <div className={classes.Comments}>
-                <div className={classes.CommentsLeft}>
-                  <div className={classes.Commenter}>
-                    <img src={user} alt="comment" />
-                    <div className={classes.CommenterRight}>
-                      <div className={classes.CommentName}>Ani Duncan</div>
-                      <div className={classes.Time}>5 hrs ago</div>
+                <div className={classes.Comments} style={{ border: "0" }}>
+                  <div className={classes.CommentsLeft}>
+                    <div className={classes.Commenter}>
+                      <img src={user} alt="comment" />
+                      <div className={classes.CommenterRight}>
+                        <div className={classes.CommentName}>Ani Duncan</div>
+                        <div className={classes.Time}>5 hrs ago</div>
+                      </div>
+                    </div>
+                    <i className={classes.comment}>
+                      Thank you very much for this resources it’s really helpful
+                    </i>
+                  </div>
+                  <button className={classes.Reply}>Reply</button>
+                </div>
+                {blog.owner._id !== localStorage.getItem("userId") ? (
+                  <div className={classes.AddPost}>
+                    <textarea
+                      className={classes.TextArea}
+                      placeholder="Say something..."
+                    ></textarea>
+                    <div className={classes.AddButton}>
+                      <button className={classes.Add}>
+                        <span>COMMENT</span>
+                      </button>
                     </div>
                   </div>
-                  <i className={classes.comment}>
-                    Thank you very much for this resources it’s really helpful
-                  </i>
-                </div>
-                <button className={classes.Reply}>Reply</button>
+                ) : null}
               </div>
-              <div className={classes.Comments} style={{ border: "0" }}>
-                <div className={classes.CommentsLeft}>
-                  <div className={classes.Commenter}>
-                    <img src={user} alt="comment" />
-                    <div className={classes.CommenterRight}>
-                      <div className={classes.CommentName}>Ani Duncan</div>
-                      <div className={classes.Time}>5 hrs ago</div>
-                    </div>
-                  </div>
-                  <i className={classes.comment}>
-                    Thank you very much for this resources it’s really helpful
-                  </i>
-                </div>
-                <button className={classes.Reply}>Reply</button>
-              </div>
-              {blog.owner._id !== localStorage.getItem("userId") ? (
-                <div className={classes.AddPost}>
-                  <textarea
-                    className={classes.TextArea}
-                    placeholder="Say something..."
-                  ></textarea>
-                  <div className={classes.AddButton}>
-                    <button className={classes.Add}>
-                      <span>COMMENT</span>
-                    </button>
-                  </div>
-                </div>
-              ) : null}
-            </div>
+            </>
           )}
         </div>
       </div>

@@ -9,7 +9,8 @@ import { CiEdit } from "react-icons/ci";
 import { GrView } from "react-icons/gr";
 import formartDate from "../../../logic/formartDate";
 const Box = ({ data, button }) => {
-  console.log(data.image.length);
+  console.log(data.image.length, data);
+
   const darkTheme = useContext(ThemeContext);
   return !button ? (
     <Link
@@ -48,7 +49,10 @@ const Box = ({ data, button }) => {
             darkTheme ? classes.ContentDark : classes.ContentLight,
           ].join(" ")}
         >
-          {data.body.slice(0, 100)}...
+          {data.description
+            ? data.description.slice(0, 100)
+            : "description is comminf"}
+          ...
         </div>
         <div className={classes.Bottom}>
           <div className={classes.Left}>
@@ -117,7 +121,10 @@ const Box = ({ data, button }) => {
             darkTheme ? classes.ContentDark : classes.ContentLight,
           ].join(" ")}
         >
-          {data.body.slice(0, 100)}...
+          {data.description
+            ? data.description.slice(0, 100)
+            : "description is comminf"}
+          ...
         </div>
         <div className={classes.Bottom}>
           <div className={classes.Left}>

@@ -29,10 +29,7 @@ const CreateBlog = (props) => {
   const { blogs, post_blog } = useSelector((state) => state);
 
   const { mssg, loading, error, success } = post_blog;
-  // const { blog } = useSelector((state) => state.blogs);
-  if (blogs) {
-    console.log(blogs);
-  }
+
   useEffect(() => {
     if (postId.id) {
       dispatch(GET_BLOG(postId.id));
@@ -45,8 +42,7 @@ const CreateBlog = (props) => {
       setHtml(blog.body);
       setTags(blog.tags);
       setTitle(blog.title);
-      // setImage()
-      // setDescription()
+      setDescription(blog.description);
     }
   }, [blogs]);
 
@@ -89,20 +85,6 @@ const CreateBlog = (props) => {
     setTags(removedTag);
   };
 
-  let tagContent = null;
-  if (tags.length > 0) {
-    tagContent = tags.map((tag) => (
-      <div
-        className={classes.AddedTag}
-        key={tag}
-        onClick={(e) => {
-          removeTagHandler(tag);
-        }}
-      >
-        {tag}
-      </div>
-    ));
-  }
   const blogFormValidation = (state = "draft") => {
     if (!html) {
       alert("Body is empty");
@@ -117,7 +99,8 @@ const CreateBlog = (props) => {
       body: html,
       content_image: image,
       tags: tags,
-      state: "draft",
+      description: description,
+      state,
     };
   };
   const submitBlogHandler = (e) => {
@@ -126,14 +109,32 @@ const CreateBlog = (props) => {
     props.sendBlog(data, token);
   };
   const editBlogHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault("published");
     const data = blogFormValidation();
-    axios.put(API_URL + "blogs/" + postId.id, data, {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
+    console.log("editing");
+    axios
+      .put(API_URL + "blogs/" + postId.id, data, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
   };
+  let tagContent = null;
+  if (tags.length > 0) {
+    tagContent = tags.map((tag) => (
+      <div
+        className={classes.AddedTag}
+        key={tag}
+        onClick={(e) => {
+          removeTagHandler(tag);
+        }}
+      >
+        {tag}
+      </div>
+    ));
+  }
   return token ? (
     <div>
       <div className={classes.ToggleBtns}>
@@ -160,7 +161,7 @@ const CreateBlog = (props) => {
         <form
           className={classes.Form}
           ref={formRef}
-          onSubmit={postId.id ? submitBlogHandler : editBlogHandler}
+          onSubmit={!postId.id ? submitBlogHandler : editBlogHandler}
         >
           <input
             required
@@ -204,7 +205,6 @@ const CreateBlog = (props) => {
               setup: (editor) => {
                 editor.on("keyup", () => {
                   setHtml(editorRef.current.getContent());
-                  console.log(editor.getContent());
                   previewRef.current.innerHTML = editor.getContent();
                 });
               },
