@@ -1,30 +1,14 @@
 import API_URL from "../../../api/URL";
 import axios from "axios";
-const FETCH_START = () => {
-  return {
-    type: "FETCH_START",
-  };
-};
-
-const FETCH_SUCCESS = (data) => {
-  return {
-    type: "FETCH_SUCCESS",
-    data,
-  };
-};
-
-const FETCH_FAIL = (error) => {
-  return {
-    type: "FETCH_FAIL",
-    error,
-  };
-};
-const FETCH_BLOG_SUCCESS = (blog) => {
-  return {
-    type: "FETCH_BLOG_SUCCESS",
-    blog,
-  };
-};
+import {
+  FETCH_BLOG_SUCCESS,
+  POST_FAIL,
+  POST_START,
+  POST_SUCCESS,
+  FETCH_FAIL,
+  FETCH_START,
+  FETCH_SUCCESS,
+} from "../";
 export const GET_BLOGS = () => {
   return function (dispatch) {
     dispatch(FETCH_START());
@@ -49,6 +33,28 @@ export const GET_BLOG = (id) => {
       .catch((err) => {
         console.log(err);
         dispatch(FETCH_FAIL(err));
+      });
+  };
+};
+
+export const POST_BLOG_REQUEST = (html, token) => {
+  return async (dispatch) => {
+    console.log(html, token, "hello");
+    dispatch(POST_START());
+    axios
+      .post(API_URL + "blogs", html, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        window.location = "/blogs/" + response.data.blog._id;
+        dispatch(POST_SUCCESS(response));
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(POST_FAIL(error.message));
       });
   };
 };

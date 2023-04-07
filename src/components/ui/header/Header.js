@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import classes from "../../styles/header.module.css";
-import userImg from "../../assets/Ellipse.png";
-import downIcon from "../../assets/Vector2.png";
-import { ThemeContext } from "../../context/context";
+import classes from "../../../styles/header.module.css";
+import userImg from "../../../assets/Ellipse.png";
+import downIcon from "../../../assets/Vector2.png";
+import { ThemeContext } from "../../../context/context";
 import { useContext } from "react";
-import lightIconDown from "../../assets/VectorLight.png";
+import lightIconDown from "../../../assets/VectorLight.png";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_USER_PROFILE } from "../../redux/reducers/profileReducer";
-const Header = ({ props }) => {
+import { GET_USER_PROFILE } from "../../../redux";
+const Header = () => {
   const auth = localStorage.getItem("auth");
   const darkTheme = useContext(ThemeContext);
   const userId = localStorage.getItem("userId");

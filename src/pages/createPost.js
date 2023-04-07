@@ -1,44 +1,65 @@
 import React, { useEffect, useRef, useState } from "react";
 import classes from "../styles/CreateBlog.module.css";
-import { Editor } from "@tinymce/tinymce-react";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { POST_BLOG_REQUEST } from "../redux/reducers/blogReducer";
-import { Navigate, useNavigate } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-import { GET_BLOG } from "../redux/actions/blogs/blogsAction";
-import axios from "axios";
-import API_URL from "../api/URL";
+import { GET_BLOG, POST_BLOG_REQUEST } from "../redux/";
+
+import uploadImage from "../logic/uploadImage";
+import formValidation from "../logic/blogFormValidation";
+import publishBlog from "../logic/publishBlog";
+import CreateBlogForm from "../components/ui/CreateBlog/CreateBlogForm";
+import Preview from "../components/ui/CreateBlog/Preview";
+import AlertMessage from "../components/alertMessage/alertMessage";
+
+/**This component uses two case
+ *  1.) When user wants to edit a blog
+ * PROCEDURE
+ * There's a blog id passed throug the route, get the id, and use it to fetch the particular blog from the backend
+ * Then update the already loaded input fields with the data using another useEffect that only runs when there's a data from backend
+ * 2.) When user wants to create a blog
+ * PROCEDURE
+ * Fill the forms and submit
+ *
+ */
 
 const CreateBlog = (props) => {
+  // local storage variable
   const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
 
-  console.log(token);
-
-  const editorRef = useRef(null);
+  //  Refs and params
+  const postId = useParams();
+  const dispatch = useDispatch();
   const previewRef = useRef(null);
-  const [html, setHtml] = useState(null);
   const formRef = useRef(null);
+
+  // useState
+  const [html, setHtml] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState([]);
   const [tagsInput, setTagsInput] = useState("");
   const [image, setImage] = useState(null);
-  const postId = useParams();
-  const dispatch = useDispatch();
   const { blogs, post_blog } = useSelector((state) => state);
 
   const { mssg, loading, error, success } = post_blog;
 
+  // If there is an id that means user wants to edit so fetch their blog
   useEffect(() => {
     if (postId.id) {
       dispatch(GET_BLOG(postId.id));
     }
     console.log("yes");
   }, []);
+
+  // If you get a blog from the backend, update the fields
   useEffect(() => {
-    const { blog } = blogs;
     if (blogs.blog) {
+      const { blog } = blogs;
       setHtml(blog.body);
       setTags(blog.tags);
       setTitle(blog.title);
@@ -46,32 +67,18 @@ const CreateBlog = (props) => {
     }
   }, [blogs]);
 
-  const handleDragOver = (event) => {
-    event.preventDefault();
-  };
+  // if user is not authorized
+  useEffect(() => {
+    if (error === "Unauthorized") window.location.href = `/sign-in`;
+  }, [error]);
 
+  // once you click on the upload image, open files and upload get the selected image or u drag image to the box
   const handleDrop = (event) => {
     event.preventDefault();
-    if (event.type === "change") {
-      const selectedImage = event.target.files[0];
-      console.log(event);
-      if (selectedImage) {
-        const reader = new FileReader();
-        reader.readAsDataURL(selectedImage);
-        reader.onload = () => {
-          setImage(reader.result);
-        };
-      }
-      return;
-    }
-    const file = event.dataTransfer.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImage(reader.result);
-    };
-    reader.readAsDataURL(file);
+    uploadImage(event, setImage);
   };
 
+  // Create a tag when user presses the enter key word
   const createTagHandler = (e) => {
     if (e.key === "Enter" && !tags.includes(tagsInput)) {
       e.preventDefault();
@@ -79,179 +86,60 @@ const CreateBlog = (props) => {
       return setTagsInput("");
     }
   };
+
+  // Remove a tag by clicking on the tag
   const removeTagHandler = (tagId) => {
     console.log(tagId, tags);
     const removedTag = tags.filter((tag) => tag !== tagId);
     setTags(removedTag);
   };
 
+  // Validat form inputs
   const blogFormValidation = (state = "draft") => {
-    if (!html) {
-      alert("Body is empty");
-      return false;
-    }
-    if (!image) {
-      alert("Add content image");
-      return false;
-    }
-    return {
-      title: title,
-      body: html,
-      content_image: image,
-      tags: tags,
-      description: description,
-      state,
-    };
+    return formValidation(html, image, title, tags, description, state);
   };
+
+  // Post a blog function
   const submitBlogHandler = (e) => {
     e.preventDefault();
-    const data = blogFormValidation();
-    props.sendBlog(data, token);
+    const data = blogFormValidation(); // Get datas from validated inputs
+    if (data) dispatch(POST_BLOG_REQUEST(data, token)); // Send it to the backend
   };
+
+  // Edit a blog
   const editBlogHandler = (e) => {
-    e.preventDefault("published");
-    const data = blogFormValidation();
-    console.log("editing");
-    axios
-      .put(API_URL + "blogs/" + postId.id, data, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+    e.preventDefault();
+    const updatedData = blogFormValidation("published"); // Get datas from validated inputs
+    console.log("editing..");
+    const route = "blogs/";
+    publishBlog(setIsLoading, userId, token, route, updatedData); // Update it at the backend
   };
-  let tagContent = null;
-  if (tags.length > 0) {
-    tagContent = tags.map((tag) => (
-      <div
-        className={classes.AddedTag}
-        key={tag}
-        onClick={(e) => {
-          removeTagHandler(tag);
-        }}
-      >
-        {tag}
-      </div>
-    ));
-  }
+
   return token ? (
     <div>
-      <div className={classes.ToggleBtns}>
-        <button
-          className={classes.ToggleBtn}
-          onClick={() => {
-            previewRef.current.style.display = "none";
-            formRef.current.style.display = "block";
-          }}
-        >
-          Write
-        </button>
-        <button
-          className={classes.ToggleBtn}
-          onClick={() => {
-            previewRef.current.style.display = "block";
-            formRef.current.style.display = "none";
-          }}
-        >
-          Preview
-        </button>
-      </div>
+      <Preview previewRef={previewRef} formRef={formRef} />
       <div className={classes.CreateBlogContainer}>
-        <form
-          className={classes.Form}
-          ref={formRef}
-          onSubmit={!postId.id ? submitBlogHandler : editBlogHandler}
-        >
-          <input
-            required
-            type="text"
-            placeholder="Blog title"
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-            value={title}
-          />
-          <input
-            onKeyDown={(e) => {
-              createTagHandler(e);
-            }}
-            value={tagsInput}
-            onChange={(e) => setTagsInput(e.target.value)}
-            type="text"
-            placeholder="Blog tags/categories"
-            style={{ marginBottom: ".2rem" }}
-          />
-          <div className={classes.TagsContainer}>{tagContent}</div>
-          <input
-            required
-            type="text"
-            placeholder="Short description"
-            value={description}
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-          />
-
-          <Editor
-            apiKey="hq72u3l6csp24wgfwbyp8bjoa38ccw4t2fifrabjc5wzkjog"
-            onInit={(evt, editor) => (editorRef.current = editor)}
-            value={html ? html : ""}
-            initialValue=""
-            init={{
-              height: 500,
-              menubar: false,
-              placeholder: "Write your blog",
-              setup: (editor) => {
-                editor.on("keyup", () => {
-                  setHtml(editorRef.current.getContent());
-                  previewRef.current.innerHTML = editor.getContent();
-                });
-              },
-              plugins:
-                "preview importcss  autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount  charmap quickbars emoticons",
-              imagetools_cors_hosts: ["picsum.photos"],
-              menubar: "file edit view insert format tools table help",
-              toolbar:
-                "undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl",
-
-              content_style:
-                "body { font-family:Helvetica,Arial,sans-serif; font-size:16px }",
-            }}
-          />
-          <div
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            style={{
-              border: "2px dashed white",
-              padding: "30px",
-              fontSize: "2rem",
-              color: "white",
-              position: "relative",
-              marginTop: "2rem",
-            }}
-          >
-            <input
-              className={classes.UploadInput}
-              type="file"
-              onChange={handleDrop}
-            />
-            {image ? (
-              <img src={image} alt="uploaded" style={{ maxWidth: "100%" }} />
-            ) : (
-              <p>Drag an image here to upload</p>
-            )}
-          </div>
-          <button
-            className={classes.PostBtn}
-            disabled={loading ? true : false}
-            style={
-              loading ? { backgroundColor: "rgb(17, 25, 38) !important" } : null
-            }
-          >
-            <span>{loading ? "Processing..." : "Post Blog"}</span>
-          </button>
-        </form>
+        <CreateBlogForm
+          formRef={formRef}
+          submitBlogHandler={submitBlogHandler}
+          editBlogHandler={editBlogHandler}
+          title={title}
+          setHtml={setHtml}
+          setTagsInput={setTagsInput}
+          tagsInput={tagsInput}
+          createTagHandler={createTagHandler}
+          postId={postId}
+          setTitle={setTitle}
+          html={html}
+          description={description}
+          tags={tags}
+          previewRef={previewRef}
+          handleDrop={handleDrop}
+          image={image}
+          loading={loading}
+          removeTagHandler={removeTagHandler}
+          setDescription={setDescription}
+        />
         <div
           className={classes.Preview}
           ref={previewRef}
@@ -263,17 +151,5 @@ const CreateBlog = (props) => {
     <Navigate to="/sign-in" replace={true} />
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    state: state.post_blog,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    sendBlog: (blogContent, token) => {
-      dispatch(POST_BLOG_REQUEST(blogContent, token));
-    },
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateBlog);
+export default CreateBlog;

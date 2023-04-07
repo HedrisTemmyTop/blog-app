@@ -1,11 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import SignUp from "./pages/signup";
-import Layout from "./components/ui/Layout";
-import SignIn from "./pages/signin";
-import Blogs from "./pages/Blogs";
-import CreateBlog from "./pages/createPost";
-import Home from "./pages/home";
+import { SignUp, SignIn, Layout, Blogs, CreateBlog, Home } from "./pages";
 
 import { ThemeContextProvider } from "./context/context";
 import Profile from "./pages/Profile";

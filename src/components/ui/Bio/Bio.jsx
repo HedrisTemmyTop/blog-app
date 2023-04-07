@@ -1,5 +1,4 @@
 import classes from "../../../styles/Profile.module.css";
-
 import img from "../../../assets/Ellipse.png";
 
 const Bio = ({ username }) => {

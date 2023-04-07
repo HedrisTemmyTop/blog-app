@@ -14,11 +14,11 @@ export const GET_USER = (data) => {
       .post("https://skyreal-blog-app.cyclic.app/users/login", data)
       .then((response) => {
         console.log(response.data);
+
         return dispatch(LOGIN_SUCCESS(response.data));
       })
       .catch((err) => {
-        console.log(err);
-        dispatch(REGISTER_FAIL(err));
+        dispatch(REGISTER_FAIL(err.response ? err.response.data : err.message));
       });
   };
 };
@@ -34,7 +34,7 @@ export const REGISTER_USER = (data) => {
       })
       .catch((err) => {
         console.log(err);
-        REGISTER_FAIL(err);
+        dispatch(REGISTER_FAIL(err.response ? err.response.data : err.message));
       });
   };
 };
