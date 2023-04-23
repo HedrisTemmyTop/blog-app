@@ -5,18 +5,53 @@ import HomeContent from "../components/ui/HomeContentMain";
 import { useEffect } from "react";
 import { GET_BLOGS } from "../redux/actions/blogs/blogsAction";
 import Spinner from "../components/ui/spinner/spinner";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Pagination, { resultsPerPage } from "../logic/pagination";
-const Home = (props) => {
+import axios from "axios";
+import API_URL from "../api/URL";
+const Home = () => {
+  // Component states and variables
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortedBlogs, setSortedBlogs] = useState(null);
+  const [filterBlogs, setFilterBlogs] = useState(null);
+  const dispatch = useDispatch();
+
+  const { blogs, loading, error } = useSelector((state) => state.blogs);
+
+  // Getting blogs
   useEffect(() => {
-    props.getBlogs();
-    console.log(props);
+    dispatch(GET_BLOGS());
   }, []);
-  if (props.blogs) {
-    console.log(props.blogs);
-  }
+
+  // Runs when there's blogs to sort(either filtered blog or response bloh) the blog before displaying
+  useEffect(() => {
+    if (filterBlogs) {
+      const sortData = filterBlogs.sort(
+        (a, b) =>
+          new Date(b.createdAt ? b.createdAt : b.updatedAt) -
+          new Date(a.createdAt ? a.createdAt : a.updatedAt)
+      );
+      setSortedBlogs(sortData);
+    }
+    if (blogs && !filterBlogs) {
+      const sortData = blogs.sort(
+        (a, b) =>
+          new Date(b.createdAt ? b.createdAt : b.updatedAt) -
+          new Date(a.createdAt ? a.createdAt : a.updatedAt)
+      );
+      setSortedBlogs(sortData);
+    }
+  }, [blogs, filterBlogs]);
+
+  const searchBlogHandler = async (value) => {
+    try {
+      console.log(value);
+      const response = await axios.get(API_URL + "/blogs?search=" + value);
+      setFilterBlogs(response.data.posts);
+      console.log(response);
+    } catch (error) {}
+  };
 
   const nextPageHandler = () => {
     setCurrentPage((prev) => prev + 1);
@@ -25,11 +60,9 @@ const Home = (props) => {
   const prevPageHandler = () => {
     setCurrentPage((prev) => prev - 1);
   };
-  if (props.blogs) {
-    console.log(props.blogs);
-  }
+
   let content = null;
-  if (props.loading) {
+  if (loading) {
     content = (
       <div
         style={{
@@ -43,8 +76,8 @@ const Home = (props) => {
       </div>
     );
   }
-  if (props.blogs) {
-    if (props.blogs.length === 0) {
+  if (sortedBlogs) {
+    if (sortedBlogs.length === 0) {
       content = (
         <div
           style={{
@@ -59,15 +92,15 @@ const Home = (props) => {
         </div>
       );
     }
-    if (props.blogs.length > 0) {
+    if (sortedBlogs.length > 0) {
       content = (
         <>
           <Articles
-            datas={Pagination(props.blogs, currentPage)}
+            datas={Pagination(sortedBlogs, currentPage)}
             title="Latest Blogs"
           />
           <PaginationButtons
-            articles={props.blogs}
+            articles={sortedBlogs}
             resultsPerPage={resultsPerPage}
             currentPage={currentPage}
             nextPageHandler={nextPageHandler}
@@ -80,27 +113,14 @@ const Home = (props) => {
 
   return (
     <div>
-      <HomeContent />
+      <HomeContent search={searchBlogHandler} />
 
       {content}
     </div>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    blogs: state.blogs.blogs,
-    loading: state.blogs.loading,
-    error: state.blogs.error,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getBlogs: () => {
-      dispatch(GET_BLOGS());
-    },
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+
+export default Home;
 // const datas = [
 //   {
 //     id: 1,

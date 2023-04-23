@@ -1,0 +1,6 @@
+.spinner_body {
+  min-height: 10rem;
+  display: grid;
+  place-items: center;
+  margin-top: 10rem;
+}

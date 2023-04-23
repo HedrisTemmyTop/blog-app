@@ -1,20 +1,24 @@
-import { Outlet, redirect, useNavigate } from "react-router-dom";
-import Header from "../header/Header";
-import Footer from "../Footer/Footer";
+import { Outlet } from "react-router-dom";
+import Header from "./header/Header";
+import Footer from "./Footer/Footer";
 import React, { useEffect } from "react";
-import axios from "axios";
+import { GET_USER_PROFILE } from "../../redux";
 import { ThemeContext } from "../../context/context";
 import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 const Layout = (props) => {
+  const { darkTheme } = useContext(ThemeContext);
   const auth = localStorage.getItem("auth");
-  const darkTheme = useContext(ThemeContext);
-  console.log(darkTheme);
-  // useEffect(() => {
-  //   // if (auth !== "true") {
-  //   //   navigate("/sign-in");
-  //   // }
-  // }, []);
-  console.log(auth);
+  const dispatch = useDispatch();
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+  // get user if there is user id
+  const { user, loading } = useSelector((state) => state.user_profile);
+  useEffect(() => {
+    if (auth === "true" && userId && token)
+      dispatch(GET_USER_PROFILE(userId, token));
+  }, []);
+
   return (
     <React.Fragment>
       <div
@@ -24,7 +28,7 @@ const Layout = (props) => {
             : { backgroundColor: "#fff" }
         }
       >
-        <Header />
+        <Header user={user} />
         <Outlet />
         <Footer />
       </div>

@@ -1,11 +1,9 @@
 import React from "react";
 import Blog from "../components/ui/Blogs/Blog";
-const Blogs = () => {
-  return (
-    <div>
-      <Blog />
-    </div>
-  );
-};
+const Blogs = () => (
+  <div>
+    <Blog />
+  </div>
+);
 
 export default Blogs;
