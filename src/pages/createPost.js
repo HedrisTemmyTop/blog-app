@@ -12,8 +12,10 @@ import formValidation from "../logic/blogFormValidation";
 import publishBlog from "../logic/publishBlog";
 import CreateBlogForm from "../components/ui/CreateBlog/CreateBlogForm";
 import Preview from "../components/ui/CreateBlog/Preview";
+import ErrorHandler from "../logic/errorHandler";
 import AlertMessage from "../components/alertMessage/alertMessage";
-
+import { useContext } from "react";
+import { ThemeContext } from "../context/context";
 /**This component uses two case
  *  1.) When user wants to edit a blog
  * PROCEDURE
@@ -35,9 +37,11 @@ const CreateBlog = (props) => {
   const dispatch = useDispatch();
   const previewRef = useRef(null);
   const formRef = useRef(null);
+  const { darkTheme } = useContext(ThemeContext);
 
   // useState
   const [html, setHtml] = useState(null);
+  const [imageFile, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -69,13 +73,27 @@ const CreateBlog = (props) => {
 
   // if user is not authorized
   useEffect(() => {
-    if (error === "Unauthorized") window.location.href = `/sign-in`;
+    console.log(error);
+    if (error === "Unauthorized") {
+      console.log(error);
+      setTimeout(() => {
+        window.location.href = `/sign-in`;
+      }, 3000);
+    }
   }, [error]);
 
+  //Once the blog is posted successfully
+  useEffect(() => {
+    if (success) {
+      setTimeout(() => {
+        window.location.href = `/blogs/${mssg.data.blog._id}`;
+      }, 2250);
+    }
+  }, [success]);
   // once you click on the upload image, open files and upload get the selected image or u drag image to the box
   const handleDrop = (event) => {
     event.preventDefault();
-    uploadImage(event, setImage);
+    uploadImage(event, setImage, setFile);
   };
 
   // Create a tag when user presses the enter key word
@@ -96,13 +114,22 @@ const CreateBlog = (props) => {
 
   // Validat form inputs
   const blogFormValidation = (state = "draft") => {
-    return formValidation(html, image, title, tags, description, state);
+    return formValidation(
+      html,
+      image,
+      title,
+      tags,
+      description,
+      state,
+      imageFile
+    );
   };
 
   // Post a blog function
   const submitBlogHandler = (e) => {
     e.preventDefault();
     const data = blogFormValidation(); // Get datas from validated inputs
+    console.log(data);
     if (data) dispatch(POST_BLOG_REQUEST(data, token)); // Send it to the backend
   };
 
@@ -112,41 +139,55 @@ const CreateBlog = (props) => {
     const updatedData = blogFormValidation("published"); // Get datas from validated inputs
     console.log("editing..");
     const route = "blogs/";
-    publishBlog(setIsLoading, userId, token, route, updatedData); // Update it at the backend
+
+    publishBlog(setIsLoading, postId.id, token, route, updatedData); // Update it at the backend
   };
 
   return token ? (
-    <div>
-      <Preview previewRef={previewRef} formRef={formRef} />
-      <div className={classes.CreateBlogContainer}>
-        <CreateBlogForm
-          formRef={formRef}
-          submitBlogHandler={submitBlogHandler}
-          editBlogHandler={editBlogHandler}
-          title={title}
-          setHtml={setHtml}
-          setTagsInput={setTagsInput}
-          tagsInput={tagsInput}
-          createTagHandler={createTagHandler}
-          postId={postId}
-          setTitle={setTitle}
-          html={html}
-          description={description}
-          tags={tags}
-          previewRef={previewRef}
-          handleDrop={handleDrop}
-          image={image}
-          loading={loading}
-          removeTagHandler={removeTagHandler}
-          setDescription={setDescription}
-        />
-        <div
-          className={classes.Preview}
-          ref={previewRef}
-          id="previewCode"
-        ></div>
+    <ErrorHandler
+      errorMessage={error}
+      duration={error === "Unauthorized" ? 2800 : 5000}
+    >
+      <div>
+        <Preview previewRef={previewRef} formRef={formRef} />
+        <div className={classes.CreateBlogContainer}>
+          <CreateBlogForm
+            darkTheme={darkTheme}
+            formRef={formRef}
+            submitBlogHandler={submitBlogHandler}
+            editBlogHandler={editBlogHandler}
+            title={title}
+            setHtml={setHtml}
+            setTagsInput={setTagsInput}
+            tagsInput={tagsInput}
+            createTagHandler={createTagHandler}
+            postId={postId.id}
+            setTitle={setTitle}
+            html={html}
+            description={description}
+            tags={tags}
+            previewRef={previewRef}
+            handleDrop={handleDrop}
+            image={image}
+            loading={loading}
+            removeTagHandler={removeTagHandler}
+            setDescription={setDescription}
+          />
+          <div
+            className={classes.Preview}
+            ref={previewRef}
+            id="previewCode"
+          ></div>
+        </div>
       </div>
-    </div>
+      {success && (
+        <AlertMessage
+          bgColor="success"
+          message="Blog posted 😍😁"
+          duration={2000}
+        />
+      )}
+    </ErrorHandler>
   ) : (
     <Navigate to="/sign-in" replace={true} />
   );

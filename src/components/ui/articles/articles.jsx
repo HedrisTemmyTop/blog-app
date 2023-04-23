@@ -4,7 +4,7 @@ import Box from "./Box";
 import { ThemeContext } from "../../../context/context";
 import { Link } from "react-router-dom";
 const Articles = ({ datas, title, button }) => {
-  const darkTheme = useContext(ThemeContext);
+  const { darkTheme } = useContext(ThemeContext);
 
   return (
     <React.Fragment>

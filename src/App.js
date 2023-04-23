@@ -4,6 +4,7 @@ import { SignUp, SignIn, Layout, Blogs, CreateBlog, Home } from "./pages";
 
 import { ThemeContextProvider } from "./context/context";
 import Profile from "./pages/Profile";
+import Settings from "./pages/settings";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="post-blog" element={<CreateBlog />} />
             <Route path="blogs/:id" element={<Blogs />} />
             <Route path="edit-blog/:id" element={<CreateBlog />} />
+            <Route path="account-settings" element={<Settings />} />
           </Route>
 
           <Route path="sign-up" element={<SignUp />} />

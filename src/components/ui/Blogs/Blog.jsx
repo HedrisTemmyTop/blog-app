@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useContext } from "react";
+import { ThemeContext } from "../../../context/context";
 
 import "../../../styles/spinnerBody.css";
 
@@ -18,6 +20,8 @@ import {
 const Blog = () => {
   const token = localStorage.getItem("token"); // Getting token
   const userId = localStorage.getItem("userId"); // Current user id
+
+  const { darkTheme } = useContext(ThemeContext);
 
   let { id } = useParams(); // Getting the id from the route
 
@@ -64,9 +68,11 @@ const Blog = () => {
   if (!loading && blogs.blog && !error) {
     content = (
       <div className={classes.Blog}>
-        {blog.tags.map((tag, index) => (
-          <Tags tag={tag} index={index} />
-        ))}
+        <div className={classes.Tag}>
+          {blog.tags.map((tag, index) => (
+            <Tags tag={tag} index={index} />
+          ))}
+        </div>
         <div className={classes.BlogContent}>
           <BlogHeading
             title={blog.title}
@@ -75,17 +81,20 @@ const Blog = () => {
             publishHandler={publishBlogHandler}
             deleteHandler={deleteBlogHandler}
             owner={blog.owner}
+            userId={userId}
+            darkTheme={darkTheme}
           />
           <BlogContent
             owner={blog.owner}
             createdAt={blog.createdAt}
-            readingTime={blog.readingTime}
+            readingTime={blog.reading_time}
             body={blog.body}
             state={blog.state}
             loading={isLoading}
             publishBlogHandler={publishBlogHandler}
             deleteBlogHandler={deleteBlogHandler}
             userId={userId}
+            darkTheme={darkTheme}
           />
         </div>
       </div>

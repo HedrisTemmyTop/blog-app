@@ -8,6 +8,7 @@ const BlogHeading = ({
   publishHandler,
   owner,
   userId,
+  darkTheme,
 }) => {
   let buttonJSX = null;
   if (owner._id === userId)
@@ -18,8 +19,13 @@ const BlogHeading = ({
         <BlogButton loading={isLoading} click={deleteHandler} type="Delete" />
       );
   return (
-    <div classes={classes.ContentHeading}>
-      <div className={classes.Title}>{title}</div>
+    <div className={classes.ContentHeading}>
+      <div
+        className={classes.Title}
+        style={!darkTheme ? { color: "#1e1e1e" } : null}
+      >
+        {title}
+      </div>
 
       {buttonJSX}
     </div>

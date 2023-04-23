@@ -10,7 +10,7 @@ const PaginationButtons = ({
   nextPageHandler,
   prevPageHandler,
 }) => {
-  const darkTheme = useContext(ThemeContext);
+  const { darkTheme } = useContext(ThemeContext);
   const totalPages = Math.ceil(articles.length / resultsPerPage);
   let buttonContent = null;
   const increasePaginationHandler = () => {

@@ -4,9 +4,7 @@ import HomepageBlog from "./BlogTypes/HomePageBlogs";
 import ProfileBlogs from "./BlogTypes/ProfileBlogs";
 
 const Box = ({ data, button }) => {
-  console.log(data.image.length, data);
-
-  const darkTheme = useContext(ThemeContext);
+  const { darkTheme } = useContext(ThemeContext);
   return !button ? (
     <HomepageBlog data={data} darkTheme={darkTheme} />
   ) : (

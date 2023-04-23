@@ -1,16 +1,24 @@
 import { Outlet } from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./Footer/Footer";
-import React from "react";
-
+import React, { useEffect } from "react";
+import { GET_USER_PROFILE } from "../../redux";
 import { ThemeContext } from "../../context/context";
 import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 const Layout = (props) => {
+  const { darkTheme } = useContext(ThemeContext);
   const auth = localStorage.getItem("auth");
-  const darkTheme = useContext(ThemeContext);
-  console.log(darkTheme);
+  const dispatch = useDispatch();
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+  // get user if there is user id
+  const { user, loading } = useSelector((state) => state.user_profile);
+  useEffect(() => {
+    if (auth === "true" && userId && token)
+      dispatch(GET_USER_PROFILE(userId, token));
+  }, []);
 
-  console.log(auth);
   return (
     <React.Fragment>
       <div
@@ -20,7 +28,7 @@ const Layout = (props) => {
             : { backgroundColor: "#fff" }
         }
       >
-        <Header />
+        <Header user={user} />
         <Outlet />
         <Footer />
       </div>

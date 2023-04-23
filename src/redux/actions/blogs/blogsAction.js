@@ -49,12 +49,13 @@ export const POST_BLOG_REQUEST = (html, token) => {
       })
       .then((response) => {
         console.log(response);
-        window.location = "/blogs/" + response.data.blog._id;
         dispatch(POST_SUCCESS(response));
       })
       .catch((error) => {
         console.log(error);
-        dispatch(POST_FAIL(error.message));
+        dispatch(
+          POST_FAIL(error.response ? error.response.data : error.message)
+        );
       });
   };
 };

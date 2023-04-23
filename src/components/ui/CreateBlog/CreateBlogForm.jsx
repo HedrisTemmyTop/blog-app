@@ -15,7 +15,7 @@ const CreateBlogForm = (props) => {
     setTitle,
     html,
     description,
-
+    darkTheme,
     previewRef,
     handleDrop,
     image,
@@ -31,9 +31,10 @@ const CreateBlogForm = (props) => {
     <form
       className={classes.Form}
       ref={formRef}
-      onSubmit={!postId.id ? submitBlogHandler : editBlogHandler}
+      onSubmit={!postId ? submitBlogHandler : editBlogHandler}
     >
       <input
+        style={!darkTheme ? { border: "2px solid #e5e7eb" } : null}
         required
         type="text"
         placeholder="Blog title"
@@ -43,6 +44,7 @@ const CreateBlogForm = (props) => {
         value={title}
       />
       <input
+        style={!darkTheme ? { border: "2px solid #e5e7eb" } : null}
         onKeyDown={(e) => {
           createTagHandler(e);
         }}
@@ -50,7 +52,6 @@ const CreateBlogForm = (props) => {
         onChange={(e) => setTagsInput(e.target.value)}
         type="text"
         placeholder="Blog tags/categories"
-        style={{ marginBottom: ".2rem" }}
       />
       <div className={classes.TagsContainer}>
         {tags.map((tag) => (
@@ -64,6 +65,7 @@ const CreateBlogForm = (props) => {
         ))}
       </div>
       <input
+        style={!darkTheme ? { border: "2px solid #e5e7eb" } : null}
         required
         type="text"
         placeholder="Short description"
@@ -86,9 +88,13 @@ const CreateBlogForm = (props) => {
           onChange={handleDrop}
         />
         {image ? (
-          <img src={image} alt="uploaded" style={{ maxWidth: "100%" }} />
+          <img
+            src={image}
+            alt="uploaded"
+            style={{ maxWidth: "100%", maxHeight: "100%" }}
+          />
         ) : (
-          <p>Drag an image here to upload</p>
+          <p>Upload/Drag an image here </p>
         )}
       </div>
       <button

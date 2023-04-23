@@ -1,0 +1,80 @@
+.Settings {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  color: black;
+}
+.Display {
+  display: grid;
+  place-items: center;
+}
+.Display img {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+}
+
+.FormInputs {
+  display: flex;
+  justify-content: space-between;
+}
+.InputImage {
+  position: relative;
+}
+.InputDp {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 10;
+  opacity: 0;
+  left: 0;
+  right: 0;
+  border-radius: 50%;
+}
+.Basic,
+.Social {
+  flex-basis: 45%;
+}
+.Basic h2,
+.Social h2 {
+  font-size: 2rem;
+  margin-block: 4rem;
+}
+.Input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+.Input label {
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+.InputEl {
+  width: 100%;
+  background-color: rgb(248, 250, 252, 0.8);
+  height: 5.5rem;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  padding: 1rem 1.5rem;
+  border: 2px solid #e5e7eb;
+  box-sizing: border-box;
+  width: 85%;
+  outline: 0;
+}
+.InputEl:focus {
+  outline: 0;
+  border: 2px solid #e5e7eb;
+}
+.Submit {
+  background-color: transparent;
+  border: 1px solid #2930e3;
+  padding: 2rem 4rem;
+  border-radius: 2rem;
+  color: #2930e3;
+  font-size: inherit;
+  margin-top: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+}

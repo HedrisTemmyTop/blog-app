@@ -23,9 +23,9 @@ const ProfileBlogs = ({ data, darkTheme }) => {
       <div className={classes.Block}>
         <div className={classes.Links}>
           {data.tags.slice(0, 3).map((link, i) => (
-            <Link to={link} style={{ textTransform: "capitalize" }} key={i}>
+            <span key={i} style={{ textTransform: "capitalize" }}>
               {link}
-            </Link>
+            </span>
           ))}
         </div>
         <div

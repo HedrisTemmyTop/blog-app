@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { BsSun, BsMoon } from "react-icons/bs";
 export const ThemeContext = React.createContext();
 
 export const ThemeContextProvider = (props) => {
@@ -9,10 +8,7 @@ export const ThemeContextProvider = (props) => {
   };
 
   return (
-    <ThemeContext.Provider value={darkTheme}>
-      <div className="mode" onClick={toggleThemeContext}>
-        {darkTheme ? <BsMoon /> : <BsSun className="sun" />}
-      </div>
+    <ThemeContext.Provider value={{ darkTheme, toggleThemeContext }}>
       {props.children}
     </ThemeContext.Provider>
   );

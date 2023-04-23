@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "../../styles/Home.module.css";
 import { Link } from "react-router-dom";
 // import HomeLinks from "../components/HomeLinks";
-const HomeContent = () => {
+const HomeContent = ({ search }) => {
+  const [searchVal, setSearchVal] = useState("");
   return (
     <div className={classes.Home}>
       <div>
@@ -58,11 +59,18 @@ const HomeContent = () => {
         <div className={classes.HomeCircle}></div>
       </div>
 
-      <form className={classes.Form}>
+      <form
+        className={classes.Form}
+        onSubmit={(e) => {
+          e.preventDefault();
+          search(searchVal);
+        }}
+      >
         <input
           type="search"
           className={classes.Input}
           placeholder="Search by tag or title"
+          onChange={(e) => setSearchVal(e.target.value)}
         />
       </form>
     </div>

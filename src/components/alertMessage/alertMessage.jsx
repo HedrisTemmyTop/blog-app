@@ -35,7 +35,10 @@ const AlertMessage = ({ bgColor, message, duration, cancelBtn = false }) => {
         zIndex: 9999,
       }}
     >
-      <span> {message}</span>
+      <span>
+        {" "}
+        {message === "Unauthorized" ? "Sorry pls log in ❗😖" : message}
+      </span>
       {cancelBtn ? (
         <span
           style={{ marginLeft: "4rem", fontSize: "3rem" }}

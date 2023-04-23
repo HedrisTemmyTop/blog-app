@@ -1,4 +1,12 @@
-const formValidation = (html, image, title, tags, description, state) => {
+const formValidation = (
+  html,
+  image,
+  title,
+  tags,
+  description,
+  state,
+  imageFile
+) => {
   if (!html) {
     alert("Body is empty");
     return false;
@@ -7,10 +15,11 @@ const formValidation = (html, image, title, tags, description, state) => {
     alert("Add content image");
     return false;
   }
+
   return {
     title: title,
     body: html,
-    content_image: image,
+    image: [image],
     tags: tags,
     description: description,
     state,

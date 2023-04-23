@@ -3,6 +3,7 @@ import API_URL from "../api/URL";
 const publishBlog = async (setIsLoading, id, token, route, data) => {
   try {
     if (setIsLoading) setIsLoading(true);
+    console.log(id);
     const response = await axios.put(API_URL + route + id, data, {
       headers: {
         Authorization: `Bearer ${token}`,

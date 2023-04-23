@@ -18,6 +18,7 @@ const BlogContent = ({
   publishBlogHandler,
   deleteBlogHandler,
   userId,
+  darkTheme,
 }) => {
   // if the userId is the owner and state is draft give us just a publish button and don't give comment section
   // if the userId is the owner and the state is published, give us comment section
@@ -37,7 +38,7 @@ const BlogContent = ({
             click={deleteBlogHandler}
             type="Delete"
           />
-          <Comment ownerID={owner._id} userId={userId} />
+          <Comment ownerID={owner._id} userId={userId} darkTheme={darkTheme} />
         </>
       );
   }
@@ -47,7 +48,7 @@ const BlogContent = ({
   }
   return (
     <React.Fragment>
-      <div className={classes.Poster}>
+      <div className={darkTheme ? classes.Poster : classes.PosterLight}>
         <div className={classes.Left}>
           <img src={user} alt="poster image" className={classes.PosterImg} />
           <div className={classes.Right}>
@@ -66,6 +67,7 @@ const BlogContent = ({
       <div
         className={classes.Content}
         dangerouslySetInnerHTML={{ __html: body }}
+        style={!darkTheme ? { color: "#1e1e1e" } : null}
       ></div>
       {buttonJSX}
     </React.Fragment>
