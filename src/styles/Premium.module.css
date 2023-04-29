@@ -1,0 +1,157 @@
+.Premium {
+  color: #fff;
+  padding: 8rem 4rem;
+}
+.Heading {
+  display: grid;
+  place-items: center;
+  font-weight: 500;
+  margin-bottom: 4rem;
+}
+
+.Card {
+  perspective: 250rem;
+  -moz-perspective: 250rem;
+  position: relative;
+  height: 50rem;
+  width: 100%;
+}
+
+.CardSide {
+  transition: all 0.8s ease;
+  height: 50rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.3rem;
+
+  backface-visibility: hidden;
+}
+.CardFront {
+  background-color: #fff;
+}
+.CardBack {
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  background-image: linear-gradient(to right bottom, #2998ff, #2930e3);
+  transform: rotateY(180deg);
+}
+
+.Card:hover .CardFront {
+  transform: rotateY(-180deg);
+}
+.Card:hover .CardBack {
+  transform: rotateY(0deg);
+  color: #2998ff;
+}
+.CardPicture {
+  height: 23rem;
+  background-blend-mode: screen;
+  background-image: linear-gradient(to right bottom, #2998ff, #2930e3),
+    url("../assets/nat-7.jpg");
+  background-size: cover;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.CardHeading {
+  font-size: 2.8rem;
+  color: #fff;
+  font-weight: 300;
+  position: absolute;
+  top: 14rem;
+  right: 1rem;
+  text-transform: uppercase;
+}
+.CardHeading span {
+  background-image: linear-gradient(
+    to right bottom,
+    rgba(41, 152, 255, 0.85),
+    rgb(41, 48, 227)
+  );
+  padding: 1rem 1.5rem;
+}
+.CardDetails {
+  padding: 3rem;
+  margin: 0 auto;
+  color: grey;
+}
+.CardDetails ul {
+  list-style: none;
+  width: 100%;
+}
+
+.CardDetails ul li {
+  text-align: center;
+  font-size: 1.4rem;
+  padding: 1rem;
+}
+
+.CardDetails ul li:not(:last-child) {
+  border-bottom: 2px solid #eee;
+}
+.PriceBox {
+  color: #fff;
+  height: 100%;
+}
+.CardPrice {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 80%;
+}
+.Only {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+}
+.Price {
+  font-weight: lighter;
+  font-size: 6rem;
+}
+.Btn {
+  background-color: #fff;
+  padding: 2rem 4rem;
+  border-radius: 10rem;
+  font-size: 1.6rem;
+  border: 0;
+  cursor: pointer;
+}
+.Plans {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 150rem;
+  margin: 0 auto;
+}
+@media only screen and (max-width: 1200px) {
+  .Plans {
+    flex-direction: column;
+  }
+  .Card {
+    margin: 2rem;
+    max-width: 70rem;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .Card {
+    /* height: 60rem; */
+    margin: 2rem 1rem;
+  }
+  /* .CardSide {
+    position: relative;
+  }
+  .CardBack {
+    transform: rotateY(0);
+  }
+  .Card:hover .CardFront {
+    transform: rotateY(0);
+  }
+  .Premium {
+    padding: 8rem 2rem;
+  }
+  .PriceBox {
+  } */
+}

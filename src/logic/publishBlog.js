@@ -1,9 +1,8 @@
 import axios from "axios";
 import API_URL from "../api/URL";
-const publishBlog = async (setIsLoading, id, token, route, data) => {
+const publishBlog = async (id, token, route, data) => {
   try {
-    if (setIsLoading) setIsLoading(true);
-    console.log(id);
+    console.log(data, API_URL + route + id);
     const response = await axios.put(API_URL + route + id, data, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -14,8 +13,6 @@ const publishBlog = async (setIsLoading, id, token, route, data) => {
   } catch (error) {
     console.log(error);
     return error;
-  } finally {
-    setIsLoading(false);
   }
 };
 export default publishBlog;

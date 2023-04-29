@@ -8,14 +8,37 @@ import { useContext } from "react";
 import lightIconDown from "../../../assets/VectorLight.png";
 import { SlMenu } from "react-icons/sl";
 import { BsSun, BsMoon } from "react-icons/bs";
-
+import AlertMessage from "../../alertMessage/alertMessage";
 import { CiEdit } from "react-icons/ci";
 import UserNav from "./UserNav";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import MobileHeader from "./MobileHeader";
 const Header = ({ user }) => {
   const { darkTheme, toggleThemeContext } = useContext(ThemeContext);
   const [showUserNav, setShowUserNav] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [logout, setLogout] = useState(false);
+  const token = localStorage.getItem("token");
 
+  useEffect(() => {
+    console.log(logout);
+    if (logout) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
+  }, [logout]);
+
+  const handleLogout = () => {
+    setLogout(true);
+    localStorage.clear();
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = (clicked, bg) => {
+    if (clicked === bg) setOpen(false);
+  };
   return (
     <header
       className={
@@ -24,8 +47,15 @@ const Header = ({ user }) => {
           : [classes.Header, classes.HeaderLight].join(" ")
       }
     >
+      {logout && (
+        <AlertMessage
+          bgColor="success"
+          message="Loggout successfull"
+          duration={2000}
+        />
+      )}
       <div className={classes.Menu}>
-        <SlMenu />
+        <SlMenu onClick={handleOpen} />
       </div>
       <div className={classes.Logo}>
         <span className={classes.SpecialLogo}>F</span>
@@ -121,9 +151,9 @@ const Header = ({ user }) => {
           )}
           <div
             className={classes.UserContainer}
-            onClick={(prev) => setShowUserNav((prev) => !prev)}
+            onClick={() => setShowUserNav((prev) => !prev)}
           >
-            {showUserNav && <UserNav id={user.user._id} />}
+            {showUserNav && <UserNav id={user.user._id} click={handleLogout} />}
 
             <img
               src={userImg}
@@ -145,12 +175,22 @@ const Header = ({ user }) => {
           </div>
         </span>
       ) : (
-        <div className={classes.HeaderContackLink}>
-          <Link className={classes.ContactLink} to="/sign-up">
-            Sign up
-          </Link>
-        </div>
+        <>
+          <div className="mode" style={darkTheme ? { color: "#fff" } : null}>
+            {darkTheme ? (
+              <BsMoon onClick={toggleThemeContext} />
+            ) : (
+              <BsSun className="sun" onClick={toggleThemeContext} />
+            )}
+          </div>
+          <div className={classes.HeaderContackLink}>
+            <Link className={classes.ContactLink} to="/sign-up">
+              Sign up
+            </Link>
+          </div>
+        </>
       )}
+      <MobileHeader open={open} handleClose={handleClose} token={token} />
     </header>
   );
 };

@@ -28,6 +28,9 @@ ul {
 
   box-sizing: border-box;
 }
+button {
+  cursor: pointer !important;
+}
 .active {
   position: relative;
   color: #2930e3 !important;
@@ -76,6 +79,53 @@ ul {
   max-height: 50rem;
   resize: none !important;
 }
+.Comments {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(68, 68, 68, 1);
+}
+.Commenter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.CommenterRight {
+  margin-left: 1rem;
+  color: #fff;
+}
+.CommentName {
+  font-weight: bold;
+  color: white;
+  margin-bottom: 0.2rem;
+}
+.Time {
+  font-size: 1.4rem;
+}
+.Reply {
+  background-color: transparent;
+  font-size: 1.6rem;
+  color: rgba(196, 196, 196, 1);
+  font-weight: bold;
+  flex-basis: 20%;
+  border: 0;
+  cursor: pointer;
+}
+.ReplyLight {
+  color: #999999;
+  background-color: transparent;
+  font-size: 1.6rem;
+  font-weight: bold;
+  flex-basis: 20%;
+  border: 0;
+  cursor: pointer;
+}
+.comment {
+  color: rgba(196, 196, 196, 1);
+}
+
 @media only screen and (max-width: 450px) {
   .mode {
     margin-inline: 2rem;

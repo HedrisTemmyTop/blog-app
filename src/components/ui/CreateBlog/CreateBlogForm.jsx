@@ -19,22 +19,26 @@ const CreateBlogForm = (props) => {
     previewRef,
     handleDrop,
     image,
-    loading,
     setDescription,
     tags,
     removeTagHandler,
+    isPublishing,
   } = props;
   console.log(tags);
   const editorRef = useRef(null);
 
   return (
     <form
-      className={classes.Form}
+      className={darkTheme ? classes.FormLight : classes.Form}
       ref={formRef}
       onSubmit={!postId ? submitBlogHandler : editBlogHandler}
     >
       <input
-        style={!darkTheme ? { border: "2px solid #e5e7eb" } : null}
+        style={
+          !darkTheme
+            ? { border: "2px solid #e5e7eb" }
+            : { border: "2px solid #e5e7eb" }
+        }
         required
         type="text"
         placeholder="Blog title"
@@ -44,7 +48,11 @@ const CreateBlogForm = (props) => {
         value={title}
       />
       <input
-        style={!darkTheme ? { border: "2px solid #e5e7eb" } : null}
+        style={
+          !darkTheme
+            ? { border: "2px solid #e5e7eb" }
+            : { border: "2px solid #e5e7eb" }
+        }
         onKeyDown={(e) => {
           createTagHandler(e);
         }}
@@ -65,7 +73,11 @@ const CreateBlogForm = (props) => {
         ))}
       </div>
       <input
-        style={!darkTheme ? { border: "2px solid #e5e7eb" } : null}
+        style={
+          !darkTheme
+            ? { border: "2px solid #e5e7eb" }
+            : { border: "2px solid #e5e7eb" }
+        }
         required
         type="text"
         placeholder="Short description"
@@ -99,12 +111,14 @@ const CreateBlogForm = (props) => {
       </div>
       <button
         className={classes.PostBtn}
-        disabled={loading ? true : false}
+        disabled={isPublishing ? true : false}
         style={
-          loading ? { backgroundColor: "rgb(17, 25, 38) !important" } : null
+          isPublishing
+            ? { backgroundColor: "rgb(17, 25, 38) !important" }
+            : null
         }
       >
-        <span>{loading ? "Processing..." : "Post Blog"}</span>
+        <span>{isPublishing ? "Processing..." : "Post Blog"}</span>
       </button>
     </form>
   );

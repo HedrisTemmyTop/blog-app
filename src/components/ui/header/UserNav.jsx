@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import { BsBookmarkPlus, BsJournalBookmark } from "react-icons/bs";
 import { VscAccount } from "react-icons/vsc";
 import { AiOutlineLogout, AiOutlineDeploymentUnit } from "react-icons/ai";
-const UserNav = ({ id }) => {
+import { useEffect, useState } from "react";
+import AlertMessage from "../../alertMessage/alertMessage";
+const UserNav = ({ id, click }) => {
   return (
     <div className={classes.UserNavWrapper}>
       <div className={classes.UserNavSummary}>
@@ -28,7 +30,7 @@ const UserNav = ({ id }) => {
               <span className={classes.LinkName}>My Drafts</span>
             </li>
           </Link>
-          <Link to="/account-settings">
+          <Link to="/premium">
             <li>
               <AiOutlineDeploymentUnit />
               <span className={classes.LinkName}>Upgrade account</span>
@@ -41,7 +43,7 @@ const UserNav = ({ id }) => {
             </li>
           </Link>
 
-          <button className={classes.Logout}>
+          <button className={classes.Logout} onClick={click}>
             <span className={classes.LogoutBtn}>
               <AiOutlineLogout />
               <span className={classes.LinkName}>Log out</span>

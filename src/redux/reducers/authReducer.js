@@ -1,3 +1,10 @@
+const clearLocalStorage = () => {
+  // console.log("clearing,,,");
+  // localStorage.removeItem("token");
+  // localStorage.removeItem("userId");
+  // localStorage.removeItem("auth");
+};
+
 const initialAuthState = {
   token: null,
   loading: false,
@@ -37,7 +44,9 @@ export const authReducer = (state = initialAuthState, action) => {
     };
   }
   if (action.type === "LOGIN_SUCCESS") {
-    console.log(action);
+    const currentTime = new Date().getTime();
+    localStorage.setItem("tokenExpiration", currentTime + 3600000);
+
     return {
       ...initialAuthState,
       token: action.data.token,

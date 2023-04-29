@@ -1,8 +1,22 @@
 .Settings {
   background-color: #fff;
-  border-radius: 0.5rem;
   padding: 2rem;
   color: black;
+}
+.SettingsLight {
+  background-color: #111926;
+  padding: 2rem;
+  color: black;
+}
+.SettingsLight label {
+  color: #fff;
+}
+.SettingsLight input,
+.SettingsLight textarea {
+  background-color: #fff;
+}
+.SettingsLight h2 {
+  color: #fff;
 }
 .Display {
   display: grid;
@@ -74,7 +88,16 @@
   border-radius: 2rem;
   color: #2930e3;
   font-size: inherit;
-  margin-top: 2rem;
+
   font-weight: bold;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1000px) {
+  .FormInputs {
+    flex-direction: column;
+  }
+  .InputEl {
+    width: 100%;
+  }
 }

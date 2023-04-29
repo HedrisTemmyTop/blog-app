@@ -16,15 +16,24 @@ const Profile = (props) => {
   const { loading, user, error } = useSelector((state) => state.user_profile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [sortedBlogs, setSortedBlogs] = useState(null);
   useEffect(() => {
     if (token && id) {
-      console.log(token);
       dispatch(GET_USER_PROFILE(id, token));
-    } else return navigate("/");
+    } else return navigate("/sign-in");
   }, []);
-  if (props.blogs || user) {
-    console.log(props.blogs, user);
-  }
+
+  useEffect(() => {
+    if (user) {
+      const sortData = user.posts.sort(
+        (a, b) =>
+          new Date(b.createdAt ? b.createdAt : b.updatedAt) -
+          new Date(a.createdAt ? a.createdAt : a.updatedAt)
+      );
+      setSortedBlogs(sortData);
+    }
+  }, [user]);
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const nextPageHandler = () => {
@@ -48,17 +57,18 @@ const Profile = (props) => {
         <Spinner />
       </div>
     );
-  if (user && !loading)
+  if (user && !loading && sortedBlogs)
     content = (
       <div>
         <Bio username={user.user.username} />
         <Articles
-          datas={Pagination(user.posts, currentPage)}
+          datas={Pagination(sortedBlogs, currentPage)}
           title="Your Blogs"
           button={true}
+          username={user.user.username}
         />
         <PaginationButtons
-          articles={user.posts}
+          articles={sortedBlogs}
           resultsPerPage={resultsPerPage}
           currentPage={currentPage}
           nextPageHandler={nextPageHandler}

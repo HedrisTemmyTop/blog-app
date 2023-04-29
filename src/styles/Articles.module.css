@@ -120,12 +120,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 4rem;
 }
 .Head {
   font-size: 2.4rem;
   color: #fff;
   line-height: 2.9rem;
-  margin-bottom: 4.4rem;
+  /* margin-bottom: 4.4rem; */
 }
 .Container {
   display: flex;
@@ -138,7 +139,6 @@
   flex-basis: 82%;
   margin-right: 2.4rem;
   box-sizing: border-box;
-  flex-wrap: wrap;
 }
 .Box {
   margin-right: 4.8rem;
@@ -294,6 +294,23 @@
   border-radius: 4px;
   background-color: #2930e3;
 }
+.Btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-basis: 45%;
+  max-width: 45rem;
+}
+.Btns a {
+  color: #fff;
+  background-color: #2930e3;
+  border: 1px solid #2930e3;
+  border-radius: 0.2rem;
+  padding: 1rem 2.5rem;
+}
+.Special {
+  margin-inline: 2rem;
+}
 @media only screen and (max-width: 1830px) {
   .Box {
     flex-basis: 27%;
@@ -305,6 +322,7 @@
   }
   .Boxes {
     margin-right: 0;
+    flex-wrap: wrap;
   }
 }
 @media only screen and (max-width: 1150px) {
@@ -315,13 +333,26 @@
     flex-basis: 100%;
   }
 }
-@media only screen and (max-width: 817px) {
+@media only screen and (max-width: 850px) {
   .Boxes {
     justify-content: center;
+  }
+  .CreateButton {
+    display: none;
   }
   .Box {
     flex-basis: 100%;
     margin-right: 0;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .Head2 {
+    display: none;
+  }
+
+  .Btns {
+    flex-basis: 100%;
   }
 }
 @media only screen and (max-width: 500px) {
@@ -332,5 +363,8 @@
 @media only screen and (max-width: 400px) {
   .Articles {
     padding: 3rem 2rem;
+  }
+  .Btns a {
+    padding: 0.8rem 1.6rem;
   }
 }

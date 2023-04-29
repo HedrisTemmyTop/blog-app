@@ -16,6 +16,7 @@ import ErrorHandler from "../logic/errorHandler";
 import AlertMessage from "../components/alertMessage/alertMessage";
 import { useContext } from "react";
 import { ThemeContext } from "../context/context";
+import Spinner from "../components/ui/spinner/spinner";
 /**This component uses two case
  *  1.) When user wants to edit a blog
  * PROCEDURE
@@ -42,54 +43,64 @@ const CreateBlog = (props) => {
   // useState
   const [html, setHtml] = useState(null);
   const [imageFile, setFile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [message, setMessage] = useState("");
+  const [published, setPublished] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState([]);
   const [tagsInput, setTagsInput] = useState("");
   const [image, setImage] = useState(null);
   const { blogs, post_blog } = useSelector((state) => state);
-
+  const [postingError, setPostingError] = useState(null);
   const { mssg, loading, error, success } = post_blog;
 
   // If there is an id that means user wants to edit so fetch their blog
   useEffect(() => {
     if (postId.id) {
+      console.log("yes");
       dispatch(GET_BLOG(postId.id));
     }
-    console.log("yes");
   }, []);
 
   // If you get a blog from the backend, update the fields
   useEffect(() => {
     if (blogs.blog) {
+      console.log(blogs);
       const { blog } = blogs;
-      setHtml(blog.body);
-      setTags(blog.tags);
-      setTitle(blog.title);
-      setDescription(blog.description);
+      setHtml(blog.post.body);
+      setTags(blog.post.tags);
+      setTitle(blog.post.title);
+      setDescription(blog.post.description);
+      setImage(blog.post.image[0]);
     }
   }, [blogs]);
 
   // if user is not authorized
   useEffect(() => {
     console.log(error);
-    if (error === "Unauthorized") {
+    if (error === "Unauthorized" || postingError === "Unauthorized") {
       console.log(error);
       setTimeout(() => {
         window.location.href = `/sign-in`;
       }, 3000);
     }
-  }, [error]);
+  }, [error, postingError]);
 
   //Once the blog is posted successfully
   useEffect(() => {
+    console.log(published);
     if (success) {
       setTimeout(() => {
         window.location.href = `/blogs/${mssg.data.blog._id}`;
       }, 2250);
     }
-  }, [success]);
+    if (published) {
+      setTimeout(() => {
+        window.history.back();
+      }, 2250);
+    }
+  }, [success, published]);
   // once you click on the upload image, open files and upload get the selected image or u drag image to the box
   const handleDrop = (event) => {
     event.preventDefault();
@@ -114,39 +125,45 @@ const CreateBlog = (props) => {
 
   // Validat form inputs
   const blogFormValidation = (state = "draft") => {
-    return formValidation(
-      html,
-      image,
-      title,
-      tags,
-      description,
-      state,
-      imageFile
-    );
+    return formValidation(html, image, title, tags, description, state);
   };
 
   // Post a blog function
   const submitBlogHandler = (e) => {
     e.preventDefault();
     const data = blogFormValidation(); // Get datas from validated inputs
-    console.log(data);
-    if (data) dispatch(POST_BLOG_REQUEST(data, token)); // Send it to the backend
+    if (data !== false) {
+      console.log(data);
+      if (data) dispatch(POST_BLOG_REQUEST(data, token)); // Send it to the backend
+    }
   };
-
   // Edit a blog
-  const editBlogHandler = (e) => {
+  const editBlogHandler = async (e) => {
     e.preventDefault();
-    const updatedData = blogFormValidation("published"); // Get datas from validated inputs
-    console.log("editing..");
-    const route = "blogs/";
+    if (blogFormValidation("published") !== false) {
+      const updatedData = blogFormValidation("published"); // Get datas from validated inputs
 
-    publishBlog(setIsLoading, postId.id, token, route, updatedData); // Update it at the backend
+      const route = "blogs/";
+      setIsPublishing(true);
+      const data = await publishBlog(postId.id, token, route, updatedData); // Update it at the backend
+      console.log(data);
+
+      setIsPublishing(false);
+      if (data.response.status === 200) {
+        setPublished(true);
+
+        setMessage("Blog Edited 😍😁");
+      } else setPostingError(data.response ? data.response.data : data.message);
+    }
   };
-
-  return token ? (
+  let content = (
     <ErrorHandler
-      errorMessage={error}
-      duration={error === "Unauthorized" ? 2800 : 5000}
+      errorMessage={error || postingError}
+      duration={
+        error === "Unauthorized" || postingError === "Unauthorized"
+          ? 2800
+          : 5000
+      }
     >
       <div>
         <Preview previewRef={previewRef} formRef={formRef} />
@@ -170,6 +187,7 @@ const CreateBlog = (props) => {
             handleDrop={handleDrop}
             image={image}
             loading={loading}
+            isPublishing={isPublishing}
             removeTagHandler={removeTagHandler}
             setDescription={setDescription}
           />
@@ -180,17 +198,78 @@ const CreateBlog = (props) => {
           ></div>
         </div>
       </div>
-      {success && (
+      {success || published ? (
         <AlertMessage
           bgColor="success"
-          message="Blog posted 😍😁"
+          message={message ? message : "Blog posted 😍😁"}
           duration={2000}
         />
-      )}
+      ) : null}
     </ErrorHandler>
-  ) : (
-    <Navigate to="/sign-in" replace={true} />
   );
+  if (postId) {
+    if (blogs)
+      content = (
+        <ErrorHandler
+          errorMessage={error || postingError}
+          duration={
+            error === "Unauthorized" || postingError === "Unauthorized"
+              ? 2800
+              : 5000
+          }
+        >
+          <div>
+            <Preview previewRef={previewRef} formRef={formRef} />
+            <div className={classes.CreateBlogContainer}>
+              <CreateBlogForm
+                darkTheme={darkTheme}
+                formRef={formRef}
+                submitBlogHandler={submitBlogHandler}
+                editBlogHandler={editBlogHandler}
+                title={title}
+                setHtml={setHtml}
+                setTagsInput={setTagsInput}
+                tagsInput={tagsInput}
+                createTagHandler={createTagHandler}
+                postId={postId.id}
+                setTitle={setTitle}
+                html={html}
+                description={description}
+                tags={tags}
+                previewRef={previewRef}
+                handleDrop={handleDrop}
+                image={image}
+                loading={loading}
+                isPublishing={isPublishing}
+                removeTagHandler={removeTagHandler}
+                setDescription={setDescription}
+              />
+              <div
+                className={classes.Preview}
+                ref={previewRef}
+                id="previewCode"
+              ></div>
+            </div>
+          </div>
+          {success || published ? (
+            <AlertMessage
+              bgColor="success"
+              message={message ? message : "Blog posted 😍😁"}
+              duration={2000}
+            />
+          ) : null}
+        </ErrorHandler>
+      );
+    if (loading) {
+      content = (
+        <div style={{ display: "grid", placeItems: "center" }}>
+          <Spinner />{" "}
+        </div>
+      );
+    }
+  }
+
+  return token ? content : <Navigate to="/sign-in" replace={true} />;
 };
 
 export default CreateBlog;
