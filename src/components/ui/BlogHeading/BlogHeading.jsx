@@ -9,6 +9,7 @@ const BlogHeading = ({
   owner,
   userId,
   darkTheme,
+  isDeleting,
 }) => {
   let buttonJSX = null;
   if (owner._id === userId)
@@ -16,7 +17,7 @@ const BlogHeading = ({
       state === "draft" ? (
         <BlogButton loading={isLoading} click={publishHandler} type="Publish" />
       ) : (
-        <BlogButton loading={isLoading} click={deleteHandler} type="Delete" />
+        <BlogButton loading={isDeleting} click={deleteHandler} type="Delete" />
       );
   return (
     <div className={classes.ContentHeading}>

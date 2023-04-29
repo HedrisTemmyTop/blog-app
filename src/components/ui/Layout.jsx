@@ -13,6 +13,13 @@ const Layout = (props) => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   // get user if there is user id
+  const tokenExpiration = localStorage.getItem("tokenExpiration");
+
+  if (tokenExpiration && new Date().getTime() > tokenExpiration) {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("tokenExpiration");
+  }
   const { user, loading } = useSelector((state) => state.user_profile);
   useEffect(() => {
     if (auth === "true" && userId && token)
@@ -29,7 +36,9 @@ const Layout = (props) => {
         }
       >
         <Header user={user} />
-        <Outlet />
+        <div style={{ minHeight: "70vh" }}>
+          <Outlet />
+        </div>
         <Footer />
       </div>
     </React.Fragment>

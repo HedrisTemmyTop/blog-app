@@ -1,6 +1,5 @@
 import classes from "../../../styles/Blog.module.css";
 import user from "../../../assets/Ellipse.png";
-import popular1 from "../../../assets/Rectangle 5.png";
 
 import { IoMdTime } from "../../react-icons";
 import BlogButton from "../BlogButton/Button";
@@ -19,7 +18,12 @@ const BlogContent = ({
   deleteBlogHandler,
   userId,
   darkTheme,
+  coverImage,
+  isDeleting,
+  postId,
+  comment,
 }) => {
+  console.log(postId);
   // if the userId is the owner and state is draft give us just a publish button and don't give comment section
   // if the userId is the owner and the state is published, give us comment section
   let buttonJSX = null;
@@ -34,17 +38,31 @@ const BlogContent = ({
       ) : (
         <>
           <BlogButton
-            loading={loading}
+            loading={isDeleting}
             click={deleteBlogHandler}
             type="Delete"
           />
-          <Comment ownerID={owner._id} userId={userId} darkTheme={darkTheme} />
+          <Comment
+            ownerID={owner._id}
+            userId={userId}
+            darkTheme={darkTheme}
+            postId={postId}
+            comment={comment}
+          />
         </>
       );
   }
   // if the owner is not the current user give us the comment section without the publish or delete buttons
   if (owner._id !== userId) {
-    buttonJSX = <Comment ownerID={owner._id} userId={userId} />;
+    buttonJSX = (
+      <Comment
+        ownerID={owner._id}
+        userId={userId}
+        darkTheme={darkTheme}
+        postId={postId}
+        comment={comment}
+      />
+    );
   }
   return (
     <React.Fragment>
@@ -62,7 +80,7 @@ const BlogContent = ({
         </div>
       </div>
       <div className={classes.PostImage}>
-        <img src={popular1} alt="post image" />
+        <img src={coverImage} alt="post image" />
       </div>
       <div
         className={classes.Content}

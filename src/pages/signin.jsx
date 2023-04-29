@@ -24,7 +24,6 @@ const SignIn = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
       setIsAuthenticated(true);
-      dispatch(SET_TIMEOUT());
 
       setTimeout(() => {
         window.location.href = "/";

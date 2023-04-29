@@ -4,7 +4,8 @@ import img from "../../../../assets/Rectangle 4.png";
 import userImg from "../../../../assets/Ellipse.png";
 import { GrView, IoMdTime, CiEdit } from "../../../react-icons/index";
 import formartDate from "../../../../logic/formartDate";
-const ProfileBlogs = ({ data, darkTheme }) => {
+const ProfileBlogs = ({ data, darkTheme, username }) => {
+  console.log(data.owner);
   return (
     <div
       className={[
@@ -15,7 +16,7 @@ const ProfileBlogs = ({ data, darkTheme }) => {
     >
       <div className={classes.Image}>
         <img
-          src={data.image.length > 0 ? data.image : img}
+          src={data.image[0]}
           alt="blog-image"
           className={classes.ImagesImg}
         />
@@ -54,7 +55,7 @@ const ProfileBlogs = ({ data, darkTheme }) => {
             </div>
             <div className={classes.LeftContent}>
               <div style={darkTheme ? { color: "#fff" } : { color: "black" }}>
-                {/* {data.owner.firstname} */}
+                {username.slice(0, 30)}
               </div>
               <i style={darkTheme ? { color: "#fff" } : { color: "#888888" }}>
                 {formartDate(data.createdAt)}

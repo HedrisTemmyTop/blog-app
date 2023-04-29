@@ -194,18 +194,93 @@
   align-items: center;
   cursor: pointer;
 }
-@media only screen and (max-width: 1000px) {
+.CloseMobile {
+  /* visibility: hidden; */
+  width: 0% !important;
+  overflow: hidden;
+}
+.Mobile {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  display: none;
+  box-shadow: 4px 0 12px 0px #908f8f1f;
+  transition: all 0.2s;
+}
+.MobileLight {
+  background-color: #fff;
+  box-shadow: 0px 0 12px 0px #908f8f1f;
+  display: none;
+}
+.Mobile aside {
+  width: 45%;
+  background-color: #111926;
+  height: 100%;
+  color: #fff;
+}
+.Mobile aside main {
+  padding: 4rem;
+}
+
+.Mobile aside ul {
+  list-style: none;
+}
+.Mobile aside ul li:not(:last-child) {
+  margin-bottom: 2rem;
+}
+.Mobile aside section {
+  margin-top: 80%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.Mobile aside section a {
+  padding: 1rem 3rem;
+  flex-basis: 100%;
+  text-align: center;
+  max-width: 12rem;
+  border-radius: 10rem;
+}
+.SignUp {
+  background-color: #2930e3;
+}
+.SignIn {
+  border: 1px solid #2930e3;
+  color: #2930e3;
+}
+/*Media queries*/
+@media only screen and (max-width: 1200px) {
+  .Header {
+    padding: 2rem;
+  }
+  .HeaderLinks {
+    flex-basis: 42%;
+  }
+}
+@media only screen and (max-width: 880px) {
   .HeaderLinkItem {
     display: none;
   }
+
   .HeaderContackLink {
     display: none;
   }
   .Menu {
     display: block;
   }
+  .Mobile {
+    display: block;
+  }
+  .MobileLight {
+    display: block;
+  }
 }
-@media only screen and (max-width: 600px) {
+
+@media only screen and (max-width: 650px) {
   .HeaderLinkItem {
     display: none;
   }
@@ -223,16 +298,33 @@
     display: none;
   }
   .WriteBtn {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
   .userImg {
     width: 5rem;
     height: 5rem;
   }
+  .Mobile aside {
+    width: 55%;
+  }
+  .Mobile aside section {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .Mobile aside section a {
+    width: 80%;
+    max-width: 40rem;
+  }
+  .SignIn {
+    margin-top: 1rem;
+  }
 }
+
 @media only screen and (max-width: 400px) {
   .WriteBtn {
-    font-size: 1.6rem;
+    font-size: 1.35rem;
+    padding: 0.8rem 1.6rem;
   }
   .userImg {
     width: 4rem;
@@ -241,5 +333,13 @@
   .Menu {
     margin-right: 1.5rem;
     font-size: 2rem;
+  }
+  .Mobile aside {
+    width: 70%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .Mobile aside {
+    max-width: 85%;
   }
 }
