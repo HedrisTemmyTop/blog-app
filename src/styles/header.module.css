@@ -221,6 +221,7 @@
   width: 45%;
   background-color: #111926;
   height: 100%;
+  position: relative;
   color: #fff;
 }
 .Mobile aside main {
@@ -234,7 +235,9 @@
   margin-bottom: 2rem;
 }
 .Mobile aside section {
-  margin-top: 80%;
+  position: absolute;
+  bottom: 2rem;
+  width: 100%;
   display: flex;
   justify-content: space-evenly;
 }
@@ -321,6 +324,12 @@
   }
 }
 
+@media only screen and (max-width: 550px) {
+  .Mobile aside {
+    width: 70%;
+    max-width: 40rem;
+  }
+}
 @media only screen and (max-width: 400px) {
   .WriteBtn {
     font-size: 1.35rem;
@@ -335,7 +344,7 @@
     font-size: 2rem;
   }
   .Mobile aside {
-    width: 70%;
+    width: 75%;
   }
 }
 @media only screen and (max-width: 350px) {
