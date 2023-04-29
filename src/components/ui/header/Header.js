@@ -54,7 +54,10 @@ const Header = ({ user }) => {
           duration={2000}
         />
       )}
-      <div className={classes.Menu}>
+      <div
+        className={classes.Menu}
+        style={darkTheme ? { color: "#fff" } : { color: "#908f8f1f" }}
+      >
         <SlMenu onClick={handleOpen} />
       </div>
       <div className={classes.Logo}>
