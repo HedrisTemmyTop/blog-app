@@ -110,7 +110,7 @@
 }
 .Input {
   position: absolute;
-  height: 8rem;
+  height: 6rem;
   width: 100%;
   box-sizing: border-box;
   max-width: 110rem;
@@ -203,7 +203,7 @@
     padding: 3rem;
   }
   .Input {
-    height: 10px;
+    height: 4rem;
   }
   .Buttons a {
     margin-right: 2rem;

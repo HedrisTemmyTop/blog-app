@@ -17,6 +17,7 @@ import {
   BlogContent,
   classes,
 } from "./";
+import { toast } from "react-toastify";
 const Blog = () => {
   const token = localStorage.getItem("token"); // Getting token
   const userId = localStorage.getItem("userId"); // Current user id
@@ -55,8 +56,11 @@ const Blog = () => {
     const data = await publishBlog(id, token, route, updatedData);
     setIsPublishing(false);
     if (data.status === 200) {
-      setMessage("You successfully published your blog 😎😍");
       setIsPublished(true);
+      toast.success("Blog published successfully 😎😍❤❤", {
+        autoClose: 2000,
+        toastId: "toast-success",
+      });
     }
   };
 
@@ -66,8 +70,11 @@ const Blog = () => {
     const data = await deleteBlog(id, token);
     setIsDeleting(false);
     if (data.status === 200) {
-      setMessage("You successfully deleted your blog 😪😫");
       setIsDeleted(true);
+      toast.success("Blog deleted successfully 😥😏😪😫", {
+        autoClose: 2000,
+        toastId: "toast-success",
+      });
     }
   };
 
@@ -91,9 +98,8 @@ const Blog = () => {
           ))}
         </div>
         <div className={classes.BlogContent}>
-          {isDeleted || isPublished ? (
-            <AlertMessage bgColor="success" message={message} duration={2500} />
-          ) : null}
+          <AlertMessage duration={2000} />
+
           <BlogHeading
             title={blog.post.title}
             state={blog.post.state}

@@ -1,7 +1,8 @@
 import classes from "../styles/auth.module.css";
 
 import { useEffect, useState } from "react";
-
+import { toast } from "react-toastify"; // <-- Import toast
+import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import AlertMessage from "../components/alertMessage/alertMessage";
 import { RESET_AUTH_STATE, GET_USER, SET_TIMEOUT } from "../redux/";
@@ -10,7 +11,6 @@ import ErrorHandler from "../logic/errorHandler";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
   const { token, loading, userId, authenticated, error } = useSelector(
@@ -23,11 +23,11 @@ const SignIn = () => {
       localStorage.setItem("auth", authenticated);
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
-      setIsAuthenticated(true);
+      toast.success("You successfully logged in to Fenkei 😎😃");
 
       setTimeout(() => {
         window.location.href = "/";
-      }, 2000);
+      }, 2500);
     }
   }, [token]);
 
@@ -46,13 +46,12 @@ const SignIn = () => {
   };
   return (
     <ErrorHandler errorMessage={errorMessage}>
-      {isAuthenticated ? (
-        <AlertMessage
-          duration="1500"
-          bgColor="success"
-          message="You successfully logged to Fenkei 😎😃"
-        />
-      ) : null}
+      <AlertMessage
+        duration={1700}
+        bgColor="success"
+        message="You successfully logged in to Fenkei 😎😃"
+      />
+
       <div className={classes.Auth}>
         <div className={classes.Main}>
           <div className={classes.Content}>

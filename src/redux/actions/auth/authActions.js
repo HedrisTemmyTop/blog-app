@@ -9,7 +9,6 @@ import {
 export const GET_USER = (data) => {
   return function (dispatch) {
     dispatch(REGISTER_START());
-    console.log(data);
     axios
       .post("https://skyreal-blog-app.cyclic.app/users/login", data)
       .then((response) => {
@@ -24,14 +23,12 @@ export const GET_USER = (data) => {
 export const REGISTER_USER = (data) => {
   return function (dispatch) {
     dispatch(REGISTER_START());
-    console.log(data);
     axios
       .post("https://skyreal-blog-app.cyclic.app/users/", data)
       .then((response) => {
         return dispatch(REGISTER_SUCCESS(response.data.userid));
       })
       .catch((err) => {
-        console.log(err);
         dispatch(REGISTER_FAIL(err.response ? err.response.data : err.message));
       });
   };

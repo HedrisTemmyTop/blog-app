@@ -19,6 +19,7 @@ const Layout = (props) => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     localStorage.removeItem("tokenExpiration");
+    localStorage.removeItem("auth");
   }
   const { user, loading } = useSelector((state) => state.user_profile);
   useEffect(() => {

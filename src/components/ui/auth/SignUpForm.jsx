@@ -19,11 +19,11 @@ const SignUpForm = ({
   loading,
 }) => {
   return (
-    <form className={classes.Form} onSubmit={(e) => submitFormHandler(e)}>
+    <form className={classes.Form} onSubmit={submitFormHandler}>
       <div className={classes.FormHead}>
         <h3 className={classes.FormTitle}>Sign up</h3>
         <p className={[classes.Text, classes.Normal].join(" ")}>
-          Have an account ?{" "}
+          Have an account ?
           <Link to="/sign-in" className={classes.Link}>
             Sign in
           </Link>

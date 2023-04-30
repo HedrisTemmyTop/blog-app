@@ -4,7 +4,6 @@ const uploadImage = (event, setImage, setFile) => {
   if (event.type === "change") {
     const selectedImage = event.target.files[0];
 
-    console.log(event);
     if (selectedImage) {
       new Compressor(selectedImage, {
         quality: 0.6,
