@@ -56,7 +56,7 @@ const Header = ({ user }) => {
       )}
       <div
         className={classes.Menu}
-        style={darkTheme ? { color: "#fff" } : { color: "#908f8f1f" }}
+        style={darkTheme ? { color: "#fff" } : { color: "#111926" }}
       >
         <SlMenu onClick={handleOpen} />
       </div>
