@@ -18,7 +18,6 @@ const Settings = () => {
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
   const { darkTheme } = useContext(ThemeContext);
-  console.log(darkTheme);
   const dispatch = useDispatch();
   const { loading, user } = useSelector((state) => state.user_profile);
 
@@ -95,7 +94,6 @@ const Settings = () => {
         setUpdated(true);
       })
       .catch((error) => {
-        console.log(error);
         setUpdating(false);
         setError(error.response ? error.response.data : error.messaege);
       });
@@ -113,8 +111,6 @@ const Settings = () => {
         </div>
       );
     if (!loading && user) {
-      console.log(user);
-
       content = (
         <ErrorHandler
           errorMessage={error}

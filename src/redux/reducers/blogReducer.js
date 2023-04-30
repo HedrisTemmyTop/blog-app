@@ -17,7 +17,6 @@ const blogReducer = (state = initialState, action) => {
       error: null,
     };
   if (action.type === "FAILED") {
-    console.log(action);
     return {
       loading: false,
       success: false,

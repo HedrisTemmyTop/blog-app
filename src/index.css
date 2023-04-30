@@ -68,7 +68,7 @@ button {
   margin-inline: 3rem;
 }
 .mode svg {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
   cursor: pointer;
 }
@@ -124,6 +124,11 @@ button {
 }
 .comment {
   color: rgba(196, 196, 196, 1);
+}
+@media only screen and (min-width: 2000px) {
+  html {
+    font-size: 12px;
+  }
 }
 
 @media only screen and (max-width: 450px) {

@@ -1,12 +1,14 @@
 import classes from "../styles/auth.module.css";
 
 import { REGISTER_USER } from "../redux";
+import { toast } from "react-toastify"; // <-- Import toast
+import "react-toastify/dist/ReactToastify.css";
 
 import { useEffect, useState } from "react";
 import { SignUpForm, FormBottom } from "../components/ui/auth";
 import { useDispatch, useSelector } from "react-redux";
-import AlertMessage from "../components/alertMessage/alertMessage";
 import ErrorHandler from "../logic/errorHandler";
+import AlertMessage from "../components/alertMessage/alertMessage";
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,8 +16,6 @@ const SignUp = () => {
   const [lastname, setLastName] = useState("");
   const [username, setUserName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isAlert, setIsAlert] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
   const [errorMessage, setError] = useState(null);
 
   const dispatch = useDispatch();
@@ -24,60 +24,59 @@ const SignUp = () => {
   // when user is registered display alert modal for 2s then move to sign in
   useEffect(() => {
     if (registered) {
-      setIsRegistered(true);
+      toast.success("Registeration successful 😎😀", {
+        autoClose: 1800,
+        toastId: "success-toast",
+      });
       setTimeout(() => {
         window.location.href = "/sign-in";
-      }, 2000);
+      }, 2500);
     }
   }, [registered]);
 
   // For error when user already exists
   useEffect(() => {
-    setError(error);
+    if (error) {
+      setError(error);
+      toast.error(error, {
+        autoClose: 4000,
+        toastId: "error-toast",
+      });
+    }
   }, [error]);
 
-  // check if both password are equal
-  const dataValidation = (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      setIsAlert(true);
-      return false;
-    }
-  }
-  
   // submit form to backend;
 
   const submitFormHandler = async (e) => {
-    dataValidation(e);
-    const data = {
-      firstname: firstname,
-      password: password,
-      lastname: lastname,
-      username: username,
-      email: email,
-    };
+    e.preventDefault();
+    if (password.split("").length < 6) {
+      toast.warning("Password not the same ☹🙃", {
+        autoClose: 4000,
+        toastId: "warning-toast",
+      });
+    } else if (password !== confirmPassword) {
+   
+      toast.warning("Password not the same ☹🙃", {
+        autoClose: 4000,
+        toastId: "warning-toast",
+      });
+    } else {
+      const data = {
+        firstname: firstname,
+        password: password,
+        lastname: lastname,
+        username: username,
+        email: email,
+      };
 
-    dispatch(REGISTER_USER(data));
+      dispatch(REGISTER_USER(data));
+    }
   };
 
   return (
     <ErrorHandler errorMessage={errorMessage}>
+      <AlertMessage />
       <div className={classes.Auth}>
-        {isRegistered ? (
-          <AlertMessage
-            duration="1500"
-            bgColor="success"
-            message="You successfully registered to Fenkei 🎉🎉"
-          />
-        ) : null}
-        {isAlert ? (
-          <AlertMessage
-            duration="5000"
-            bgColor="warning"
-            message="Password and confirm password must be the same"
-            cancelBtn={true}
-          />
-        ) : null}
         <div className={classes.Main}>
           <div className={classes.Content}>
             <div className={classes.Left}>

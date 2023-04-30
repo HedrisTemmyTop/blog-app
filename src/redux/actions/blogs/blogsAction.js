@@ -15,11 +15,9 @@ export const GET_BLOGS = () => {
     axios
       .get(`${API_URL}blogs`)
       .then((response) => {
-        console.log(response);
         return dispatch(FETCH_SUCCESS(response.data.posts));
       })
       .catch((err) => {
-        console.log(err);
         return dispatch(FETCH_FAIL(err));
       });
   };
@@ -31,10 +29,8 @@ export const GET_BLOG = (id) => {
       .get(`${API_URL}blogs/${id}`)
       .then((response) => {
         dispatch(FETCH_BLOG_SUCCESS(response.data));
-        console.log(response);
       })
       .catch((err) => {
-        console.log(err);
         dispatch(FETCH_FAIL(err));
       });
   };
@@ -42,7 +38,6 @@ export const GET_BLOG = (id) => {
 
 export const POST_BLOG_REQUEST = (html, token) => {
   return async (dispatch) => {
-    console.log(html, token, "hello");
     dispatch(POST_START());
     axios
       .post(API_URL + "blogs", html, {
@@ -51,11 +46,9 @@ export const POST_BLOG_REQUEST = (html, token) => {
         },
       })
       .then((response) => {
-        console.log(response);
         dispatch(POST_SUCCESS(response));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(
           POST_FAIL(error.response ? error.response.data : error.message)
         );

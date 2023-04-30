@@ -46,17 +46,14 @@ const Home = () => {
 
   const searchBlogHandler = async (value) => {
     try {
-      console.log(value);
       const response = await axios.get(API_URL + "blogs?search=" + value);
       setFilterBlogs(response.data.posts);
-      console.log(response);
     } catch (error) {}
   };
 
   const nextPageHandler = () => {
     setCurrentPage((prev) => prev + 1);
-    console.log(currentPage);
-  };
+     };
   const prevPageHandler = () => {
     setCurrentPage((prev) => prev - 1);
   };

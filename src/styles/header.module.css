@@ -255,6 +255,13 @@
   border: 1px solid #2930e3;
   color: #2930e3;
 }
+.Left {
+  display: flex;
+}
+.RightSection {
+  display: flex;
+  align-items: center;
+}
 /*Media queries*/
 @media only screen and (max-width: 1200px) {
   .Header {
@@ -265,13 +272,10 @@
   }
 }
 @media only screen and (max-width: 880px) {
-  .HeaderLinkItem {
+  .HeaderLinks {
     display: none;
   }
 
-  .HeaderContackLink {
-    display: none;
-  }
   .Menu {
     display: block;
   }
@@ -284,15 +288,10 @@
 }
 
 @media only screen and (max-width: 650px) {
-  .HeaderLinkItem {
-    display: none;
-  }
   .Header {
     padding: 2.5rem 2.5rem;
   }
-  .HeaderContackLink {
-    display: none;
-  }
+
   .Menu {
     display: block;
   }

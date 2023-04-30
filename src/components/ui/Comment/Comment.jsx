@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import API_URL from "../../../api/URL";
 import classes from "../../../styles/Blog.module.css";
-import user from "../../../assets/Ellipse.png";
-import formartDate from "../../../logic/formartDate";
+
+import { toast } from "react-toastify";
 import Replies from "../blogReplies/replies";
 import "../../../index.css";
 import AlertMessage from "../../alertMessage/alertMessage";
@@ -47,10 +47,17 @@ const Comment = ({ ownerID, postId, darkTheme, comment }) => {
       .then((_) => {
         setCommenting(false);
         setCommented(true);
+        toast.success("Comment Added", {
+          autoClose: 2000,
+          toastId: "toast-success",
+        });
       })
       .catch((e) => {
-        console.log(e);
         setCommenting(false);
+        // toast.error(e.response ? e.response.data : e.message, {
+        //   autoClose: 4000,
+        //   toastId: "toast-error",
+        // });
         setError(e.response ? e.response.data : e.message);
       });
   };
@@ -61,13 +68,8 @@ const Comment = ({ ownerID, postId, darkTheme, comment }) => {
     >
       <div className={darkTheme ? classes.Comment : classes.CommentLight}>
         <Replies darkTheme={darkTheme} comment={comment} />
-        {commented && (
-          <AlertMessage
-            duration={2000}
-            message="Comment Added"
-            bgColor="success"
-          />
-        )}
+
+        <AlertMessage duration={2000} />
 
         <form className={classes.AddPost} onSubmit={handleSubmit}>
           <textarea

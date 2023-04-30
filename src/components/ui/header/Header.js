@@ -13,6 +13,7 @@ import { CiEdit } from "react-icons/ci";
 import UserNav from "./UserNav";
 import { useState, useEffect } from "react";
 import MobileHeader from "./MobileHeader";
+import { toast } from "react-toastify";
 const Header = ({ user }) => {
   const { darkTheme, toggleThemeContext } = useContext(ThemeContext);
   const [showUserNav, setShowUserNav] = useState(false);
@@ -21,11 +22,14 @@ const Header = ({ user }) => {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    console.log(logout);
     if (logout) {
+      toast.success("Logout successfull 😥😏😪😫", {
+        autoClose: 1700,
+        toastId: "toast-success",
+      });
       setTimeout(() => {
         window.location.reload();
-      }, 2000);
+      }, 2500);
     }
   }, [logout]);
 
@@ -47,26 +51,23 @@ const Header = ({ user }) => {
           : [classes.Header, classes.HeaderLight].join(" ")
       }
     >
-      {logout && (
-        <AlertMessage
-          bgColor="success"
-          message="Loggout successfull"
-          duration={2000}
-        />
-      )}
-      <div
-        className={classes.Menu}
-        style={darkTheme ? { color: "#fff" } : { color: "#111926" }}
-      >
-        <SlMenu onClick={handleOpen} />
-      </div>
-      <div className={classes.Logo}>
-        <span className={classes.SpecialLogo}>F</span>
-        <span
-          className={darkTheme ? classes.LogoNameDark : classes.LogoNameLight}
+      <AlertMessage duration={2000} />
+
+      <div className={classes.Left}>
+        <div
+          className={classes.Menu}
+          style={darkTheme ? { color: "#fff" } : { color: "#111926" }}
         >
-          enkei
-        </span>
+          <SlMenu onClick={handleOpen} />
+        </div>
+        <div className={classes.Logo}>
+          <span className={classes.SpecialLogo}>F</span>
+          <span
+            className={darkTheme ? classes.LogoNameDark : classes.LogoNameLight}
+          >
+            enkei
+          </span>
+        </div>
       </div>
 
       <ul className={classes.HeaderLinks}>
@@ -178,7 +179,7 @@ const Header = ({ user }) => {
           </div>
         </span>
       ) : (
-        <>
+        <div className={classes.RightSection}>
           <div className="mode" style={darkTheme ? { color: "#fff" } : null}>
             {darkTheme ? (
               <BsMoon onClick={toggleThemeContext} />
@@ -191,7 +192,7 @@ const Header = ({ user }) => {
               Sign up
             </Link>
           </div>
-        </>
+        </div>
       )}
       <MobileHeader open={open} handleClose={handleClose} token={token} />
     </header>

@@ -23,8 +23,8 @@ const CreateBlogForm = (props) => {
     tags,
     removeTagHandler,
     isPublishing,
+    handleInput,
   } = props;
-  console.log(tags);
   const editorRef = useRef(null);
 
   return (
@@ -56,6 +56,7 @@ const CreateBlogForm = (props) => {
         onKeyDown={(e) => {
           createTagHandler(e);
         }}
+        onInput={handleInput}
         value={tagsInput}
         onChange={(e) => setTagsInput(e.target.value)}
         type="text"

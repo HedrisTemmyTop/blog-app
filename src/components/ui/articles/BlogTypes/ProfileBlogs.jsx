@@ -79,12 +79,17 @@ const ProfileBlogs = ({ data, darkTheme, username }) => {
       </div>
       <div className={classes.Hover}>
         <div className={classes.HoverContent}>
-          <Link to={"/edit-blog/" + data._id}>
+          <div
+            to={"/edit-blog/" + data._id}
+            onClick={() => {
+              // alert("Comming soon");
+            }}
+          >
             <button>
               <CiEdit />
               <span>Edit</span>
             </button>
-          </Link>
+          </div>
           <div style={{ color: "#fff" }}>or</div>
           <Link to={"/blogs/" + data._id}>
             <GrView style={{ color: "white" }} />

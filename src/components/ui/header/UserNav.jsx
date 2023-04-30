@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import { BsBookmarkPlus, BsJournalBookmark } from "react-icons/bs";
 import { VscAccount } from "react-icons/vsc";
 import { AiOutlineLogout, AiOutlineDeploymentUnit } from "react-icons/ai";
-import { useEffect, useState } from "react";
-import AlertMessage from "../../alertMessage/alertMessage";
 const UserNav = ({ id, click }) => {
   return (
     <div className={classes.UserNavWrapper}>

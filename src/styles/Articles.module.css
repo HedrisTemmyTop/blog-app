@@ -139,11 +139,12 @@
   flex-basis: 82%;
   margin-right: 2.4rem;
   box-sizing: border-box;
+  flex-wrap: wrap;
 }
 .Box {
   margin-right: 4.8rem;
   margin-bottom: 4.4rem;
-  flex-basis: 30%;
+  flex-basis: 28%;
   min-width: 31.6rem;
   max-width: 50rem;
   padding: 1.2rem;
@@ -311,9 +312,10 @@
 .Special {
   margin-inline: 2rem;
 }
+
 @media only screen and (max-width: 1830px) {
   .Box {
-    flex-basis: 27%;
+    flex-basis: 28%;
   }
 }
 @media only screen and (max-width: 1521px) {

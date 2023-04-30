@@ -15,6 +15,7 @@ import Preview from "../components/ui/CreateBlog/Preview";
 import ErrorHandler from "../logic/errorHandler";
 import AlertMessage from "../components/alertMessage/alertMessage";
 import { useContext } from "react";
+import { toast } from "react-toastify";
 import { ThemeContext } from "../context/context";
 import Spinner from "../components/ui/spinner/spinner";
 /**This component uses two case
@@ -89,16 +90,19 @@ const CreateBlog = (props) => {
 
   //Once the blog is posted successfully
   useEffect(() => {
-    console.log(published);
     if (success) {
+      toast.success("Blog posted successfully 😍😎", {
+        autoClose: 2000,
+        toastId: "toast-success",
+      });
       setTimeout(() => {
         window.location.href = `/blogs/${mssg.data.blog._id}`;
-      }, 2250);
+      }, 2500);
     }
     if (published) {
       setTimeout(() => {
         window.history.back();
-      }, 2250);
+      }, 2500);
     }
   }, [success, published]);
   // once you click on the upload image, open files and upload get the selected image or u drag image to the box
@@ -111,6 +115,13 @@ const CreateBlog = (props) => {
   const createTagHandler = (e) => {
     if (e.key === "Enter" && !tags.includes(tagsInput)) {
       e.preventDefault();
+      setTags((prev) => [tagsInput, ...prev]);
+      return setTagsInput("");
+    }
+  };
+
+  const handleInput = () => {
+    if (!tags.includes(tagsInput)) {
       setTags((prev) => [tagsInput, ...prev]);
       return setTagsInput("");
     }
@@ -134,7 +145,10 @@ const CreateBlog = (props) => {
     const data = blogFormValidation(); // Get datas from validated inputs
     if (data !== false) {
       console.log(data);
-      if (data) dispatch(POST_BLOG_REQUEST(data, token)); // Send it to the backend
+      if (data) {
+        setIsPublishing(true);
+        dispatch(POST_BLOG_REQUEST(data, token));
+      } // Send it to the backend
     }
   };
   // Edit a blog
@@ -149,11 +163,23 @@ const CreateBlog = (props) => {
       console.log(data);
 
       setIsPublishing(false);
-      if (data.response.status === 200) {
+      console.log(data);
+      if (data.response && data.response.status === 200) {
+        toast.success("Blog editted successfully 😎😍", {
+          autoClose: 2000,
+          toastId: "toast-success",
+        });
         setPublished(true);
-
-        setMessage("Blog Edited 😍😁");
-      } else setPostingError(data.response ? data.response.data : data.message);
+      } else {
+        setPostingError(data.response ? data.response.data : data.message);
+        toast.error(
+          data.response ? data.response.data : data.message + "😨😰",
+          {
+            autoClose: 2100,
+            toastId: "toast-success",
+          }
+        );
+      }
     }
   };
   let content = (
@@ -178,6 +204,7 @@ const CreateBlog = (props) => {
             setTagsInput={setTagsInput}
             tagsInput={tagsInput}
             createTagHandler={createTagHandler}
+            handleInput={handleInput}
             postId={postId.id}
             setTitle={setTitle}
             html={html}
@@ -198,13 +225,11 @@ const CreateBlog = (props) => {
           ></div>
         </div>
       </div>
-      {success || published ? (
-        <AlertMessage
-          bgColor="success"
-          message={message ? message : "Blog posted 😍😁"}
-          duration={2000}
-        />
-      ) : null}
+      <AlertMessage
+        bgColor="success"
+        message={message ? message : "Blog posted 😍😁"}
+        duration={2000}
+      />
     </ErrorHandler>
   );
   if (postId) {
@@ -251,22 +276,9 @@ const CreateBlog = (props) => {
               ></div>
             </div>
           </div>
-          {success || published ? (
-            <AlertMessage
-              bgColor="success"
-              message={message ? message : "Blog posted 😍😁"}
-              duration={2000}
-            />
-          ) : null}
+          <AlertMessage duration={2000} />
         </ErrorHandler>
       );
-    if (loading) {
-      content = (
-        <div style={{ display: "grid", placeItems: "center" }}>
-          <Spinner />{" "}
-        </div>
-      );
-    }
   }
 
   return token ? content : <Navigate to="/sign-in" replace={true} />;

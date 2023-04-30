@@ -91,7 +91,6 @@ export const REGISTER_SUCCESS = (data) => {
   };
 };
 export const REGISTER_FAIL = (error) => {
-  console.log(error);
   return {
     type: "REGISTER_FAIL",
     error,
