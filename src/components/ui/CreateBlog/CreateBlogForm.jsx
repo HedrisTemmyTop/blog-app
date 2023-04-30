@@ -106,7 +106,9 @@ const CreateBlogForm = (props) => {
             style={{ maxWidth: "100%", maxHeight: "100%" }}
           />
         ) : (
-          <p>Upload/Drag an image here </p>
+          <p style={darkTheme ? { color: "#fff" } : { color: "#908f8f1f" }}>
+            Upload/Drag an image here{" "}
+          </p>
         )}
       </div>
       <button

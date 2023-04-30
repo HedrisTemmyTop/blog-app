@@ -30,7 +30,7 @@ const MobileHeader = ({ open, handleClose, token }) => {
               Sign up
             </Link>
             <Link to="/sign-in" className={classes.SignIn}>
-              Sign up
+              Sign in
             </Link>
           </section>
         )}

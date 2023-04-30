@@ -114,10 +114,12 @@
 
     min-height: 50rem;
   }
-  .Form {
-    flex-basis: 100%;
-  }
+
   .CreateBlogContainer {
     margin: 0;
+  }
+  .Form,
+  .FormLight {
+    flex-basis: 100%;
   }
 }
