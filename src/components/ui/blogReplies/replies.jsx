@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classes from "../../../styles/Blog.module.css";
 import { Link } from "react-router-dom";
-import user from "../../../assets/Ellipse.png";
+
 import formartDate from "../../../logic/formartDate";
 import defaultImage from "../../../assets/default_img.png";
 
