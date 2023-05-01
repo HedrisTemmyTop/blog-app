@@ -55,10 +55,9 @@ const CreateBlog = (props) => {
   // If there is an id that means user wants to edit so fetch their blog
   useEffect(() => {
     if (postId.id) {
-      console.log("yes");
       dispatch(GET_BLOG(postId.id));
     }
-  }, []);
+  }, [dispatch, postId.id]);
 
   // If you get a blog from the backend, update the fields
   useEffect(() => {
@@ -111,7 +110,7 @@ const CreateBlog = (props) => {
   const createTagHandler = (e) => {
     if (
       (e.key === "Enter" && !tags.includes(tagsInput)) ||
-      (e.code === 13 && !tags.includes(tagsInput))
+      (e.keyCode === 13 && !tags.includes(tagsInput))
     ) {
       e.preventDefault();
       setTags((prev) => [tagsInput, ...prev]);

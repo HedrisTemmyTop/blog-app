@@ -14,9 +14,7 @@ const PaginationButtons = ({
   const totalPages = Math.ceil(articles.length / resultsPerPage);
   let buttonContent = null;
 
-  console.log(totalPages);
   if (currentPage === 1 && totalPages > 1) {
-    console.log("hello");
     return (buttonContent = (
       <div className={classes.Pagination}>
         <div

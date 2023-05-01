@@ -23,7 +23,6 @@ const CreateBlogForm = (props) => {
     tags,
     removeTagHandler,
     isPublishing,
-    handleKeyDown,
   } = props;
   const editorRef = useRef(null);
 
