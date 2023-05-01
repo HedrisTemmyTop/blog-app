@@ -1,5 +1,5 @@
 import classes from "../styles/Settings.module.css";
-import img from "../assets/Ellipse.png";
+import defaultImage from "../assets/default_img.png";
 import Spinner from "../components/ui/spinner/spinner";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,6 @@ import axios from "axios";
 import API_URL from "../api/URL";
 import AlertMessage from "../components/alertMessage/alertMessage";
 import ErrorHandler from "../logic/errorHandler";
-
 const Settings = () => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
@@ -80,11 +79,10 @@ const Settings = () => {
     const data = {
       lastname,
       firstname,
-      job,
     };
     setUpdating(true);
     axios
-      .put(API_URL + "users/profile/" + user.user._id, data, {
+      .put(API_URL + "users/" + user.user._id, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -95,6 +93,7 @@ const Settings = () => {
       })
       .catch((error) => {
         setUpdating(false);
+        console.log(error);
         setError(error.response ? error.response.data : error.messaege);
       });
   };
@@ -129,7 +128,10 @@ const Settings = () => {
             <form className={classes.Form} onSubmit={handleSubmit}>
               <div className={classes.Display}>
                 <div className={classes.InputImage}>
-                  <img src={img} alt="profile picture" />
+                  <img
+                    src={user.user.image ? user.user.image[0] : defaultImage}
+                    alt="profile picture"
+                  />
                   <input type="file" className={classes.InputDp} />
                 </div>
               </div>

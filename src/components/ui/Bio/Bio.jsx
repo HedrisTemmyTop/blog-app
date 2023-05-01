@@ -1,16 +1,21 @@
 import classes from "../../../styles/Profile.module.css";
-import img from "../../../assets/Ellipse.png";
+import defaultImage from "../../../assets/default_img.png";
+import { useContext } from "react";
+import { ThemeContext } from "../../../context/context";
 
-const Bio = ({ username }) => {
+const Bio = ({ username, job, userImage }) => {
+  const { darkTheme } = useContext(ThemeContext);
   return (
-    <div className={classes.Bio}>
+    <div className={darkTheme ? classes.Bio : classes.BioLight}>
       <div className={classes.Left}>
         <div className={classes.Image}>
-          <img src={img} alt="display picture" />
+          <img src={userImage ? userImage[0] : defaultImage} alt="display " />
         </div>
         <div className={classes.Name}>
           <div className={classes.UserName}>{username}</div>
-          <div className={classes.Job}>Front-end dev</div>
+          <div className={classes.Job}>
+            {job.length > 0 ? job[0] : "No_Job"}
+          </div>
         </div>
       </div>
       <blockquote>

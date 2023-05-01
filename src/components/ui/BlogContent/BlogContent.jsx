@@ -1,5 +1,5 @@
 import classes from "../../../styles/Blog.module.css";
-import user from "../../../assets/Ellipse.png";
+import defaultImage from "../../../assets/default_img.png";
 
 import { IoMdTime } from "../../react-icons";
 import BlogButton from "../BlogButton/Button";
@@ -68,7 +68,11 @@ const BlogContent = ({
     <React.Fragment>
       <div className={darkTheme ? classes.Poster : classes.PosterLight}>
         <div className={classes.Left}>
-          <img src={user} alt="poster image" className={classes.PosterImg} />
+          <img
+            src={owner.image ? owner.image[0] : defaultImage}
+            alt="poster image"
+            className={classes.PosterImg}
+          />
           <div className={classes.Right}>
             <div className={classes.Name}>{owner.username}</div>
             <i>{formartDate(createdAt)}</i>

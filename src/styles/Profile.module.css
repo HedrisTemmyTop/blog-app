@@ -6,6 +6,14 @@
   align-items: center;
   color: white;
 }
+.BioLight {
+  background: rgba(60, 58, 58, 0.2);
+  display: flex;
+  justify-content: space-between;
+  padding: 4rem;
+  align-items: center;
+  color: black;
+}
 .Left {
   display: flex;
   align-items: center;

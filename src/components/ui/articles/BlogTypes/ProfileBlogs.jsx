@@ -1,11 +1,9 @@
 import classes from "../../../../styles/Articles.module.css";
 import { Link } from "react-router-dom";
-import img from "../../../../assets/Rectangle 4.png";
-import userImg from "../../../../assets/Ellipse.png";
+import defaultImage from "../../../../assets/default_img.png";
 import { GrView, IoMdTime, CiEdit } from "../../../react-icons/index";
 import formartDate from "../../../../logic/formartDate";
 const ProfileBlogs = ({ data, darkTheme, username }) => {
-  console.log(data.owner);
   return (
     <div
       className={[
@@ -51,7 +49,10 @@ const ProfileBlogs = ({ data, darkTheme, username }) => {
         <div className={classes.Bottom}>
           <div className={classes.Left}>
             <div className={classes.LeftImage}>
-              <img src={data.userImg ? data.user.img : userImg} />
+              <img
+                src={data.owner?.image ? data.owner.image[0] : defaultImage}
+                alt="user"
+              />
             </div>
             <div className={classes.LeftContent}>
               <div style={darkTheme ? { color: "#fff" } : { color: "black" }}>
@@ -79,17 +80,12 @@ const ProfileBlogs = ({ data, darkTheme, username }) => {
       </div>
       <div className={classes.Hover}>
         <div className={classes.HoverContent}>
-          <div
-            to={"/edit-blog/" + data._id}
-            onClick={() => {
-              // alert("Comming soon");
-            }}
-          >
+          <Link to={"/edit-blog/" + data._id}>
             <button>
               <CiEdit />
               <span>Edit</span>
             </button>
-          </div>
+          </Link>
           <div style={{ color: "#fff" }}>or</div>
           <Link to={"/blogs/" + data._id}>
             <GrView style={{ color: "white" }} />

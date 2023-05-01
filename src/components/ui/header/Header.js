@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import classes from "../../../styles/header.module.css";
-import userImg from "../../../assets/Ellipse.png";
+import defaultImage from "../../../assets/default_img.png";
 import downIcon from "../../../assets/Vector2.png";
 import { ThemeContext } from "../../../context/context";
 import { useContext } from "react";
@@ -160,10 +160,18 @@ const Header = ({ user }) => {
               onClick={() => setShowUserNav((prev) => !prev)}
             >
               {showUserNav && (
-                <UserNav id={user.user._id} click={handleLogout} />
+                <UserNav
+                  id={user.user._id}
+                  click={handleLogout}
+                  userImage={user.user.image}
+                />
               )}
 
-              <img src={userImg} alt="user-dp" className={classes.userImg} />
+              <img
+                src={user.image ? user.image[0] : defaultImage}
+                alt="user-dp"
+                className={classes.userImg}
+              />
               <div className={classes.UserName}>
                 {user ? user.user.username : ""}
               </div>

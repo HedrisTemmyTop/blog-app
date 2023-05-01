@@ -1,15 +1,20 @@
 import classes from "../../../styles/header.module.css";
-import img from "../../../assets/Ellipse.png";
+import defaultImage from "../../../assets/default_img.png";
+
 import { Link } from "react-router-dom";
 import { BsBookmarkPlus, BsJournalBookmark } from "react-icons/bs";
 import { VscAccount } from "react-icons/vsc";
 import { AiOutlineLogout, AiOutlineDeploymentUnit } from "react-icons/ai";
-const UserNav = ({ id, click }) => {
+const UserNav = ({ id, click, userImage }) => {
   return (
     <div className={classes.UserNavWrapper}>
       <div className={classes.UserNavSummary}>
         <Link to={"profile/" + id} className={classes.UserNavHead}>
-          <img src={img} alt="profile image" className={classes.UserNavImage} />
+          <img
+            src={userImage ? userImage[0] : defaultImage}
+            alt="profile image"
+            className={classes.UserNavImage}
+          />
           <span className={classes.UserNavName}>
             <h2 className={classes.FullName}>IDRIS TEMITOPE BABAL...</h2>
             <div className={classes.UserHandle}>@HedrisTemmyTop</div>
