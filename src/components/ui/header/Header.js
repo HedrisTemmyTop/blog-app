@@ -44,158 +44,159 @@ const Header = ({ user }) => {
     if (clicked === bg) setOpen(false);
   };
   return (
-    <header
-      className={
-        darkTheme
-          ? [classes.Header, classes.HeaderDark].join(" ")
-          : [classes.Header, classes.HeaderLight].join(" ")
-      }
-    >
+    <>
       <AlertMessage duration={2000} />
-
-      <div className={classes.Left}>
-        <div
-          className={classes.Menu}
-          style={darkTheme ? { color: "#fff" } : { color: "#111926" }}
-        >
-          <SlMenu onClick={handleOpen} />
-        </div>
-        <div className={classes.Logo}>
-          <span className={classes.SpecialLogo}>F</span>
-          <span
-            className={darkTheme ? classes.LogoNameDark : classes.LogoNameLight}
-          >
-            enkei
-          </span>
-        </div>
-      </div>
-
-      <ul className={classes.HeaderLinks}>
-        <li className={classes.HeaderLinkItem}>
-          <NavLink
-            to="/"
-            className={
-              darkTheme ? classes.HeaderLinkDark : classes.HeaderLinkLight
-            }
-          >
-            Home
-          </NavLink>
-        </li>
-        <li className={classes.HeaderLinkItem}>
-          <NavLink
-            to="/video"
-            className={
-              darkTheme ? classes.HeaderLinkDark : classes.HeaderLinkLight
-            }
-          >
-            Video
-          </NavLink>
-        </li>
-        <li className={classes.HeaderLinkItem}>
-          <NavLink
-            to="/books"
-            className={
-              darkTheme ? classes.HeaderLinkDark : classes.HeaderLinkLight
-            }
-          >
-            Books
-          </NavLink>
-        </li>
-        <li className={classes.HeaderLinkItem}>
-          <NavLink
-            to="/consulting"
-            className={
-              darkTheme ? classes.HeaderLinkDark : classes.HeaderLinkLight
-            }
-          >
-            Consulting
-          </NavLink>
-        </li>
-        <li className={classes.HeaderLinkItem}>
-          <NavLink
-            to="/about-us"
-            className={
-              darkTheme ? classes.HeaderLinkDark : classes.HeaderLinkLight
-            }
-          >
-            About Us
-          </NavLink>
-        </li>
-      </ul>
-      {user ? (
-        <span
-          // to={"/profile/" + userId}
-          className={[
-            classes.User,
-            darkTheme ? classes.UserDark : classes.UserLight,
-          ].join(" ")}
-        >
-          <Link to="/post-blog">
-            <button className={classes.WriteBtn}>
-              <span>Write</span>
-              <CiEdit className={classes.Write} />
-            </button>
-          </Link>
-          {user ? (
-            <div className="mode">
-              {darkTheme ? (
-                <BsMoon onClick={toggleThemeContext} />
-              ) : (
-                <BsSun className="sun" onClick={toggleThemeContext} />
-              )}
-            </div>
-          ) : (
-            <div className="mode">
-              {darkTheme ? (
-                <BsMoon onClick={toggleThemeContext} />
-              ) : (
-                <BsSun className="sun" onClick={toggleThemeContext} />
-              )}
-            </div>
-          )}
+      <header
+        className={
+          darkTheme
+            ? [classes.Header, classes.HeaderDark].join(" ")
+            : [classes.Header, classes.HeaderLight].join(" ")
+        }
+      >
+        <div className={classes.Left}>
           <div
-            className={classes.UserContainer}
-            onClick={() => setShowUserNav((prev) => !prev)}
+            className={classes.Menu}
+            style={darkTheme ? { color: "#fff" } : { color: "#111926" }}
           >
-            {showUserNav && <UserNav id={user.user._id} click={handleLogout} />}
-
-            <img
-              src={userImg}
-              alt="user display picture"
-              className={classes.userImg}
-            />
-            <div className={classes.UserName}>
-              {user ? user.user.username : ""}
-            </div>
-            {darkTheme ? (
-              <img src={downIcon} alt="icon" className={classes.IconDown} />
-            ) : (
-              <img
-                src={lightIconDown}
-                alt="light icon down"
-                className={classes.IconDown}
-              />
-            )}
+            <SlMenu onClick={handleOpen} />
           </div>
-        </span>
-      ) : (
-        <div className={classes.RightSection}>
-          <div className="mode" style={darkTheme ? { color: "#fff" } : null}>
-            {darkTheme ? (
-              <BsMoon onClick={toggleThemeContext} />
-            ) : (
-              <BsSun className="sun" onClick={toggleThemeContext} />
-            )}
-          </div>
-          <div className={classes.HeaderContackLink}>
-            <Link className={classes.ContactLink} to="/sign-up">
-              Sign up
-            </Link>
+          <div className={classes.Logo}>
+            <span className={classes.SpecialLogo}>F</span>
+            <span
+              className={
+                darkTheme ? classes.LogoNameDark : classes.LogoNameLight
+              }
+            >
+              enkei
+            </span>
           </div>
         </div>
-      )}
-      <MobileHeader open={open} handleClose={handleClose} token={token} />
-    </header>
+
+        <ul className={classes.HeaderLinks}>
+          <li className={classes.HeaderLinkItem}>
+            <NavLink
+              to="/"
+              className={
+                darkTheme ? classes.HeaderLinkDark : classes.HeaderLinkLight
+              }
+            >
+              Home
+            </NavLink>
+          </li>
+          <li className={classes.HeaderLinkItem}>
+            <NavLink
+              to="/video"
+              className={
+                darkTheme ? classes.HeaderLinkDark : classes.HeaderLinkLight
+              }
+            >
+              Video
+            </NavLink>
+          </li>
+          <li className={classes.HeaderLinkItem}>
+            <NavLink
+              to="/books"
+              className={
+                darkTheme ? classes.HeaderLinkDark : classes.HeaderLinkLight
+              }
+            >
+              Books
+            </NavLink>
+          </li>
+          <li className={classes.HeaderLinkItem}>
+            <NavLink
+              to="/consulting"
+              className={
+                darkTheme ? classes.HeaderLinkDark : classes.HeaderLinkLight
+              }
+            >
+              Consulting
+            </NavLink>
+          </li>
+          <li className={classes.HeaderLinkItem}>
+            <NavLink
+              to="/about-us"
+              className={
+                darkTheme ? classes.HeaderLinkDark : classes.HeaderLinkLight
+              }
+            >
+              About Us
+            </NavLink>
+          </li>
+        </ul>
+        {user ? (
+          <span
+            // to={"/profile/" + userId}
+            className={[
+              classes.User,
+              darkTheme ? classes.UserDark : classes.UserLight,
+            ].join(" ")}
+          >
+            <Link to="/post-blog">
+              <button className={classes.WriteBtn}>
+                <span>Write</span>
+                <CiEdit className={classes.Write} />
+              </button>
+            </Link>
+            {user ? (
+              <div className="mode">
+                {darkTheme ? (
+                  <BsMoon onClick={toggleThemeContext} />
+                ) : (
+                  <BsSun className="sun" onClick={toggleThemeContext} />
+                )}
+              </div>
+            ) : (
+              <div className="mode">
+                {darkTheme ? (
+                  <BsMoon onClick={toggleThemeContext} />
+                ) : (
+                  <BsSun className="sun" onClick={toggleThemeContext} />
+                )}
+              </div>
+            )}
+            <div
+              className={classes.UserContainer}
+              onClick={() => setShowUserNav((prev) => !prev)}
+            >
+              {showUserNav && (
+                <UserNav id={user.user._id} click={handleLogout} />
+              )}
+
+              <img src={userImg} alt="user-dp" className={classes.userImg} />
+              <div className={classes.UserName}>
+                {user ? user.user.username : ""}
+              </div>
+              {darkTheme ? (
+                <img src={downIcon} alt="icon" className={classes.IconDown} />
+              ) : (
+                <img
+                  src={lightIconDown}
+                  alt="light icon down"
+                  className={classes.IconDown}
+                />
+              )}
+            </div>
+          </span>
+        ) : (
+          <div className={classes.RightSection}>
+            <div className="mode" style={darkTheme ? { color: "#fff" } : null}>
+              {darkTheme ? (
+                <BsMoon onClick={toggleThemeContext} />
+              ) : (
+                <BsSun className="sun" onClick={toggleThemeContext} />
+              )}
+            </div>
+            <div className={classes.HeaderContackLink}>
+              <Link className={classes.ContactLink} to="/sign-up">
+                Sign up
+              </Link>
+            </div>
+          </div>
+        )}
+        <MobileHeader open={open} handleClose={handleClose} token={token} />
+      </header>
+    </>
   );
 };
 
