@@ -1,7 +1,7 @@
 import classes from "../../../styles/Profile.module.css";
 import img from "../../../assets/Ellipse.png";
 
-const Bio = ({ username }) => {
+const Bio = ({ username, job }) => {
   return (
     <div className={classes.Bio}>
       <div className={classes.Left}>
@@ -10,7 +10,9 @@ const Bio = ({ username }) => {
         </div>
         <div className={classes.Name}>
           <div className={classes.UserName}>{username}</div>
-          <div className={classes.Job}>Front-end dev</div>
+          <div className={classes.Job}>
+            {job.length > 0 ? job[0] : "No_Job"}
+          </div>
         </div>
       </div>
       <blockquote>

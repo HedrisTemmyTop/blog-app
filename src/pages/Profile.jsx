@@ -60,7 +60,7 @@ const Profile = (props) => {
   if (user && !loading && sortedBlogs)
     content = (
       <div>
-        <Bio username={user.user.username} />
+        <Bio username={user.user.username} job={user.user.job} />
         <Articles
           datas={Pagination(sortedBlogs, currentPage)}
           title="Your Blogs"

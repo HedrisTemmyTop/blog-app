@@ -3,6 +3,8 @@ import classes from "../../../styles/Blog.module.css";
 import { Link } from "react-router-dom";
 import user from "../../../assets/Ellipse.png";
 import formartDate from "../../../logic/formartDate";
+import defaultImage from "../../../assets/default_img.png";
+
 const Replies = ({ darkTheme, comment }) => {
   const sortedComment = () => {
     return comment.sort(
@@ -40,7 +42,14 @@ const Replies = ({ darkTheme, comment }) => {
                 >
                   <div className={classes.CommentsLeft}>
                     <div className={classes.Commenter}>
-                      <img src={user} alt="comment" />
+                      <img
+                        src={
+                          comment.author.image
+                            ? comment.author.image[0]
+                            : defaultImage
+                        }
+                        alt="comment"
+                      />
                       <div className={classes.CommenterRight}>
                         <div
                           className={classes.CommentName}
@@ -79,7 +88,14 @@ const Replies = ({ darkTheme, comment }) => {
               >
                 <div className={classes.CommentsLeft}>
                   <div className={classes.Commenter}>
-                    <img src={user} alt="comment" />
+                    <img
+                      src={
+                        comment.author.image
+                          ? comment.author.image[0]
+                          : defaultImage
+                      }
+                      alt="comment"
+                    />
                     <div className={classes.CommenterRight}>
                       <div
                         className={classes.CommentName}

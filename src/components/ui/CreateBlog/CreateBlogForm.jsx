@@ -23,6 +23,7 @@ const CreateBlogForm = (props) => {
     tags,
     removeTagHandler,
     isPublishing,
+    handleAddTag,
   } = props;
   const editorRef = useRef(null);
 
@@ -71,6 +72,13 @@ const CreateBlogForm = (props) => {
           </div>
         ))}
       </div>
+      <button
+        className={classes.CreateBtn}
+        type="button"
+        onClick={handleAddTag}
+      >
+        Create Tag
+      </button>
       <input
         style={
           !darkTheme

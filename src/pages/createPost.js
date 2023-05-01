@@ -108,24 +108,12 @@ const CreateBlog = (props) => {
 
   // Create a tag when user presses the enter key word
   const createTagHandler = (e) => {
-    if (
-      (e.key === "Enter" && !tags.includes(tagsInput)) ||
-      (e.keyCode === 13 && !tags.includes(tagsInput))
-    ) {
+    if ((e.key === "Enter" || e.keyCode === 13) && !tags.includes(tagsInput)) {
       e.preventDefault();
       setTags((prev) => [tagsInput, ...prev]);
       return setTagsInput("");
     }
   };
-
-  // const handleKeyDown = (e) => {
-  //   e.preventDefault();
-  //   if (e.code === 13 || e.key === "Enter")
-  //     if (!tags.includes(tagsInput)) {
-  //       setTags((prev) => [tagsInput, ...prev]);
-  //       return setTagsInput("");
-  //     }
-  // };
 
   // Remove a tag by clicking on the tag
   const removeTagHandler = (tagId) => {
@@ -151,11 +139,19 @@ const CreateBlog = (props) => {
       } // Send it to the backend
     }
   };
+
+  const handleAddTag = () => {
+    if (!tags.includes(tagsInput) && tagsInput.split("").length > 0) {
+      setTags((prev) => [tagsInput, ...prev]);
+      return setTagsInput("");
+    }
+  };
+
   // Edit a blog
   const editBlogHandler = async (e) => {
     e.preventDefault();
-    if (blogFormValidation("published") !== false) {
-      const updatedData = blogFormValidation("published"); // Get datas from validated inputs
+    if (blogFormValidation() !== false) {
+      const updatedData = blogFormValidation(); // Get datas from validated inputs
 
       const route = "blogs/";
       setIsPublishing(true);
@@ -164,7 +160,7 @@ const CreateBlog = (props) => {
 
       setIsPublishing(false);
       console.log(data);
-      if (data.response && data.response.status === 200) {
+      if (data.response?.status === 200) {
         toast.success("Blog editted successfully 😎😍", {
           autoClose: 2000,
           toastId: "toast-success",
@@ -196,6 +192,7 @@ const CreateBlog = (props) => {
         <div className={classes.CreateBlogContainer}>
           <CreateBlogForm
             darkTheme={darkTheme}
+            handleAddTag={handleAddTag}
             formRef={formRef}
             submitBlogHandler={submitBlogHandler}
             editBlogHandler={editBlogHandler}
@@ -244,6 +241,7 @@ const CreateBlog = (props) => {
               <CreateBlogForm
                 darkTheme={darkTheme}
                 formRef={formRef}
+                handleAddTag={handleAddTag}
                 submitBlogHandler={submitBlogHandler}
                 editBlogHandler={editBlogHandler}
                 title={title}

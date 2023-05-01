@@ -131,6 +131,11 @@
   align-items: center;
   margin-bottom: 2rem;
 }
+.Commenter img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
 .CommenterRight {
   margin-left: 1rem;
   color: #fff;

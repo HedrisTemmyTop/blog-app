@@ -1,7 +1,8 @@
 import classes from "../../../../styles/Articles.module.css";
 import { Link } from "react-router-dom";
-import img from "../../../../assets/Rectangle 4.png";
-import userImg from "../../../../assets/Ellipse.png";
+
+import defaultImage from "../../../../assets/default_img.png";
+
 import formartDate from "../../../../logic/formartDate";
 import { IoMdTime } from "../../../react-icons/index";
 
@@ -16,7 +17,7 @@ const HomepageBlog = ({ data, darkTheme }) => {
       <Link to={"/blogs/" + data._id}>
         <div className={classes.Image}>
           <img
-            src={data.image.length > 0 ? data.image : img}
+            src={data.image[0]}
             alt="blog-image"
             className={classes.ImagesImg}
           />
@@ -51,7 +52,10 @@ const HomepageBlog = ({ data, darkTheme }) => {
           <div className={classes.Bottom}>
             <div className={classes.Left}>
               <div className={classes.LeftImage}>
-                <img src={data.userImg ? data.user.img : userImg} />
+                <img
+                  src={data.owner?.image ? data.owner.image[0] : defaultImage}
+                  alt="user"
+                />
               </div>
               <div className={classes.LeftContent}>
                 <div style={darkTheme ? { color: "#fff" } : { color: "black" }}>

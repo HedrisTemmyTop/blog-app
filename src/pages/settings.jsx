@@ -80,11 +80,10 @@ const Settings = () => {
     const data = {
       lastname,
       firstname,
-      job,
     };
     setUpdating(true);
     axios
-      .put(API_URL + "users/profile/" + user.user._id, data, {
+      .put(API_URL + "users/" + user.user._id, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -95,6 +94,7 @@ const Settings = () => {
       })
       .catch((error) => {
         setUpdating(false);
+        console.log(error);
         setError(error.response ? error.response.data : error.messaege);
       });
   };
