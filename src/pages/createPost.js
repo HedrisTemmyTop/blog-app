@@ -17,7 +17,6 @@ import AlertMessage from "../components/alertMessage/alertMessage";
 import { useContext } from "react";
 import { toast } from "react-toastify";
 import { ThemeContext } from "../context/context";
-import Spinner from "../components/ui/spinner/spinner";
 /**This component uses two case
  *  1.) When user wants to edit a blog
  * PROCEDURE
@@ -32,7 +31,6 @@ import Spinner from "../components/ui/spinner/spinner";
 const CreateBlog = (props) => {
   // local storage variable
   const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
 
   //  Refs and params
   const postId = useParams();
@@ -43,9 +41,7 @@ const CreateBlog = (props) => {
 
   // useState
   const [html, setHtml] = useState(null);
-  const [imageFile, setFile] = useState(null);
   const [isPublishing, setIsPublishing] = useState(false);
-  const [message, setMessage] = useState("");
   const [published, setPublished] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -108,24 +104,29 @@ const CreateBlog = (props) => {
   // once you click on the upload image, open files and upload get the selected image or u drag image to the box
   const handleDrop = (event) => {
     event.preventDefault();
-    uploadImage(event, setImage, setFile);
+    uploadImage(event, setImage);
   };
 
   // Create a tag when user presses the enter key word
   const createTagHandler = (e) => {
-    if (e.key === "Enter" && !tags.includes(tagsInput)) {
+    if (
+      (e.key === "Enter" && !tags.includes(tagsInput)) ||
+      (e.code === 13 && !tags.includes(tagsInput))
+    ) {
       e.preventDefault();
       setTags((prev) => [tagsInput, ...prev]);
       return setTagsInput("");
     }
   };
 
-  const handleInput = () => {
-    if (!tags.includes(tagsInput)) {
-      setTags((prev) => [tagsInput, ...prev]);
-      return setTagsInput("");
-    }
-  };
+  // const handleKeyDown = (e) => {
+  //   e.preventDefault();
+  //   if (e.code === 13 || e.key === "Enter")
+  //     if (!tags.includes(tagsInput)) {
+  //       setTags((prev) => [tagsInput, ...prev]);
+  //       return setTagsInput("");
+  //     }
+  // };
 
   // Remove a tag by clicking on the tag
   const removeTagHandler = (tagId) => {
@@ -204,7 +205,6 @@ const CreateBlog = (props) => {
             setTagsInput={setTagsInput}
             tagsInput={tagsInput}
             createTagHandler={createTagHandler}
-            handleInput={handleInput}
             postId={postId.id}
             setTitle={setTitle}
             html={html}
@@ -225,11 +225,7 @@ const CreateBlog = (props) => {
           ></div>
         </div>
       </div>
-      <AlertMessage
-        bgColor="success"
-        message={message ? message : "Blog posted 😍😁"}
-        duration={2000}
-      />
+      <AlertMessage duration={2000} />
     </ErrorHandler>
   );
   if (postId) {
