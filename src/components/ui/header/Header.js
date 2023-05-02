@@ -164,6 +164,9 @@ const Header = ({ user }) => {
                   id={user.user._id}
                   click={handleLogout}
                   userImage={user.user.image}
+                  username={user.user.username}
+                  lastname={user.user.lastname}
+                  firstname={user.user.firstname}
                 />
               )}
 
