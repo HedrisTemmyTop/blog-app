@@ -20,7 +20,7 @@ const Header = ({ user }) => {
   const [open, setOpen] = useState(false);
   const [logout, setLogout] = useState(false);
   const token = localStorage.getItem("token");
-
+  console.log(user);
   useEffect(() => {
     if (logout) {
       toast.success("Logout successfull 😥😏😪😫", {
@@ -163,7 +163,11 @@ const Header = ({ user }) => {
                 <UserNav
                   id={user.user._id}
                   click={handleLogout}
-                  userImage={user.user.image}
+                  userImage={
+                    user.user.profileImage
+                      ? user.user.profileImage
+                      : defaultImage
+                  }
                   username={user.user.username}
                   lastname={user.user.lastname}
                   firstname={user.user.firstname}
@@ -171,7 +175,9 @@ const Header = ({ user }) => {
               )}
 
               <img
-                src={user.image ? user.image[0] : defaultImage}
+                src={
+                  user.user.profileImage ? user.user.profileImage : defaultImage
+                }
                 alt="user-dp"
                 className={classes.userImg}
               />
@@ -205,7 +211,13 @@ const Header = ({ user }) => {
             </div>
           </div>
         )}
-        <MobileHeader open={open} handleClose={handleClose} token={token} />
+        <MobileHeader
+          open={open}
+          handleClose={handleClose}
+          token={token}
+          socialHandles={user?.user?.socialHandle && user.user.socialHandle}
+          darkTheme={darkTheme}
+        />
       </header>
     </>
   );

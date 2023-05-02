@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import PaginationButtons from "../components/ui/paginationButtons";
 import Articles from "../components/ui/articles/articles";
-import HomeContent from "../components/ui/HomeContentMain";
+import defaultImage from "../assets/default_img.png";
+
 import { useEffect } from "react";
 import { GET_BLOGS } from "../redux/actions/blogs/blogsAction";
 import { connect, useDispatch, useSelector } from "react-redux";
@@ -63,7 +64,10 @@ const Profile = (props) => {
         <Bio
           username={user.user.username}
           job={user.user.job}
-          userImage={user.user.image}
+          userImage={
+            user.user.profileImage ? user.user.profileImage : defaultImage
+          }
+          bio={user.user.bio ? user.user.bio : "No bio"}
         />
         <Articles
           datas={Pagination(sortedBlogs, currentPage)}
