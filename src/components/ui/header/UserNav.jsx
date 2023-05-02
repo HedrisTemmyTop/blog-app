@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { BsBookmarkPlus, BsJournalBookmark } from "react-icons/bs";
 import { VscAccount } from "react-icons/vsc";
 import { AiOutlineLogout, AiOutlineDeploymentUnit } from "react-icons/ai";
-const UserNav = ({ id, click, userImage }) => {
+const UserNav = ({ id, username, click, userImage, lastname, firstname }) => {
   return (
     <div className={classes.UserNavWrapper}>
       <div className={classes.UserNavSummary}>
@@ -16,8 +16,17 @@ const UserNav = ({ id, click, userImage }) => {
             className={classes.UserNavImage}
           />
           <span className={classes.UserNavName}>
-            <h2 className={classes.FullName}>IDRIS TEMITOPE BABAL...</h2>
-            <div className={classes.UserHandle}>@HedrisTemmyTop</div>
+            <h2 className={classes.FullName}>
+              {firstname.split("").length > 20
+                ? `${lastname} ${firstname.split("").slice(0, 20).join("")}...`
+                : `${lastname} ${firstname}`}
+            </h2>
+            <div className={classes.UserHandle}>
+              @
+              {username.split("").slice(0, 30).length > 20
+                ? `${username.split("").slice(0, 20).join("")}...`
+                : username}
+            </div>
           </span>
         </Link>
         <ul className={classes.UserNavLinks}>

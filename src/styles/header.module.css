@@ -166,6 +166,7 @@
 .FullName {
   color: #000;
   font-size: 1.6rem;
+  flex-basis: 70%;
 }
 .UserNavImage {
   width: 5rem;
