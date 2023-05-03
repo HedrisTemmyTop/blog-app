@@ -14,6 +14,7 @@ const Layout = () => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const data = localStorage.getItem("data");
+  console.log(data);
   // get user if there is user id
   const tokenExpiration = localStorage.getItem("tokenExpiration");
 
@@ -40,6 +41,7 @@ const Layout = () => {
 
         dispatch(GET_USER_PROFILE(userId, token));
       }
+      dispatch(GET_USER_PROFILE(userId, token));
     }
   }, []);
 
