@@ -80,6 +80,7 @@ const Profile = () => {
           title="Your Blogs"
           button={true}
           username={user.user.username}
+          profileImage={user.user.profileImage}
         />
         <PaginationButtons
           articles={sortedBlogs}

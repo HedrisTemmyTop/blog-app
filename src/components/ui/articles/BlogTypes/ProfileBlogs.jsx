@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import defaultImage from "../../../../assets/default_img.png";
 import { GrView, IoMdTime, CiEdit } from "../../../react-icons/index";
 import formartDate from "../../../../logic/formartDate";
-const ProfileBlogs = ({ data, darkTheme, username }) => {
+const ProfileBlogs = ({ data, darkTheme, username, profileImage }) => {
+  console.log(data);
   return (
     <div
       className={[
@@ -13,11 +14,7 @@ const ProfileBlogs = ({ data, darkTheme, username }) => {
       ].join(" ")}
     >
       <div className={classes.Image}>
-        <img
-          src={data.image[0]}
-          alt="blog-image"
-          className={classes.ImagesImg}
-        />
+        <img src={data.image[0]} alt="blog" className={classes.ImagesImg} />
       </div>
       <div className={classes.Block}>
         <div className={classes.Links}>
@@ -50,7 +47,7 @@ const ProfileBlogs = ({ data, darkTheme, username }) => {
           <div className={classes.Left}>
             <div className={classes.LeftImage}>
               <img
-                src={data.owner?.image ? data.owner.image[0] : defaultImage}
+                src={profileImage ? profileImage : defaultImage}
                 alt="user"
               />
             </div>

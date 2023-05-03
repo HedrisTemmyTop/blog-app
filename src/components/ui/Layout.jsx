@@ -23,7 +23,7 @@ const Layout = () => {
     localStorage.removeItem("auth");
     localStorage.removeItem("data");
   }
-  const { user, loading, error } = useSelector((state) => state.user_profile);
+  const { user } = useSelector((state) => state.user_profile);
   useEffect(() => {
     if (auth === "true" && userId && token) {
       if (data) {
@@ -36,9 +36,8 @@ const Layout = () => {
           userInfo.lastname
         )
           return;
-
-        dispatch(GET_USER_PROFILE(userId, token));
-      }
+        else dispatch(GET_USER_PROFILE(userId, token));
+      } else dispatch(GET_USER_PROFILE(userId, token));
     }
   }, []);
 

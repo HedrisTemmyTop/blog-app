@@ -11,6 +11,7 @@ const MobileHeader = ({
   darkTheme,
 }) => {
   const bgRef = useRef();
+
   const headerClasses = [classes.Mobile];
   const headerClass = [classes.Mobile, classes.CloseMobile];
 
@@ -20,7 +21,7 @@ const MobileHeader = ({
       ref={bgRef}
       onClick={(e) => handleClose(e.target, bgRef.current)}
     >
-      <aside>
+      <aside style={!darkTheme ? { background: "#fff", color: "#111926" } : {}}>
         <main>
           <ul>
             <li>Home</li>
@@ -52,25 +53,45 @@ const MobileHeader = ({
               {socialHandles.map((handle) => {
                 if (handle.name === "github")
                   return (
-                    <a href={handle.url} target="_blank" key={handle._id}>
+                    <a
+                      href={handle.url}
+                      target="_blank"
+                      key={handle._id}
+                      rel="noopener noreferrer"
+                    >
                       <BsGithub />
                     </a>
                   );
                 if (handle.name === "twitter")
                   return (
-                    <a href={handle.url} target="_blank" key={handle._id}>
+                    <a
+                      href={handle.url}
+                      target="_blank"
+                      key={handle._id}
+                      rel="noopener noreferrer"
+                    >
                       <BsTwitter />
                     </a>
                   );
                 if (handle.name === "linkeldn")
                   return (
-                    <a href={handle.url} target="_blank" key={handle._id}>
+                    <a
+                      href={handle.url}
+                      target="_blank"
+                      key={handle._id}
+                      rel="noopener noreferrer"
+                    >
                       <BsLinkedin />
                     </a>
                   );
                 if (handle.name === "website")
                   return (
-                    <a href={handle.url} target="_blank" key={handle._id}>
+                    <a
+                      href={handle.url}
+                      target="_blank"
+                      key={handle._id}
+                      rel="noopener noreferrer"
+                    >
                       <BsGlobe />
                     </a>
                   );

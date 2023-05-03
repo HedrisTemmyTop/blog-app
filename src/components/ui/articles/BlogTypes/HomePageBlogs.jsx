@@ -16,11 +16,7 @@ const HomepageBlog = ({ data, darkTheme }) => {
     >
       <Link to={"/blogs/" + data._id}>
         <div className={classes.Image}>
-          <img
-            src={data.image[0]}
-            alt="blog-image"
-            className={classes.ImagesImg}
-          />
+          <img src={data.image[0]} alt="blog" className={classes.ImagesImg} />
         </div>
         <div className={classes.Block}>
           <div className={classes.Links}>
@@ -44,16 +40,20 @@ const HomepageBlog = ({ data, darkTheme }) => {
               darkTheme ? classes.ContentDark : classes.ContentLight,
             ].join(" ")}
           >
-            {data.description
-              ? data.description.slice(0, 100)
-              : "description is comminf"}
-            ...
+            {data.description.split("").length > 100
+              ? `${data.description.slice(0, 100)}`
+              : data.description}
+            .
           </div>
           <div className={classes.Bottom}>
             <div className={classes.Left}>
               <div className={classes.LeftImage}>
                 <img
-                  src={data.owner?.image ? data.owner.image[0] : defaultImage}
+                  src={
+                    data.owner?.profileImage
+                      ? data.owner.profileImage
+                      : defaultImage
+                  }
                   alt="user"
                 />
               </div>

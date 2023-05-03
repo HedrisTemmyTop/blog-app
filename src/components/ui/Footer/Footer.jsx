@@ -12,15 +12,16 @@ const Footer = () => {
         <div className={classes.Social}>
           <div>Lets connect</div>
           <span className={classes.SocialIcons}>
-            <a href="https://twitter.com/HedrisTemmyTop" target="_blank">
+            <a href="https://twitter.com/HedrisTemmyTop" target="_blank" rel="noopener noreferrer">
               <IoLogoTwitter className={classes.Icons} />
             </a>
-            <a href="https://wa.me/message/O6DEBLNSZ4HTM1" target="_blank">
+            <a href="https://wa.me/message/O6DEBLNSZ4HTM1" target="_blank" rel="noopener noreferrer">
               <IoLogoWhatsapp className={classes.Icons} />
             </a>
             <a
               href="https://www.linkedin.com/in/hedristemmytop/"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <IoLogoLinkedin className={classes.Icons} />
             </a>
