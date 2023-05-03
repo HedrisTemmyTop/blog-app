@@ -68,14 +68,26 @@ const Blog = () => {
   const deleteBlogHandler = async () => {
     setIsDeleting(true);
     const data = await deleteBlog(id, token);
+    console.log(data);
     setIsDeleting(false);
-    if (data.status === 200) {
+
+    if (data && data?.status >= 200 && data?.status < 300) {
+      console.log("yes");
       setIsDeleted(true);
       toast.success("Blog deleted successfully 😥😏😪😫", {
         autoClose: 2000,
         toastId: "toast-success",
       });
+    } else {
+      console.log("err");
+      toast.error("An error occured 😣😥😰", {
+        autoClose: 4000,
+        toastId: "toast-success",
+      });
     }
+  };
+  const handleReload = () => {
+    window.location.reload();
   };
 
   let content = null;
@@ -132,7 +144,43 @@ const Blog = () => {
     );
   }
 
-  if (error) content = <div>An error occured</div>;
+  if (error) {
+    console.log(error);
+    content = (
+      <div
+        style={
+          darkTheme
+            ? {
+                color: "#fff",
+                display: "grid",
+                placeItems: "center",
+                paddingTop: "2rem",
+              }
+            : {
+                color: "#111926",
+                display: "grid",
+                placeItems: "center",
+                paddingTop: "6rem",
+              }
+        }
+      >
+        <span>
+          An error occured
+          <button
+            onClick={handleReload}
+            style={{
+              padding: "1rem 2rem",
+              fontSize: "1.4rem",
+              borderRadius: ".5rem",
+              marginLeft: "1rem",
+            }}
+          >
+            Tap to reload
+          </button>
+        </span>
+      </div>
+    );
+  }
   return content;
 };
 

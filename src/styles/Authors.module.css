@@ -1,0 +1,101 @@
+.Authors {
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2rem;
+}
+.AuthorsLight {
+  margin-top: 2rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+.Authors form,
+.AuthorsLight form {
+  padding: 2rem;
+
+  width: 100%;
+  color: inherit;
+  box-sizing: border-box;
+}
+.Authors form input,
+.AuthorsLight form input {
+  width: 100%;
+  padding: 2rem;
+  border-radius: 10rem;
+  border: 0;
+  height: 4rem;
+  color: inherit;
+  background-color: rgb(21, 33, 55);
+}
+.AuthorsLight form input {
+  background-color: #0000001b;
+}
+.Authors form input:focus,
+.AuthorsLight form input:focus {
+  outline: none;
+}
+.Authors form input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.Authors main ul,
+.AuthorsLight main ul {
+  font-size: 1.4rem;
+  max-height: 80vh;
+  overflow-y: scroll;
+}
+
+.Authors main ul::-webkit-scrollbar,
+.AuthorsLight main ul::-webkit-scrollbar {
+  display: none;
+}
+
+.Authors main ul li,
+.AuthorsLight main ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 1rem;
+}
+.AuthorsLight main ul li {
+}
+.ListBodyLight {
+  padding-top: 1rem;
+  padding-inline: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.ListBody {
+  padding-top: 1rem;
+  padding-inline: 1rem;
+
+  border-bottom: 1px solid rgba(21, 33, 55);
+}
+.ListBodyLight:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.ListBody:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.Authors .Container,
+.AuthorsLight .Container {
+  display: flex;
+  align-items: center;
+}
+.Authors main ul li div svg {
+  margin-right: 2rem;
+}
+.Authors main ul li img,
+.AuthorsLight main ul li img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.Authors main button,
+.AuthorsLight main button {
+  background-color: transparent;
+  color: #2930e3;
+  font-size: 1.6rem;
+  border: 0;
+  margin: 2rem auto;
+  display: grid;
+  place-items: center;
+}

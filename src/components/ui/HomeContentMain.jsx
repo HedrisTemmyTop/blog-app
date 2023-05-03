@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "../../styles/Home.module.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 // import HomeLinks from "../components/HomeLinks";
 const HomeContent = ({ search }) => {
   const [searchVal, setSearchVal] = useState("");
+  const searchUrl = window.location.search;
+  useEffect(() => {
+    if (searchUrl.split("")[0] === "?") {
+      const endIndex = searchUrl.split("").length;
+      const searched = searchUrl.split("").slice(1, endIndex).join("");
+      setSearchVal(searched);
+      search(searched);
+    }
+  }, []);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    window.location = "/search?" + searchVal;
+  };
   return (
     <div className={classes.Home}>
       <div>
@@ -59,17 +73,12 @@ const HomeContent = ({ search }) => {
         <div className={classes.HomeCircle}></div>
       </div>
 
-      <form
-        className={classes.Form}
-        onSubmit={(e) => {
-          e.preventDefault();
-          search(searchVal);
-        }}
-      >
+      <form className={classes.Form} onSubmit={handleSearch}>
         <input
           type="search"
           className={classes.Input}
           placeholder="Search by tag or title"
+          value={searchVal}
           onChange={(e) => setSearchVal(e.target.value)}
         />
       </form>

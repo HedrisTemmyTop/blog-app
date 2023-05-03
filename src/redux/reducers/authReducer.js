@@ -1,10 +1,3 @@
-const clearLocalStorage = () => {
-  // console.log("clearing,,,");
-  // localStorage.removeItem("token");
-  // localStorage.removeItem("userId");
-  // localStorage.removeItem("auth");
-};
-
 const initialAuthState = {
   token: null,
   loading: false,
@@ -12,6 +5,7 @@ const initialAuthState = {
   registered: false,
   authenticated: false,
   userId: null,
+  data: null,
 };
 export const authReducer = (state = initialAuthState, action) => {
   if (action.type === "RESET_AUTH_STATE") {

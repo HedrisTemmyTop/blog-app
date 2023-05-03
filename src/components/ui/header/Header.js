@@ -20,6 +20,9 @@ const Header = ({ user }) => {
   const [open, setOpen] = useState(false);
   const [logout, setLogout] = useState(false);
   const token = localStorage.getItem("token");
+
+  const data = JSON.parse(localStorage.getItem("data"));
+
   console.log(user);
   useEffect(() => {
     if (logout) {
@@ -60,7 +63,7 @@ const Header = ({ user }) => {
           >
             <SlMenu onClick={handleOpen} />
           </div>
-          <div className={classes.Logo}>
+          <Link className={classes.Logo} to="/">
             <span className={classes.SpecialLogo}>F</span>
             <span
               className={
@@ -69,7 +72,7 @@ const Header = ({ user }) => {
             >
               enkei
             </span>
-          </div>
+          </Link>
         </div>
 
         <ul className={classes.HeaderLinks}>
@@ -124,7 +127,7 @@ const Header = ({ user }) => {
             </NavLink>
           </li>
         </ul>
-        {user ? (
+        {data || user ? (
           <span
             // to={"/profile/" + userId}
             className={[
@@ -138,7 +141,7 @@ const Header = ({ user }) => {
                 <CiEdit className={classes.Write} />
               </button>
             </Link>
-            {user ? (
+            {data || user ? (
               <div className="mode">
                 {darkTheme ? (
                   <BsMoon onClick={toggleThemeContext} />
@@ -161,28 +164,40 @@ const Header = ({ user }) => {
             >
               {showUserNav && (
                 <UserNav
-                  id={user.user._id}
+                  id={data ? data?.uid : user ? user.user._id : ""}
                   click={handleLogout}
                   userImage={
-                    user.user.profileImage
+                    data
+                      ? data.profileImage
+                      : user.user.profileImage
                       ? user.user.profileImage
                       : defaultImage
                   }
-                  username={user.user.username}
-                  lastname={user.user.lastname}
-                  firstname={user.user.firstname}
+                  username={
+                    data ? data.username : user ? user.user.username : ""
+                  }
+                  lastname={
+                    data ? data.lastname : user ? user.user.firstname : ""
+                  }
+                  firstname={
+                    data ? data.firstname : user ? user.user.firstname : ""
+                  }
                 />
               )}
 
               <img
                 src={
-                  user.user.profileImage ? user.user.profileImage : defaultImage
+                  data
+                    ? data?.profileImage
+                    : user.user.profileImage
+                    ? user.user.profileImage
+                    : defaultImage
                 }
                 alt="user-dp"
                 className={classes.userImg}
               />
               <div className={classes.UserName}>
-                {user ? user.user.username : ""}
+                {data ? data?.username : user ? user.user.username : ""}
               </div>
               {darkTheme ? (
                 <img src={downIcon} alt="icon" className={classes.IconDown} />

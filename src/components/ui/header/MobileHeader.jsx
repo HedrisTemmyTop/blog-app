@@ -52,25 +52,25 @@ const MobileHeader = ({
               {socialHandles.map((handle) => {
                 if (handle.name === "github")
                   return (
-                    <a href={handle.url} target="_blank">
+                    <a href={handle.url} target="_blank" key={handle._id}>
                       <BsGithub />
                     </a>
                   );
                 if (handle.name === "twitter")
                   return (
-                    <a href={handle.url} target="_blank">
+                    <a href={handle.url} target="_blank" key={handle._id}>
                       <BsTwitter />
                     </a>
                   );
                 if (handle.name === "linkeldn")
                   return (
-                    <a href={handle.url} target="_blank">
+                    <a href={handle.url} target="_blank" key={handle._id}>
                       <BsLinkedin />
                     </a>
                   );
                 if (handle.name === "website")
                   return (
-                    <a href={handle.url} target="_blank">
+                    <a href={handle.url} target="_blank" key={handle._id}>
                       <BsGlobe />
                     </a>
                   );

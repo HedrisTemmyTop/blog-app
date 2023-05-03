@@ -10,11 +10,16 @@ import { useDispatch, useSelector } from "react-redux";
 import Pagination, { resultsPerPage } from "../logic/pagination";
 import axios from "axios";
 import API_URL from "../api/URL";
+import { useContext } from "react";
+import { ThemeContext } from "../context/context";
 const Home = () => {
   // Component states and variables
+
   const [currentPage, setCurrentPage] = useState(1);
   const [sortedBlogs, setSortedBlogs] = useState(null);
   const [filterBlogs, setFilterBlogs] = useState(null);
+  const [searchError, setSearchError] = useState(null);
+  const { darkTheme } = useContext(ThemeContext);
   const dispatch = useDispatch();
 
   const { blogs, loading, error } = useSelector((state) => state.blogs);
@@ -47,15 +52,21 @@ const Home = () => {
   const searchBlogHandler = async (value) => {
     try {
       const response = await axios.get(API_URL + "blogs?search=" + value);
+
       setFilterBlogs(response.data.posts);
-    } catch (error) {}
+    } catch (error) {
+      setSearchError(error.message);
+    }
   };
 
   const nextPageHandler = () => {
     setCurrentPage((prev) => prev + 1);
-     };
+  };
   const prevPageHandler = () => {
     setCurrentPage((prev) => prev - 1);
+  };
+  const handleReload = () => {
+    window.location.reload();
   };
 
   let content = null;
@@ -107,7 +118,41 @@ const Home = () => {
       );
     }
   }
-
+  if (error || searchError)
+    content = (
+      <div
+        style={
+          darkTheme
+            ? {
+                color: "#fff",
+                display: "grid",
+                placeItems: "center",
+                paddingTop: "2rem",
+              }
+            : {
+                color: "#111926",
+                display: "grid",
+                placeItems: "center",
+                paddingBlock: "6rem",
+              }
+        }
+      >
+        <span>
+          An error occured
+          <button
+            onClick={handleReload}
+            style={{
+              padding: "1rem 2rem",
+              fontSize: "1.4rem",
+              borderRadius: ".5rem",
+              marginLeft: "1rem",
+            }}
+          >
+            Tap to reload
+          </button>
+        </span>
+      </div>
+    );
   return (
     <div>
       <HomeContent search={searchBlogHandler} />
