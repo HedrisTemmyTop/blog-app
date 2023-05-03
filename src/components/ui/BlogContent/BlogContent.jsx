@@ -23,7 +23,6 @@ const BlogContent = ({
   postId,
   comment,
 }) => {
-  console.log(postId);
   // if the userId is the owner and state is draft give us just a publish button and don't give comment section
   // if the userId is the owner and the state is published, give us comment section
   let buttonJSX = null;
@@ -70,7 +69,7 @@ const BlogContent = ({
         <div className={classes.Left}>
           <img
             src={owner.image ? owner.image[0] : defaultImage}
-            alt="poster image"
+            alt="poster"
             className={classes.PosterImg}
           />
           <div className={classes.Right}>
@@ -84,7 +83,7 @@ const BlogContent = ({
         </div>
       </div>
       <div className={classes.PostImage}>
-        <img src={coverImage} alt="post image" />
+        <img src={coverImage} alt="post" />
       </div>
       <div
         className={classes.Content}

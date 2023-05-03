@@ -29,25 +29,45 @@ const Bio = ({ username, job, userImage, bio, socialHandles }) => {
             {socialHandles.map((handle) => {
               if (handle.name === "github")
                 return (
-                  <a href={handle.url} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={handle.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    key={handle.name}
+                  >
                     <BsGithub />
                   </a>
                 );
               if (handle.name === "twitter")
                 return (
-                  <a href={handle.url} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={handle.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    key={handle.name}
+                  >
                     <BsTwitter />
                   </a>
                 );
               if (handle.name === "linkeldn")
                 return (
-                  <a href={handle.url} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={handle.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    key={handle.name}
+                  >
                     <BsLinkedin />
                   </a>
                 );
               if (handle.name === "website")
                 return (
-                  <a href={handle.url} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={handle.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    key={handle.name}
+                  >
                     <BsGlobe />
                   </a>
                 );

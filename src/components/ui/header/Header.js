@@ -23,7 +23,6 @@ const Header = ({ user }) => {
 
   const data = JSON.parse(localStorage.getItem("data"));
 
-  console.log(user);
   useEffect(() => {
     if (logout) {
       toast.success("Logout successfull 😥😏😪😫", {

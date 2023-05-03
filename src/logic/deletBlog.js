@@ -8,7 +8,6 @@ const deleteBlog = async (id, token) => {
         authorization: `Bearer ${token}`,
       },
     });
-    console.log(response);
     return response;
   } catch (error) {
     return error;

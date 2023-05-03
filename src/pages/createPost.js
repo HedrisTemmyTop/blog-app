@@ -62,7 +62,6 @@ const CreateBlog = (props) => {
   // If you get a blog from the backend, update the fields
   useEffect(() => {
     if (blogs.blog) {
-      console.log(blogs);
       const { blog } = blogs;
       setHtml(blog.post.body);
       setTags(blog.post.tags);
@@ -74,9 +73,7 @@ const CreateBlog = (props) => {
 
   // if user is not authorized
   useEffect(() => {
-    console.log(error);
     if (error === "Unauthorized" || postingError === "Unauthorized") {
-      console.log(error);
       setTimeout(() => {
         window.location.href = `/sign-in`;
       }, 3000);
@@ -117,7 +114,6 @@ const CreateBlog = (props) => {
 
   // Remove a tag by clicking on the tag
   const removeTagHandler = (tagId) => {
-    console.log(tagId, tags);
     const removedTag = tags.filter((tag) => tag !== tagId);
     setTags(removedTag);
   };
@@ -132,7 +128,6 @@ const CreateBlog = (props) => {
     e.preventDefault();
     const data = blogFormValidation(); // Get datas from validated inputs
     if (data !== false) {
-      console.log(data);
       if (data) {
         setIsPublishing(true);
         dispatch(POST_BLOG_REQUEST(data, token));
@@ -156,10 +151,8 @@ const CreateBlog = (props) => {
       const route = "blogs/";
       setIsPublishing(true);
       const data = await publishBlog(postId.id, token, route, updatedData); // Update it at the backend
-      console.log(data);
 
       setIsPublishing(false);
-      console.log(data);
       if (data.response?.status === 200) {
         toast.success("Blog editted successfully 😎😍", {
           autoClose: 2000,

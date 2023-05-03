@@ -29,7 +29,6 @@ const Blog = () => {
   const [isDeleting, setIsDeleting] = useState(null);
   const [isDeleted, setIsDeleted] = useState(null);
   const [isPublished, setIsPublished] = useState(null);
-  const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
 
@@ -68,18 +67,15 @@ const Blog = () => {
   const deleteBlogHandler = async () => {
     setIsDeleting(true);
     const data = await deleteBlog(id, token);
-    console.log(data);
     setIsDeleting(false);
 
     if (data && data?.status >= 200 && data?.status < 300) {
-      console.log("yes");
       setIsDeleted(true);
       toast.success("Blog deleted successfully 😥😏😪😫", {
         autoClose: 2000,
         toastId: "toast-success",
       });
     } else {
-      console.log("err");
       toast.error("An error occured 😣😥😰", {
         autoClose: 4000,
         toastId: "toast-success",
@@ -92,7 +88,6 @@ const Blog = () => {
 
   let content = null;
   if (loading) {
-    console.log("Hello world");
     content = (
       <div className="spinner_body">
         <Spinner />
@@ -101,7 +96,6 @@ const Blog = () => {
   }
 
   if (!loading && blog && !error) {
-    console.log(blog);
     content = (
       <div className={classes.Blog}>
         <div className={classes.Tag}>
@@ -145,7 +139,6 @@ const Blog = () => {
   }
 
   if (error) {
-    console.log(error);
     content = (
       <div
         style={

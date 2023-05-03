@@ -15,6 +15,25 @@ const MobileHeader = ({
   const headerClasses = [classes.Mobile];
   const headerClass = [classes.Mobile, classes.CloseMobile];
 
+  const renderSocialLink = (handle) => {
+    let icon;
+    if (handle.name === "github") icon = <BsGithub />;
+    else if (handle.name === "twitter") icon = <BsTwitter />;
+    else if (handle.name === "linkeldn") icon = <BsLinkedin />;
+    else if (handle.name === "website") icon = <BsGlobe />;
+
+    return (
+      <a
+        href={handle.url}
+        target="_blank"
+        key={handle._id}
+        rel="noopener noreferrer"
+      >
+        {icon}
+      </a>
+    );
+  };
+
   return (
     <header
       className={open ? headerClasses.join(" ") : headerClass.join(" ")}
@@ -50,52 +69,7 @@ const MobileHeader = ({
                 darkTheme ? classes.SocialLinksDark : classes.SocialLinksLight
               }
             >
-              {socialHandles.map((handle) => {
-                if (handle.name === "github")
-                  return (
-                    <a
-                      href={handle.url}
-                      target="_blank"
-                      key={handle._id}
-                      rel="noopener noreferrer"
-                    >
-                      <BsGithub />
-                    </a>
-                  );
-                if (handle.name === "twitter")
-                  return (
-                    <a
-                      href={handle.url}
-                      target="_blank"
-                      key={handle._id}
-                      rel="noopener noreferrer"
-                    >
-                      <BsTwitter />
-                    </a>
-                  );
-                if (handle.name === "linkeldn")
-                  return (
-                    <a
-                      href={handle.url}
-                      target="_blank"
-                      key={handle._id}
-                      rel="noopener noreferrer"
-                    >
-                      <BsLinkedin />
-                    </a>
-                  );
-                if (handle.name === "website")
-                  return (
-                    <a
-                      href={handle.url}
-                      target="_blank"
-                      key={handle._id}
-                      rel="noopener noreferrer"
-                    >
-                      <BsGlobe />
-                    </a>
-                  );
-              })}
+              {socialHandles.map((handle) => renderSocialLink(handle))}
             </div>
           </div>
         )}

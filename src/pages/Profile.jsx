@@ -79,8 +79,8 @@ const Profile = () => {
           datas={Pagination(sortedBlogs, currentPage)}
           title="Your Blogs"
           button={true}
-          username={user.user.username}
           profileImage={user.user.profileImage}
+          username={user.user.username}
         />
         <PaginationButtons
           articles={sortedBlogs}

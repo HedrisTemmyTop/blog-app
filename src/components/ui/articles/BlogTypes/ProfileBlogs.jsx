@@ -4,7 +4,6 @@ import defaultImage from "../../../../assets/default_img.png";
 import { GrView, IoMdTime, CiEdit } from "../../../react-icons/index";
 import formartDate from "../../../../logic/formartDate";
 const ProfileBlogs = ({ data, darkTheme, username, profileImage }) => {
-  console.log(data);
   return (
     <div
       className={[
@@ -38,10 +37,9 @@ const ProfileBlogs = ({ data, darkTheme, username, profileImage }) => {
             darkTheme ? classes.ContentDark : classes.ContentLight,
           ].join(" ")}
         >
-          {data.description
-            ? data.description.slice(0, 100)
-            : "description is comminf"}
-          ...
+          {data.description.split("").length > 100
+            ? `${data.description.slice(0, 100)}...`
+            : data.description}
         </div>
         <div className={classes.Bottom}>
           <div className={classes.Left}>

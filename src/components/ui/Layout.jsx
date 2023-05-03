@@ -6,6 +6,7 @@ import { GET_USER_PROFILE } from "../../redux";
 import { ThemeContext } from "../../context/context";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import AlertMessage from "../alertMessage/alertMessage";
 const Layout = () => {
   const { darkTheme } = useContext(ThemeContext);
   const auth = localStorage.getItem("auth");
@@ -23,7 +24,7 @@ const Layout = () => {
     localStorage.removeItem("auth");
     localStorage.removeItem("data");
   }
-  const { user } = useSelector((state) => state.user_profile);
+  const { user, error } = useSelector((state) => state.user_profile);
   useEffect(() => {
     if (auth === "true" && userId && token) {
       if (data) {
@@ -36,8 +37,9 @@ const Layout = () => {
           userInfo.lastname
         )
           return;
-        else dispatch(GET_USER_PROFILE(userId, token));
-      } else dispatch(GET_USER_PROFILE(userId, token));
+
+        dispatch(GET_USER_PROFILE(userId, token));
+      }
     }
   }, []);
 
@@ -54,6 +56,14 @@ const Layout = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (error?.response?.data === "Unauthorized") {
+      setTimeout(() => {
+        window.location = "/sign-in";
+      }, 5000);
+    }
+  }, [error]);
+
   return (
     <React.Fragment>
       <div
@@ -69,6 +79,7 @@ const Layout = () => {
         </div>
         <Footer />
       </div>
+      <AlertMessage duration={4000} />
     </React.Fragment>
   );
 };

@@ -49,13 +49,11 @@ const Settings = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       const handleSocials = (name) => {
         const [handle] = user.user.socialHandle.filter(
           (handle) => handle.name === name
         );
         if (handle) {
-          console.log(handle);
           return handle.url;
         }
         return "";
@@ -96,7 +94,6 @@ const Settings = () => {
 
   const handleImage = (event) => {
     uploadImage(event, setImage);
-    console.log(image);
   };
 
   const handleSubmit = (e) => {
@@ -117,7 +114,6 @@ const Settings = () => {
       bio: bio,
     };
     setUpdating(true);
-    console.log(data, job);
     axios
       .put(API_URL + "users/" + user.user._id, data, {
         headers: {
@@ -125,13 +121,11 @@ const Settings = () => {
         },
       })
       .then((response) => {
-        console.log(response);
         setUpdating(false);
         setUpdated(true);
       })
       .catch((error) => {
         setUpdating(false);
-        console.log(error);
         setError(error.response ? error.response.data : error.messaege);
       });
   };
