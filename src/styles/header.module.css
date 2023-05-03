@@ -116,6 +116,7 @@
 .UserNavSummary {
   position: relative;
 }
+
 .UserNavHead,
 .UserNavLinks a,
 .UserNavLinks button {
@@ -126,6 +127,9 @@
   padding: 2rem;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
+}
+.UserNavHead span {
+  flex-basis: 75%;
 }
 .UserNavHead:hover,
 .UserNavLinks a:hover,
@@ -153,6 +157,25 @@
   font-size: 2.2rem;
 }
 
+.SocialLinksLight {
+  color: #111926;
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 20rem;
+  margin-top: 1rem;
+}
+.SocialLinksDark {
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 20rem;
+  margin-top: 1rem;
+}
+.SocialLinksLight a,
+.SocialLinksDark a {
+  color: inherit;
+  font-size: 2rem;
+}
 .Pointer {
   background-color: #fff;
   width: 3.5rem;
@@ -166,7 +189,6 @@
 .FullName {
   color: #000;
   font-size: 1.6rem;
-  flex-basis: 70%;
 }
 .UserNavImage {
   width: 5rem;

@@ -1,23 +1,35 @@
 .Bio {
   background: rgba(60, 58, 58, 0.2);
-  display: flex;
-  justify-content: space-between;
-  padding: 4rem;
-  align-items: center;
+
   color: white;
 }
 .BioLight {
   background: rgba(60, 58, 58, 0.2);
-  display: flex;
-  justify-content: space-between;
-  padding: 4rem;
-  align-items: center;
+
   color: black;
+}
+.BioMain {
+  justify-content: space-between;
+  display: flex;
+  padding: 2rem 4rem;
+  align-items: center;
 }
 .Left {
   display: flex;
   align-items: center;
 }
+.Icons {
+  display: grid;
+  place-items: center;
+}
+.Icons .Icon svg {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.Icon a:not(:last-child) {
+  margin-right: 2rem;
+}
+
 .Image img {
   width: 12rem;
   height: 12rem;
@@ -39,8 +51,9 @@ blockquote {
   line-height: 2rem;
 }
 @media only screen and (max-width: 790px) {
-  .Bio {
+  .BioMain {
     flex-direction: column;
+    align-items: flex-start;
   }
   blockquote {
     margin-top: 2.5rem;

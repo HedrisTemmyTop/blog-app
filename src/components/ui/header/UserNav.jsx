@@ -11,7 +11,7 @@ const UserNav = ({ id, username, click, userImage, lastname, firstname }) => {
       <div className={classes.UserNavSummary}>
         <Link to={"profile/" + id} className={classes.UserNavHead}>
           <img
-            src={userImage ? userImage[0] : defaultImage}
+            src={userImage}
             alt="profile image"
             className={classes.UserNavImage}
           />

@@ -2,8 +2,14 @@ import React, { useContext } from "react";
 import classes from "../../../styles/Articles.module.css";
 import Box from "./Box";
 import { ThemeContext } from "../../../context/context";
-import { Link } from "react-router-dom";
-const Articles = ({ datas, title, button, username = "" }) => {
+
+const Articles = ({
+  datas,
+  title,
+  button,
+  username = "",
+  profileImage = null,
+}) => {
   const { darkTheme } = useContext(ThemeContext);
 
   return (
@@ -37,7 +43,13 @@ const Articles = ({ datas, title, button, username = "" }) => {
           <div className={classes.Boxes}>
             {datas.map((data, i) => {
               return (
-                <Box data={data} key={i} button={button} username={username} />
+                <Box
+                  data={data}
+                  key={i}
+                  button={button}
+                  username={username}
+                  profileImage={profileImage}
+                />
               );
             })}
           </div>

@@ -1,11 +1,38 @@
 import classes from "../../../styles/header.module.css";
 import { Link } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import { BsGithub, BsLinkedin, BsTwitter, BsGlobe } from "react-icons/bs";
 
-const MobileHeader = ({ open, handleClose, token }) => {
+const MobileHeader = ({
+  open,
+  handleClose,
+  token,
+  socialHandles,
+  darkTheme,
+}) => {
   const bgRef = useRef();
+
   const headerClasses = [classes.Mobile];
   const headerClass = [classes.Mobile, classes.CloseMobile];
+
+  const renderSocialLink = (handle) => {
+    let icon;
+    if (handle.name === "github") icon = <BsGithub />;
+    else if (handle.name === "twitter") icon = <BsTwitter />;
+    else if (handle.name === "linkeldn") icon = <BsLinkedin />;
+    else if (handle.name === "website") icon = <BsGlobe />;
+
+    return (
+      <a
+        href={handle.url}
+        target="_blank"
+        key={handle._id}
+        rel="noopener noreferrer"
+      >
+        {icon}
+      </a>
+    );
+  };
 
   return (
     <header
@@ -13,7 +40,7 @@ const MobileHeader = ({ open, handleClose, token }) => {
       ref={bgRef}
       onClick={(e) => handleClose(e.target, bgRef.current)}
     >
-      <aside>
+      <aside style={!darkTheme ? { background: "#fff", color: "#111926" } : {}}>
         <main>
           <ul>
             <li>Home</li>
@@ -33,6 +60,18 @@ const MobileHeader = ({ open, handleClose, token }) => {
               Sign in
             </Link>
           </section>
+        )}
+
+        {socialHandles && (
+          <div>
+            <div
+              className={
+                darkTheme ? classes.SocialLinksDark : classes.SocialLinksLight
+              }
+            >
+              {socialHandles.map((handle) => renderSocialLink(handle))}
+            </div>
+          </div>
         )}
       </aside>
     </header>

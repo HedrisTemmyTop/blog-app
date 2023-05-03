@@ -12,6 +12,7 @@ import axios from "axios";
 import API_URL from "../api/URL";
 import AlertMessage from "../components/alertMessage/alertMessage";
 import ErrorHandler from "../logic/errorHandler";
+import uploadImage from "../logic/uploadImage";
 const Settings = () => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
@@ -30,14 +31,14 @@ const Settings = () => {
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
   const [website, setWebsite] = useState("");
-  const [job, setJob] = useState([]);
+  const [role, setRole] = useState("");
   const [number, setNumber] = useState("");
+  const [company, setCompany] = useState("");
   const [github, setGithub] = useState("");
   const [twitter, setTwitter] = useState("");
   const [linkeldn, setLinkeldn] = useState("");
-  const [instagram, setInstagram] = useState("");
   const [dp, setDp] = useState("");
-
+  const [image, setImage] = useState(null);
   useEffect(() => {
     if (!token && !userId) return navigate("/sign-in");
   }, []);
@@ -48,13 +49,30 @@ const Settings = () => {
 
   useEffect(() => {
     if (user) {
+      const handleSocials = (name) => {
+        const [handle] = user.user.socialHandle.filter(
+          (handle) => handle.name === name
+        );
+        if (handle) {
+          return handle.url;
+        }
+        return "";
+      };
       setFirstname(user.user.firstname);
       setLastname(user.user.lastname);
       setUsername(user.user.username);
       setEmail(user.user.email);
+      setGithub(handleSocials("github"));
+      setWebsite(handleSocials("website"));
+      setLinkeldn(handleSocials("linkeldn"));
+      setTwitter(handleSocials("twitter"));
+      setCompany(user.user.job[0]?.company || "");
+      setRole(user.user.job[0]?.role || "");
+
+      setDp(user.user.profileImage ? user.user.profileImage : defaultImage);
 
       setBio(user.user.bio);
-      setJob(user.user.job);
+
       setLocation(user.user.location);
     }
   }, [user]);
@@ -69,16 +87,31 @@ const Settings = () => {
   useEffect(() => {
     if (updated) {
       setTimeout(() => {
-        window.location.reload();
+        // window.location.reload();
       }, 3000);
     }
   }, [updated]);
 
+  const handleImage = (event) => {
+    uploadImage(event, setImage);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const socialHandle = [
+      { name: "github", url: github },
+      { name: "website", url: website },
+      { name: "linkeldn", url: linkeldn },
+      { name: "twitter", url: twitter },
+    ];
+    const job = [{ company, role }];
     const data = {
       lastname,
       firstname,
+      socialHandle,
+      job,
+      profileImage: image ? image : dp,
+      bio: bio,
     };
     setUpdating(true);
     axios
@@ -93,7 +126,6 @@ const Settings = () => {
       })
       .catch((error) => {
         setUpdating(false);
-        console.log(error);
         setError(error.response ? error.response.data : error.messaege);
       });
   };
@@ -128,11 +160,13 @@ const Settings = () => {
             <form className={classes.Form} onSubmit={handleSubmit}>
               <div className={classes.Display}>
                 <div className={classes.InputImage}>
-                  <img
-                    src={user.user.image ? user.user.image[0] : defaultImage}
-                    alt="profile picture"
+                  <img src={image ? image : dp} alt="profile" />
+                  <input
+                    type="file"
+                    className={classes.InputDp}
+                    onChange={handleImage}
+                    // value={dp}
                   />
-                  <input type="file" className={classes.InputDp} />
                 </div>
               </div>
               <div className={classes.FormInputs}>
@@ -199,9 +233,21 @@ const Settings = () => {
                       type="text"
                       placeholder="Frontend Engineer"
                       className={classes.InputEl}
-                      value={job.length ? job[0] : ""}
+                      value={role}
                       onChange={(e) => {
-                        setJob((prev) => [e.target.value, ...prev]);
+                        setRole(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className={classes.Input}>
+                    <label className={classes.InputLabel}>Company</label>
+                    <input
+                      type="text"
+                      placeholder="Frontend Engineer"
+                      className={classes.InputEl}
+                      value={company}
+                      onChange={(e) => {
+                        setCompany(e.target.value);
                       }}
                     />
                   </div>
@@ -214,6 +260,10 @@ const Settings = () => {
                       type="text"
                       placeholder="https://www.linkedin.com/in/hedristemmytop/"
                       className={classes.InputEl}
+                      value={linkeldn}
+                      onChange={(e) => {
+                        setLinkeldn(e.target.value);
+                      }}
                     />
                   </div>
                   <div className={classes.Input}>
@@ -230,6 +280,10 @@ const Settings = () => {
                       type="text"
                       placeholder="https://twitter.com/HedrisTemmyTop"
                       className={classes.InputEl}
+                      value={twitter}
+                      onChange={(e) => {
+                        setTwitter(e.target.value);
+                      }}
                     />
                   </div>
                   <div className={classes.Input}>
@@ -238,6 +292,10 @@ const Settings = () => {
                       type="text"
                       placeholder="https://github.com/HedrisTemmyTop"
                       className={classes.InputEl}
+                      onChange={(e) => {
+                        setGithub(e.target.value);
+                      }}
+                      value={github}
                     />
                   </div>
                   <div className={classes.Input}>
@@ -246,6 +304,10 @@ const Settings = () => {
                       type="text"
                       placeholder="https://devedris.netlify.app"
                       className={classes.InputEl}
+                      onChange={(e) => {
+                        setWebsite(e.target.value);
+                      }}
+                      value={website}
                     />
                   </div>
 
@@ -259,8 +321,12 @@ const Settings = () => {
                         resize: "vertical",
                       }}
                       className={classes.InputEl}
+                      onChange={(e) => {
+                        setBio(e.target.value);
+                      }}
                       placeholder="I'm a  frontend developer with six years experience in build scalable web apps"
                       draggable={false}
+                      value={bio}
                     ></textarea>
                   </div>
                 </div>

@@ -29,7 +29,6 @@ const Blog = () => {
   const [isDeleting, setIsDeleting] = useState(null);
   const [isDeleted, setIsDeleted] = useState(null);
   const [isPublished, setIsPublished] = useState(null);
-  const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
 
@@ -69,18 +68,26 @@ const Blog = () => {
     setIsDeleting(true);
     const data = await deleteBlog(id, token);
     setIsDeleting(false);
-    if (data.status === 200) {
+
+    if (data && data?.status >= 200 && data?.status < 300) {
       setIsDeleted(true);
       toast.success("Blog deleted successfully 😥😏😪😫", {
         autoClose: 2000,
         toastId: "toast-success",
       });
+    } else {
+      toast.error("An error occured 😣😥😰", {
+        autoClose: 4000,
+        toastId: "toast-success",
+      });
     }
+  };
+  const handleReload = () => {
+    window.location.reload();
   };
 
   let content = null;
   if (loading) {
-    console.log("Hello world");
     content = (
       <div className="spinner_body">
         <Spinner />
@@ -89,7 +96,6 @@ const Blog = () => {
   }
 
   if (!loading && blog && !error) {
-    console.log(blog);
     content = (
       <div className={classes.Blog}>
         <div className={classes.Tag}>
@@ -132,7 +138,42 @@ const Blog = () => {
     );
   }
 
-  if (error) content = <div>An error occured</div>;
+  if (error) {
+    content = (
+      <div
+        style={
+          darkTheme
+            ? {
+                color: "#fff",
+                display: "grid",
+                placeItems: "center",
+                paddingTop: "2rem",
+              }
+            : {
+                color: "#111926",
+                display: "grid",
+                placeItems: "center",
+                paddingTop: "6rem",
+              }
+        }
+      >
+        <span>
+          An error occured
+          <button
+            onClick={handleReload}
+            style={{
+              padding: "1rem 2rem",
+              fontSize: "1.4rem",
+              borderRadius: ".5rem",
+              marginLeft: "1rem",
+            }}
+          >
+            Tap to reload
+          </button>
+        </span>
+      </div>
+    );
+  }
   return content;
 };
 

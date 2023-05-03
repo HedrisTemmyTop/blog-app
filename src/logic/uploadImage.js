@@ -18,7 +18,7 @@ const uploadImage = (event, setImage) => {
           };
         },
         error: (error) => {
-          console.log(error);
+          return null;
         },
       });
     }

@@ -54,10 +54,10 @@ const Comment = ({ ownerID, postId, darkTheme, comment }) => {
       })
       .catch((e) => {
         setCommenting(false);
-        // toast.error(e.response ? e.response.data : e.message, {
-        //   autoClose: 4000,
-        //   toastId: "toast-error",
-        // });
+        toast.error(e.response ? e.response.data : e.message, {
+          autoClose: 4000,
+          toastId: "toast-error",
+        });
         setError(e.response ? e.response.data : e.message);
       });
   };

@@ -28,7 +28,6 @@ const FormBottom = () => {
 
   const handleSignInWithGoogle = async () => {
     await signInWithRedirect(auth, provider);
-    console.log("hell");
   };
   return (
     <React.Fragment>

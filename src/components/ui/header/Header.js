@@ -21,6 +21,8 @@ const Header = ({ user }) => {
   const [logout, setLogout] = useState(false);
   const token = localStorage.getItem("token");
 
+  const data = JSON.parse(localStorage.getItem("data"));
+
   useEffect(() => {
     if (logout) {
       toast.success("Logout successfull 😥😏😪😫", {
@@ -60,7 +62,7 @@ const Header = ({ user }) => {
           >
             <SlMenu onClick={handleOpen} />
           </div>
-          <div className={classes.Logo}>
+          <Link className={classes.Logo} to="/">
             <span className={classes.SpecialLogo}>F</span>
             <span
               className={
@@ -69,7 +71,7 @@ const Header = ({ user }) => {
             >
               enkei
             </span>
-          </div>
+          </Link>
         </div>
 
         <ul className={classes.HeaderLinks}>
@@ -124,7 +126,7 @@ const Header = ({ user }) => {
             </NavLink>
           </li>
         </ul>
-        {user ? (
+        {data || user ? (
           <span
             // to={"/profile/" + userId}
             className={[
@@ -138,7 +140,7 @@ const Header = ({ user }) => {
                 <CiEdit className={classes.Write} />
               </button>
             </Link>
-            {user ? (
+            {data || user ? (
               <div className="mode">
                 {darkTheme ? (
                   <BsMoon onClick={toggleThemeContext} />
@@ -161,22 +163,40 @@ const Header = ({ user }) => {
             >
               {showUserNav && (
                 <UserNav
-                  id={user.user._id}
+                  id={data ? data?.uid : user ? user.user._id : ""}
                   click={handleLogout}
-                  userImage={user.user.image}
-                  username={user.user.username}
-                  lastname={user.user.lastname}
-                  firstname={user.user.firstname}
+                  userImage={
+                    data
+                      ? data.profileImage
+                      : user.user.profileImage
+                      ? user.user.profileImage
+                      : defaultImage
+                  }
+                  username={
+                    data ? data.username : user ? user.user.username : ""
+                  }
+                  lastname={
+                    data ? data.lastname : user ? user.user.firstname : ""
+                  }
+                  firstname={
+                    data ? data.firstname : user ? user.user.firstname : ""
+                  }
                 />
               )}
 
               <img
-                src={user.image ? user.image[0] : defaultImage}
+                src={
+                  data
+                    ? data?.profileImage
+                    : user.user.profileImage
+                    ? user.user.profileImage
+                    : defaultImage
+                }
                 alt="user-dp"
                 className={classes.userImg}
               />
               <div className={classes.UserName}>
-                {user ? user.user.username : ""}
+                {data ? data?.username : user ? user.user.username : ""}
               </div>
               {darkTheme ? (
                 <img src={downIcon} alt="icon" className={classes.IconDown} />
@@ -205,7 +225,13 @@ const Header = ({ user }) => {
             </div>
           </div>
         )}
-        <MobileHeader open={open} handleClose={handleClose} token={token} />
+        <MobileHeader
+          open={open}
+          handleClose={handleClose}
+          token={token}
+          socialHandles={user?.user?.socialHandle && user.user.socialHandle}
+          darkTheme={darkTheme}
+        />
       </header>
     </>
   );

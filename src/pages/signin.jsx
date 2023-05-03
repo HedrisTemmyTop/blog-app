@@ -5,7 +5,7 @@ import { toast } from "react-toastify"; // <-- Import toast
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import AlertMessage from "../components/alertMessage/alertMessage";
-import { RESET_AUTH_STATE, GET_USER, SET_TIMEOUT } from "../redux/";
+import { GET_USER } from "../redux/";
 import { FormBottom, SignInForm } from "../components/ui/auth";
 import ErrorHandler from "../logic/errorHandler";
 const SignIn = () => {
@@ -18,11 +18,11 @@ const SignIn = () => {
   );
 
   useEffect(() => {
-    dispatch(RESET_AUTH_STATE());
     if (token) {
       localStorage.setItem("auth", authenticated);
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
+
       toast.success("You successfully logged in to Fenkei 😎😃");
 
       setTimeout(() => {
@@ -33,6 +33,12 @@ const SignIn = () => {
 
   // set error if user credentials are invalid
   useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        autoClose: 4000,
+        toastId: "error-toast",
+      });
+    }
     setErrorMessage(error);
   }, [error]);
   // login user
