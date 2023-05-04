@@ -41,11 +41,14 @@ const Replies = ({ darkTheme, comment }) => {
                   style={i === comment.length - 1 ? { borderBottom: 0 } : null}
                 >
                   <div className={classes.CommentsLeft}>
-                    <div className={classes.Commenter}>
+                    <Link
+                      to={"/profile/" + comment.author._id}
+                      className={classes.Commenter}
+                    >
                       <img
                         src={
-                          comment.author.image
-                            ? comment.author.image[0]
+                          comment.author.profileImage
+                            ? comment.author.profileImage
                             : defaultImage
                         }
                         alt="comment"
@@ -64,7 +67,7 @@ const Replies = ({ darkTheme, comment }) => {
                           {formartDate(comment.createdAt, "days")}
                         </div>
                       </div>
-                    </div>
+                    </Link>
                     <i
                       className={classes.comment}
                       style={!darkTheme ? { color: "#999999" } : null}
@@ -87,11 +90,14 @@ const Replies = ({ darkTheme, comment }) => {
                 style={i === comment.length - 1 ? { borderBottom: 0 } : null}
               >
                 <div className={classes.CommentsLeft}>
-                  <div className={classes.Commenter}>
+                  <Link
+                    to={"/profile/" + comment.author._id}
+                    className={classes.Commenter}
+                  >
                     <img
                       src={
-                        comment.author.image
-                          ? comment.author.image[0]
+                        comment.author.profileImage
+                          ? comment.author.profileImage
                           : defaultImage
                       }
                       alt="comment"
@@ -110,7 +116,7 @@ const Replies = ({ darkTheme, comment }) => {
                         {formartDate(comment.createdAt, "days")}
                       </div>
                     </div>
-                  </div>
+                  </Link>
                   <i
                     className={classes.comment}
                     style={!darkTheme ? { color: "#999999" } : null}
