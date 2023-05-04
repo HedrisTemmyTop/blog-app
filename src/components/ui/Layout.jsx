@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./Footer/Footer";
 import React, { useEffect } from "react";
@@ -9,12 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import AlertMessage from "../alertMessage/alertMessage";
 const Layout = () => {
   const { darkTheme } = useContext(ThemeContext);
+  const { id } = useParams();
+
   const auth = localStorage.getItem("auth");
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const data = localStorage.getItem("data");
-  console.log(data);
   // get user if there is user id
   const tokenExpiration = localStorage.getItem("tokenExpiration");
 
@@ -54,7 +55,8 @@ const Layout = () => {
         firstname: user.user.firstname,
         uid: user.user._id,
       };
-      localStorage.setItem("data", JSON.stringify(data));
+      if (id === userId || !data || !id)
+        localStorage.setItem("data", JSON.stringify(data));
     }
   }, [user]);
 

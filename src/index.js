@@ -11,12 +11,14 @@ import { rootReducer } from "./redux/reducers/rootReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import blogReducer from "./redux/reducers/blogReducer";
 import userProfileStore from "./redux/reducers/profileReducer";
+import visitingUserProfileStore from "./redux/reducers/visitingUserProfile";
 const composeEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
 const reducer = combineReducers({
   blogs: rootReducer,
   auth: authReducer,
   post_blog: blogReducer,
   user_profile: userProfileStore,
+  visiting_profile: visitingUserProfileStore,
 });
 const store = createStore(reducer, composeEnhancer);
 

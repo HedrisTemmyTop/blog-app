@@ -166,14 +166,18 @@ const Header = ({ user }) => {
                   id={data ? data?.uid : user ? user.user._id : ""}
                   click={handleLogout}
                   userImage={
-                    data
+                    data && data.profileImage
                       ? data.profileImage
-                      : user.user.profileImage
+                      : user && user.user.profileImage
                       ? user.user.profileImage
                       : defaultImage
                   }
                   username={
-                    data ? data.username : user ? user.user.username : ""
+                    data && data.username
+                      ? data.username
+                      : user
+                      ? user.user.username
+                      : ""
                   }
                   lastname={
                     data ? data.lastname : user ? user.user.firstname : ""
@@ -186,9 +190,9 @@ const Header = ({ user }) => {
 
               <img
                 src={
-                  data
-                    ? data?.profileImage
-                    : user.user.profileImage
+                  data && data.profileImage
+                    ? data.profileImage
+                    : user?.user.profileImage
                     ? user.user.profileImage
                     : defaultImage
                 }
@@ -196,7 +200,11 @@ const Header = ({ user }) => {
                 className={classes.userImg}
               />
               <div className={classes.UserName}>
-                {data ? data?.username : user ? user.user.username : ""}
+                {data && data.username
+                  ? data.username
+                  : user
+                  ? user.user.username
+                  : ""}
               </div>
               {darkTheme ? (
                 <img src={downIcon} alt="icon" className={classes.IconDown} />

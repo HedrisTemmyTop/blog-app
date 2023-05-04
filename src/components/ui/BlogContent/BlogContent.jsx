@@ -6,6 +6,7 @@ import BlogButton from "../BlogButton/Button";
 import Comment from "../Comment/Comment";
 import formartDate from "../../../logic/formartDate";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const BlogContent = ({
   owner,
@@ -66,9 +67,9 @@ const BlogContent = ({
   return (
     <React.Fragment>
       <div className={darkTheme ? classes.Poster : classes.PosterLight}>
-        <div className={classes.Left}>
+        <Link to={`/profile/${owner._id} `} className={classes.Left}>
           <img
-            src={owner.image ? owner.image[0] : defaultImage}
+            src={owner.profileImage ? owner.profileImage : defaultImage}
             alt="poster"
             className={classes.PosterImg}
           />
@@ -76,7 +77,7 @@ const BlogContent = ({
             <div className={classes.Name}>{owner.username}</div>
             <i>{formartDate(createdAt)}</i>
           </div>
-        </div>
+        </Link>
         <div className={classes.Left}>
           <IoMdTime style={{ color: "#fff" }} />
           <i className={classes.Date}>{readingTime} mins read</i>

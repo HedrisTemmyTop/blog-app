@@ -3,10 +3,13 @@ import { ThemeContext } from "../../../context/context";
 import HomepageBlog from "./BlogTypes/HomePageBlogs";
 import ProfileBlogs from "./BlogTypes/ProfileBlogs";
 
-const Box = ({ data, button, username, profileImage }) => {
+const Box = ({ data, button, username, profileImage, userId, viewerId }) => {
   const { darkTheme } = useContext(ThemeContext);
-  return !button ? (
-    <HomepageBlog data={data} darkTheme={darkTheme} />
+  return !button || userId !== viewerId ? (
+    <HomepageBlog
+      data={button ? { ...data, owner: { username, profileImage } } : data}
+      darkTheme={darkTheme}
+    />
   ) : (
     <ProfileBlogs
       data={data}

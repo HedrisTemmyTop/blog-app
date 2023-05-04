@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-import { GET_BLOG, POST_BLOG_REQUEST } from "../redux/";
+import { GET_BLOG, POST_BLOG_REQUEST } from "../redux";
 
 import uploadImage from "../logic/uploadImage";
 import formValidation from "../logic/blogFormValidation";
@@ -17,6 +17,7 @@ import AlertMessage from "../components/alertMessage/alertMessage";
 import { useContext } from "react";
 import { toast } from "react-toastify";
 import { ThemeContext } from "../context/context";
+import { Spinner } from "../components/ui/Blogs";
 /**This component uses two case
  *  1.) When user wants to edit a blog
  * PROCEDURE
@@ -28,7 +29,7 @@ import { ThemeContext } from "../context/context";
  *
  */
 
-const CreateBlog = (props) => {
+const EditPost = (props) => {
   // local storage variable
   const token = localStorage.getItem("token");
 
@@ -48,9 +49,9 @@ const CreateBlog = (props) => {
   const [tags, setTags] = useState([]);
   const [tagsInput, setTagsInput] = useState("");
   const [image, setImage] = useState(null);
-  const { blogs, post_blog } = useSelector((state) => state);
+  const state = useSelector((state) => state);
   const [postingError, setPostingError] = useState(null);
-  const { mssg, loading, error, success } = post_blog;
+  const { mssg, loading, error, success } = state.post_blog;
 
   // If there is an id that means user wants to edit so fetch their blog
   useEffect(() => {
@@ -61,15 +62,15 @@ const CreateBlog = (props) => {
 
   // If you get a blog from the backend, update the fields
   useEffect(() => {
-    if (blogs.blog) {
-      const { blog } = blogs;
+    if (state.blogs.blog) {
+      const { blog } = state.blogs;
       setHtml(blog.post.body);
       setTags(blog.post.tags);
       setTitle(blog.post.title);
       setDescription(blog.post.description);
       setImage(blog.post.image[0]);
     }
-  }, [blogs]);
+  }, [state.blogs]);
 
   // if user is not authorized
   useEffect(() => {
@@ -171,103 +172,101 @@ const CreateBlog = (props) => {
       }
     }
   };
-  let content = (
-    <ErrorHandler
-      errorMessage={error || postingError}
-      duration={
-        error === "Unauthorized" || postingError === "Unauthorized"
-          ? 2800
-          : 5000
-      }
-    >
-      <div>
-        <Preview previewRef={previewRef} formRef={formRef} />
-        <div className={classes.CreateBlogContainer}>
-          <CreateBlogForm
-            darkTheme={darkTheme}
-            handleAddTag={handleAddTag}
-            formRef={formRef}
-            submitBlogHandler={submitBlogHandler}
-            editBlogHandler={editBlogHandler}
-            title={title}
-            setHtml={setHtml}
-            setTagsInput={setTagsInput}
-            tagsInput={tagsInput}
-            createTagHandler={createTagHandler}
-            postId={postId.id}
-            setTitle={setTitle}
-            html={html}
-            description={description}
-            tags={tags}
-            previewRef={previewRef}
-            handleDrop={handleDrop}
-            image={image}
-            loading={loading}
-            isPublishing={isPublishing}
-            removeTagHandler={removeTagHandler}
-            setDescription={setDescription}
-          />
-          <div
-            className={classes.Preview}
-            ref={previewRef}
-            id="previewCode"
-          ></div>
-        </div>
+  const handleReload = () => {
+    window.location.reload();
+  };
+  let content = null;
+  if (state.loading)
+    content = content = (
+      <div style={{ display: "grid", placeItems: "center", marginTop: "4rem" }}>
+        {" "}
+        <Spinner />
       </div>
-      <AlertMessage duration={2000} />
-    </ErrorHandler>
-  );
-  if (postId) {
-    if (blogs)
-      content = (
-        <ErrorHandler
-          errorMessage={error || postingError}
-          duration={
-            error === "Unauthorized" || postingError === "Unauthorized"
-              ? 2800
-              : 5000
-          }
-        >
-          <div>
-            <Preview previewRef={previewRef} formRef={formRef} />
-            <div className={classes.CreateBlogContainer}>
-              <CreateBlogForm
-                darkTheme={darkTheme}
-                formRef={formRef}
-                handleAddTag={handleAddTag}
-                submitBlogHandler={submitBlogHandler}
-                editBlogHandler={editBlogHandler}
-                title={title}
-                setHtml={setHtml}
-                setTagsInput={setTagsInput}
-                tagsInput={tagsInput}
-                createTagHandler={createTagHandler}
-                postId={postId.id}
-                setTitle={setTitle}
-                html={html}
-                description={description}
-                tags={tags}
-                previewRef={previewRef}
-                handleDrop={handleDrop}
-                image={image}
-                loading={loading}
-                isPublishing={isPublishing}
-                removeTagHandler={removeTagHandler}
-                setDescription={setDescription}
-              />
-              <div
-                className={classes.Preview}
-                ref={previewRef}
-                id="previewCode"
-              ></div>
-            </div>
-          </div>
-          <AlertMessage duration={2000} />
-        </ErrorHandler>
-      );
-  }
+    );
 
+  if (state.blogs)
+    content = (
+      <ErrorHandler
+        errorMessage={error || postingError}
+        duration={
+          error === "Unauthorized" || postingError === "Unauthorized"
+            ? 2800
+            : 5000
+        }
+      >
+        <div>
+          <Preview previewRef={previewRef} formRef={formRef} />
+          <div className={classes.CreateBlogContainer}>
+            <CreateBlogForm
+              darkTheme={darkTheme}
+              formRef={formRef}
+              handleAddTag={handleAddTag}
+              submitBlogHandler={submitBlogHandler}
+              editBlogHandler={editBlogHandler}
+              title={title}
+              setHtml={setHtml}
+              setTagsInput={setTagsInput}
+              tagsInput={tagsInput}
+              createTagHandler={createTagHandler}
+              postId={postId.id}
+              setTitle={setTitle}
+              html={html}
+              description={description}
+              tags={tags}
+              previewRef={previewRef}
+              handleDrop={handleDrop}
+              image={image}
+              loading={loading}
+              isPublishing={isPublishing}
+              removeTagHandler={removeTagHandler}
+              setDescription={setDescription}
+            />
+            <div
+              className={classes.Preview}
+              ref={previewRef}
+              id="previewCode"
+            ></div>
+          </div>
+        </div>
+        <AlertMessage duration={2000} />
+      </ErrorHandler>
+    );
+  if (state.error)
+    content = (
+      <div
+        style={
+          darkTheme
+            ? {
+                color: "#fff",
+                display: "grid",
+                placeItems: "center",
+                paddingTop: "2rem",
+              }
+            : {
+                color: "#111926",
+                display: "grid",
+                placeItems: "center",
+                paddingBlock: "6rem",
+              }
+        }
+      >
+        <span>
+          An error occured
+          <button
+            onClick={handleReload}
+            style={{
+              padding: "1rem 2rem",
+              fontSize: "1.4rem",
+              borderRadius: ".5rem",
+              marginLeft: "1rem",
+            }}
+          >
+            Tap to reload
+          </button>
+        </span>
+      </div>
+    );
   return token ? content : <Navigate to="/sign-in" replace={true} />;
 };
 
-export default CreateBlog;
+export default EditPost;

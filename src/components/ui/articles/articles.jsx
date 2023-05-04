@@ -9,9 +9,11 @@ const Articles = ({
   button,
   username = "",
   profileImage = null,
+  userId,
+  viewerId,
 }) => {
   const { darkTheme } = useContext(ThemeContext);
-
+  
   return (
     <React.Fragment>
       <div className={classes.Articles}>
@@ -49,6 +51,8 @@ const Articles = ({
                   button={button}
                   username={username}
                   profileImage={profileImage}
+                  userId={userId}
+                  viewerId={viewerId}
                 />
               );
             })}
