@@ -55,7 +55,7 @@ const Layout = () => {
         firstname: user.user.firstname,
         uid: user.user._id,
       };
-      if (id === userId || !data || !id)
+      if (id === userId || !data || !id || user.user._id !== data.uid)
         localStorage.setItem("data", JSON.stringify(data));
     }
   }, [user]);

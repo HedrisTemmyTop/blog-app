@@ -88,12 +88,21 @@ const Home = () => {
     if (sortedBlogs.length === 0) {
       content = (
         <div
-          style={{
-            color: "white",
-            minHeight: "10rem",
-            textAlign: "center",
-            marginTop: "10rem",
-          }}
+          style={
+            darkTheme
+              ? {
+                  color: "white",
+                  minHeight: "10rem",
+                  textAlign: "center",
+                  marginTop: "10rem",
+                }
+              : {
+                  color: "#111926",
+                  minHeight: "10rem",
+                  textAlign: "center",
+                  marginTop: "10rem",
+                }
+          }
         >
           We don't have any blogs yet pls proceed to posting of blogs by
           creating an account. You can watch a video on how to do that

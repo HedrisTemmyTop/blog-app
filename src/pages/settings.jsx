@@ -13,6 +13,7 @@ import API_URL from "../api/URL";
 import AlertMessage from "../components/alertMessage/alertMessage";
 import ErrorHandler from "../logic/errorHandler";
 import uploadImage from "../logic/uploadImage";
+import { toast } from "react-toastify";
 const Settings = () => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
@@ -71,9 +72,9 @@ const Settings = () => {
 
       setDp(user.user.profileImage ? user.user.profileImage : defaultImage);
 
-      setBio(user.user.bio);
+      setBio(user.user.bio ? user.user.bio : "");
 
-      setLocation(user.user.location);
+      setLocation(user.user.location ? user.user.location : "");
     }
   }, [user]);
 
@@ -87,7 +88,7 @@ const Settings = () => {
   useEffect(() => {
     if (updated) {
       setTimeout(() => {
-        // window.location.reload();
+        window.location.reload();
       }, 3000);
     }
   }, [updated]);
@@ -98,21 +99,28 @@ const Settings = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const socialHandle = [
-      { name: "github", url: github },
-      { name: "website", url: website },
-      { name: "linkeldn", url: linkeldn },
-      { name: "twitter", url: twitter },
-    ];
+    const socialHandle = [];
+
+    if (github !== "" && github)
+      socialHandle.push({ name: "github", url: github && github });
+    if (website !== "" && website)
+      socialHandle.push({ name: "website", url: website && website });
+    if (linkeldn !== "" && linkeldn)
+      socialHandle.push({ name: "linkeldn", url: linkeldn && linkeldn });
+    if (twitter !== "" && twitter)
+      socialHandle.push({ name: "twitter", url: twitter && twitter });
+    // job
     const job = [{ company, role }];
+
     const data = {
-      lastname,
-      firstname,
-      socialHandle,
-      job,
       profileImage: image ? image : dp,
-      bio: bio,
     };
+    if (bio !== "" && bio) data.bio = bio;
+    if (job.length > 0) data.job = job;
+    if (lastname !== "" && lastname) data.lastname = lastname;
+    if (firstname !== "" && firstname) data.firstname = firstname;
+    if (socialHandle.length > 0) data.socialHandle = socialHandle;
+
     setUpdating(true);
     axios
       .put(API_URL + "users/" + user.user._id, data, {
@@ -123,6 +131,10 @@ const Settings = () => {
       .then((response) => {
         setUpdating(false);
         setUpdated(true);
+        toast.success("Profile updated", {
+          autoClose: 2000,
+          toastId: "toast-success",
+        });
       })
       .catch((error) => {
         setUpdating(false);
@@ -207,7 +219,7 @@ const Settings = () => {
                     />
                   </div>
                   <div className={classes.Input}>
-                    <label className={classes.InputLabel}>Phone number</label>
+                    <label className={classes.InputLabel}>E-mail</label>
                     <input
                       type="email"
                       placeholder="johndoe@gami.com"
@@ -243,7 +255,7 @@ const Settings = () => {
                     <label className={classes.InputLabel}>Company</label>
                     <input
                       type="text"
-                      placeholder="Frontend Engineer"
+                      placeholder="Google"
                       className={classes.InputEl}
                       value={company}
                       onChange={(e) => {
@@ -272,6 +284,10 @@ const Settings = () => {
                       type="number"
                       placeholder="+234 816 112 6466"
                       className={classes.InputEl}
+                      value={number}
+                      onChange={(e) => {
+                        setNumber(e.target.value);
+                      }}
                     />
                   </div>
                   <div className={classes.Input}>
