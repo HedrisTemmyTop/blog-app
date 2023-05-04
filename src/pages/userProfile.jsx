@@ -79,15 +79,38 @@ const UserProfile = () => {
           socialHandles={userData.socialHandle ? userData.socialHandle : null}
           bio={userData.bio ? userData.bio : "No bio"}
         />
-        <Articles
-          datas={Pagination(sortedBlogs, currentPage)}
-          title="Your Blogs"
-          button={true}
-          profileImage={userData.profileImage}
-          username={userData.username}
-          userId={id}
-          viewerId={userId}
-        />
+        {sortedBlogs.length > 0 ? (
+          <Articles
+            datas={Pagination(sortedBlogs, currentPage)}
+            title="Your Blogs"
+            button={true}
+            profileImage={userData.profileImage}
+            username={userData.username}
+            userId={id}
+            viewerId={userId}
+          />
+        ) : (
+          <div
+            style={
+              darkTheme
+                ? {
+                    color: "white",
+                    minHeight: "10rem",
+                    textAlign: "center",
+                    marginTop: "10rem",
+                  }
+                : {
+                    color: "#111926",
+                    minHeight: "10rem",
+                    textAlign: "center",
+                    marginTop: "10rem",
+                  }
+            }
+          >
+            No blogs
+          </div>
+        )}
+
         <PaginationButtons
           articles={sortedBlogs}
           resultsPerPage={resultsPerPage}
