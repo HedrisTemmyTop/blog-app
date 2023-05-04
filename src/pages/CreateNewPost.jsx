@@ -50,6 +50,8 @@ const CreateNewPost = (props) => {
 
   // if user is not authorized
   useEffect(() => {
+    setIsPublishing(false)
+ 
     if (error === "Unauthorized") {
       setTimeout(() => {
         window.location.href = `/sign-in`;
@@ -68,6 +70,7 @@ const CreateNewPost = (props) => {
 
   //Once the blog is posted successfully
   useEffect(() => {
+    setIsPublishing(false)
     if (success) {
       toast.success("Blog posted successfully 😍😎", {
         autoClose: 2000,
