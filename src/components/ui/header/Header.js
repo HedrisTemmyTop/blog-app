@@ -168,7 +168,7 @@ const Header = ({ user }) => {
                   userImage={
                     data && data.profileImage
                       ? data.profileImage
-                      : user.user.profileImage
+                      : user && user.user.profileImage
                       ? user.user.profileImage
                       : defaultImage
                   }
