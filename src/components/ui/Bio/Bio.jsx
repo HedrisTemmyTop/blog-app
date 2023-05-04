@@ -15,9 +15,16 @@ const Bio = ({ username, job, userImage, bio, socialHandles }) => {
           <div className={classes.Name}>
             <div className={classes.UserName}>{username}</div>
             <div className={classes.Job}>
-              {job.length > 0
-                ? `${job[0].role} @${job[0].company && job[0].company}`
-                : "No_Job"}
+              {job.length > 0 &&
+                job[0].role &&
+                !job[0].role !== "" &&
+                `${job[0].role} @${job[0].company && job[0].company}`}
+              {job.length > 0 &&
+                job[0].role === "" &&
+                job[0].company !== "" &&
+                `Works @${job[0].company}`}
+              {job.length === 0 ||
+                (job[0].role === "" && job[0].company === "" && "No_Job")}
             </div>
           </div>
         </div>
