@@ -55,6 +55,15 @@ const CreateNewPost = (props) => {
         window.location.href = `/sign-in`;
       }, 3000);
     }
+    if (error && error !== "Unauthorized") {
+      toast.error(error.response ? error.response.data : error.message, {
+        autoClose: 5000,
+        toastId: "toast-error",
+      });
+      setTimeout(() => {
+        window.location.href = `/sign-in`;
+      }, 3000);
+    }
   }, [error]);
 
   //Once the blog is posted successfully
