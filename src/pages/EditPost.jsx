@@ -152,9 +152,8 @@ const EditPost = (props) => {
       const route = "blogs/";
       setIsPublishing(true);
       const data = await publishBlog(postId.id, token, route, updatedData); // Update it at the backend
-
       setIsPublishing(false);
-      if (data.response?.status === 200) {
+      if (data.status >= 200 && data.status < 300) {
         toast.success("Blog editted successfully 😎😍", {
           autoClose: 2000,
           toastId: "toast-success",
