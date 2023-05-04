@@ -58,4 +58,8 @@ blockquote {
   blockquote {
     margin-top: 2.5rem;
   }
+  .Image img {
+    width: 8rem;
+    height: 8rem;
+  }
 }
