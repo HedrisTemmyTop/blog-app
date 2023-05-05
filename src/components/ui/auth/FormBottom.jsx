@@ -18,12 +18,8 @@ const FormBottom = () => {
       .then((result) => {
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         const data = {};
-
-        console.log(result);
       })
-      .catch((e) => {
-        console.log(e);
-      });
+      .catch((e) => {});
   }, []);
 
   const handleSignInWithGoogle = async () => {

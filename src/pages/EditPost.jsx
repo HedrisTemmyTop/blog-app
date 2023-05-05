@@ -81,7 +81,6 @@ const EditPost = (props) => {
         window.location.href = `/sign-in`;
       }, 3000);
     }
-    console.log(postingError, error);
     if (error && error !== "Unauthorized") {
       toast.error(error, {
         autoClose: 5000,

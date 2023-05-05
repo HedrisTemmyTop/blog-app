@@ -15,7 +15,6 @@ const uploadImage = (event, setImage) => {
           const reader = new FileReader();
           reader.readAsDataURL(compressedFile);
           reader.onload = () => {
-            console.log(reader.result);
             setImage(reader.result);
           };
         },

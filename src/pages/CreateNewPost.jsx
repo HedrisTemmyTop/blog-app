@@ -58,7 +58,6 @@ const CreateNewPost = (props) => {
       }, 3000);
     }
     if (error && error !== "Unauthorized") {
-      console.log(error);
       toast.error(error, {
         autoClose: 5000,
         toastId: "toast-error",
