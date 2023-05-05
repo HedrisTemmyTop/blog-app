@@ -104,10 +104,15 @@
   margin-top: 2rem;
   min-height: 20rem;
 }
-.CreateBtn {
-  display: none;
-}
 
+.CreateBtn {
+  width: 100%;
+  margin: 1rem 0;
+  max-width: 20rem;
+  padding: 0.8rem 1.6rem;
+  box-sizing: border-box;
+  display: block;
+}
 @media only screen and (max-width: 1000px) {
   .ToggleBtns {
     display: flex;
@@ -121,14 +126,7 @@
   .TagsContainer {
     margin-bottom: 0;
   }
-  .CreateBtn {
-    width: 100%;
-    margin: 1rem 0;
-    max-width: 20rem;
-    padding: 0.8rem 1.6rem;
-    box-sizing: border-box;
-    display: block;
-  }
+
   .CreateBlogContainer {
     margin: 0;
   }

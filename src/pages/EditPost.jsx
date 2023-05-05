@@ -55,6 +55,7 @@ const EditPost = (props) => {
 
   // If there is an id that means user wants to edit so fetch their blog
   useEffect(() => {
+    dispatch({ type: "RESET_STATE" });
     if (postId.id) {
       dispatch(GET_BLOG(postId.id));
     }
@@ -80,14 +81,13 @@ const EditPost = (props) => {
         window.location.href = `/sign-in`;
       }, 3000);
     }
+    console.log(postingError, error);
     if (error && error !== "Unauthorized") {
-      toast.error(error.response ? error.response.data : error.message, {
+      toast.error(error, {
         autoClose: 5000,
         toastId: "toast-error",
       });
-      setTimeout(() => {
-        window.location.href = `/sign-in`;
-      }, 3000);
+      dispatch({ type: "RESET_STATE" });
     }
   }, [error, postingError]);
 
@@ -177,7 +177,7 @@ const EditPost = (props) => {
           data.response ? data.response.data : data.message + "😨😰",
           {
             autoClose: 2100,
-            toastId: "toast-success",
+            toastId: "toast-error",
           }
         );
       }

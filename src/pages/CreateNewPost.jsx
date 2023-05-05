@@ -50,27 +50,26 @@ const CreateNewPost = (props) => {
 
   // if user is not authorized
   useEffect(() => {
-    setIsPublishing(false)
- 
+    setIsPublishing(false);
+
     if (error === "Unauthorized") {
       setTimeout(() => {
         window.location.href = `/sign-in`;
       }, 3000);
     }
     if (error && error !== "Unauthorized") {
-      toast.error(error.response ? error.response.data : error.message, {
+      console.log(error);
+      toast.error(error, {
         autoClose: 5000,
         toastId: "toast-error",
       });
-      setTimeout(() => {
-        window.location.href = `/sign-in`;
-      }, 3000);
+      dispatch({ type: "RESET_STATE" });
     }
   }, [error]);
 
   //Once the blog is posted successfully
   useEffect(() => {
-    setIsPublishing(false)
+    setIsPublishing(false);
     if (success) {
       toast.success("Blog posted successfully 😍😎", {
         autoClose: 2000,
@@ -111,6 +110,7 @@ const CreateNewPost = (props) => {
   const submitBlogHandler = (e) => {
     e.preventDefault();
     const data = blogFormValidation(); // Get datas from validated inputs
+
     if (data !== false) {
       if (data) {
         setIsPublishing(true);

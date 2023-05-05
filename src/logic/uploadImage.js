@@ -10,10 +10,12 @@ const uploadImage = (event, setImage) => {
         maxHeight: 454,
         maxWidth: 1500,
         mimeType: "jpeg",
+        convertSize: 30720,
         success: (compressedFile) => {
           const reader = new FileReader();
           reader.readAsDataURL(compressedFile);
           reader.onload = () => {
+            console.log(reader.result);
             setImage(reader.result);
           };
         },

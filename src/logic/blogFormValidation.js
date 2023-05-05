@@ -6,9 +6,11 @@ const formValidation = (html, image, title, tags, description, state) => {
   if (!image) {
     alert("Add content image");
     return false;
-  }
-  if (image && image.length === 0) {
+  } else if (image && image.length === 0) {
     alert("Add content image");
+    return false;
+  } else if (tags.length === 0) {
+    alert("Add some tags");
     return false;
   } else
     return {
