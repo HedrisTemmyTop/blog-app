@@ -3,7 +3,7 @@ import classes from "../../../styles/Blog.module.css";
 import { Link } from "react-router-dom";
 
 import formartDate from "../../../logic/formartDate";
-import defaultImage from "../../../assets/default_img.png";
+import defaultImage from "../../../assets/default_img.jpeg";
 
 const Replies = ({ darkTheme, comment }) => {
   const sortedComment = () => {

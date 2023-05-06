@@ -3,13 +3,10 @@ import classes from "../styles/CreateBlog.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
-
-import { GET_BLOG, POST_BLOG_REQUEST } from "../redux";
+import { POST_BLOG_REQUEST } from "../redux";
 
 import uploadImage from "../logic/uploadImage";
 import formValidation from "../logic/blogFormValidation";
-import publishBlog from "../logic/publishBlog";
 import CreateBlogForm from "../components/ui/CreateBlog/CreateBlogForm";
 import Preview from "../components/ui/CreateBlog/Preview";
 import ErrorHandler from "../logic/errorHandler";

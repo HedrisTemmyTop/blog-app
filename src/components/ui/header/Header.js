@@ -1,11 +1,11 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import classes from "../../../styles/header.module.css";
-import defaultImage from "../../../assets/default_img.png";
-import downIcon from "../../../assets/Vector2.png";
+import defaultImage from "../../../assets/default_img.jpeg";
+import downIcon from "../../../assets/Vector2.svg";
 import { ThemeContext } from "../../../context/context";
 import { useContext } from "react";
-import lightIconDown from "../../../assets/VectorLight.png";
+import lightIconDown from "../../../assets/VectorLight.svg";
 import { SlMenu } from "react-icons/sl";
 import { BsSun, BsMoon } from "react-icons/bs";
 import AlertMessage from "../../alertMessage/alertMessage";
@@ -207,12 +207,18 @@ const Header = ({ user }) => {
                   : ""}
               </div>
               {darkTheme ? (
-                <img src={downIcon} alt="icon" className={classes.IconDown} />
+                <img
+                  src={downIcon}
+                  style={{ width: "1.2rem", height: ".8rem" }}
+                  alt="icon"
+                  className={classes.IconDown}
+                />
               ) : (
                 <img
                   src={lightIconDown}
                   alt="light icon down"
                   className={classes.IconDown}
+                  style={{ width: "1.2rem", height: ".8rem" }}
                 />
               )}
             </div>

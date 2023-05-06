@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import classes from "../../styles/Home.module.css";
-import next from "../../assets/Vector.png";
-import prev from "../../assets/Vector1.png";
+import next from "../../assets/Vector.svg";
+import prev from "../../assets/Vector1.svg";
 import { ThemeContext } from "../../context/context";
 const PaginationButtons = ({
   articles,

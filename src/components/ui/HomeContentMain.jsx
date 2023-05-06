@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "../../styles/Home.module.css";
-import { Link, useParams } from "react-router-dom";
-// import HomeLinks from "../components/HomeLinks";
+import { Link } from "react-router-dom";
+import img from "../../assets/hotstuff.svg";
 const HomeContent = ({ search }) => {
   const [searchVal, setSearchVal] = useState("");
   const searchUrl = window.location.search;
@@ -65,6 +65,15 @@ const HomeContent = ({ search }) => {
         <div className={classes.Feature}>Feature</div>
         <div className={classes.HomeContent}>
           Create Tinder Style Swipe Card With Ionic Gestures
+          <img
+            src={img}
+            alt="hot stuff"
+            style={{
+              height: "2.7rem",
+              marginLeft: "1rem",
+              width: "10.1rem",
+            }}
+          />
         </div>
       </div>
       <div className={classes.HomeDivs}>

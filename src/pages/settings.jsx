@@ -1,5 +1,5 @@
 import classes from "../styles/Settings.module.css";
-import defaultImage from "../assets/default_img.png";
+import defaultImage from "../assets/default_img.jpeg";
 import Spinner from "../components/ui/spinner/spinner";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -177,7 +177,6 @@ const Settings = () => {
                     type="file"
                     className={classes.InputDp}
                     onChange={handleImage}
-                    // value={dp}
                   />
                 </div>
               </div>

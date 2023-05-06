@@ -33,7 +33,7 @@ const Blog = () => {
   const dispatch = useDispatch();
 
   const { blog, loading, error } = useSelector((state) => state.blogs); // destructuring the blogs
-  // const { loading, error, blogs } = useSelector((state) => state); // getting the loading, error and blog state
+
   useEffect(() => {
     dispatch(GET_BLOG(id)); // fetching the blog
   }, []);

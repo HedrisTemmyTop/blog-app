@@ -1,5 +1,5 @@
 import classes from "../styles/Authors.module.css";
-import img from "../assets/default_img.png";
+import img from "../assets/default_img.jpeg";
 import { BsShare, BsArrowDown } from "react-icons/bs";
 import { useState } from "react";
 import { useContext } from "react";

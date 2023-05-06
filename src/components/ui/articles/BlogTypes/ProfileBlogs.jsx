@@ -1,6 +1,6 @@
 import classes from "../../../../styles/Articles.module.css";
 import { Link } from "react-router-dom";
-import defaultImage from "../../../../assets/default_img.png";
+import defaultImage from "../../../../assets/default_img.jpeg";
 import { GrView, IoMdTime, CiEdit } from "../../../react-icons/index";
 import formartDate from "../../../../logic/formartDate";
 const ProfileBlogs = ({ data, darkTheme, username, profileImage }) => {

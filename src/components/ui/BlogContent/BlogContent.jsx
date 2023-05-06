@@ -1,5 +1,5 @@
 import classes from "../../../styles/Blog.module.css";
-import defaultImage from "../../../assets/default_img.png";
+import defaultImage from "../../../assets/default_img.jpeg";
 
 import { IoMdTime } from "../../react-icons";
 import BlogButton from "../BlogButton/Button";

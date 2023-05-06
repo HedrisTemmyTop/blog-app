@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PaginationButtons from "../components/ui/paginationButtons";
 import Articles from "../components/ui/articles/articles";
-import defaultImage from "../assets/default_img.png";
+import defaultImage from "../assets/default_img.jpeg";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

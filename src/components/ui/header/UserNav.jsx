@@ -1,5 +1,4 @@
 import classes from "../../../styles/header.module.css";
-import defaultImage from "../../../assets/default_img.png";
 
 import { Link } from "react-router-dom";
 import { BsBookmarkPlus, BsJournalBookmark } from "react-icons/bs";

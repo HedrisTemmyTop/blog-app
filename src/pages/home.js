@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { GET_BLOGS } from "../redux/actions/blogs/blogsAction";
 import Spinner from "../components/ui/spinner/spinner";
 import { useDispatch, useSelector } from "react-redux";
-
 import Pagination, { resultsPerPage } from "../logic/pagination";
 import axios from "axios";
 import API_URL from "../api/URL";
@@ -172,77 +171,3 @@ const Home = () => {
 };
 
 export default Home;
-// const datas = [
-//   {
-//     id: 1,
-//     tags: ["Photos", "Ionic", "Android"],
-//     body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-//     reading_time: 2,
-//   },
-//   {
-//     id: 2,
-//     tags: ["Photos", "Ionic", "Android"],
-//     body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-//     reading_time: 2,
-//   },
-//   {
-//     id: 3,
-//     tags: ["Photos", "Ionic", "Android"],
-//     body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-//     reading_time: 2,
-//   },
-//   {
-//     id: 4,
-//     tags: ["Photos", "Ionic", "Android"],
-//     body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-//     reading_time: 2,
-//   },
-//   {
-//     id: 8,
-//     tags: ["Photos", "Ionic", "Android"],
-//     body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-//     reading_time: 2,
-//   },
-//   {
-//     id: 7,
-//     tags: ["Photos", "Ionic", "Android"],
-//     body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-//     reading_time: 2,
-//   },
-//   {
-//     id: 6,
-//     tags: ["Photos", "Ionic", "Android"],
-//     body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-//     reading_time: 2,
-//   },
-//   {
-//     id: 5,
-//     tags: ["Photos", "Ionic", "Android"],
-//     body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-//     reading_time: 2,
-//   },
-//   {
-//     id: 9,
-//     tags: ["Photos", "Ionic", "Android"],
-//     body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-//     reading_time: 2,
-//   },
-//   {
-//     id: 10,
-//     tags: ["Photos", "Ionic", "Android"],
-//     body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-//     reading_time: 2,
-//   },
-//   {
-//     id: 11,
-//     tags: ["Photos", "Ionic", "Android"],
-//     body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-//     reading_time: 2,
-//   },
-//   {
-//     id: 12,
-//     tags: ["Photos", "Ionic", "Android"],
-//     body: "In this article, we demonstrate how there are more avenues for XSS attacks in Capacitor/Cordova  applications and how the impact can be worse.",
-//     reading_time: 2,
-//   },
-// ];

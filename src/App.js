@@ -11,11 +11,10 @@ import {
   Premium,
   EditPost,
   Profile,
+  NotFound,
 } from "./pages";
 
 import { ThemeContextProvider } from "./context/context";
-
-// import Authors from "./pages/Authors";
 
 const App = () => {
   return (
@@ -31,6 +30,7 @@ const App = () => {
             <Route path="search" element={<Home />} />
             <Route path="account-settings" element={<Settings />} />
             <Route path="premium" element={<Premium />} />
+            <Route element={<NotFound />} />
             {/* <Route path="/authors" element={<Authors />} /> */}
           </Route>
 

@@ -7,6 +7,7 @@ import { ThemeContext } from "../../context/context";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AlertMessage from "../alertMessage/alertMessage";
+
 const Layout = () => {
   const { darkTheme } = useContext(ThemeContext);
   const { id } = useParams();

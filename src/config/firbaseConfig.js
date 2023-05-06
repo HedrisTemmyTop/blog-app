@@ -7,11 +7,7 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
 } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBDP5ptC3-L0XnaAmTcdzvYUiTQFX5hhaE",
   authDomain: "blog-app-178d7.firebaseapp.com",

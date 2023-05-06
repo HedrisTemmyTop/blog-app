@@ -1,7 +1,7 @@
 import classes from "../../../../styles/Articles.module.css";
 import { Link } from "react-router-dom";
 
-import defaultImage from "../../../../assets/default_img.png";
+import defaultImage from "../../../../assets/default_img.jpeg";
 
 import formartDate from "../../../../logic/formartDate";
 import { IoMdTime } from "../../../react-icons/index";

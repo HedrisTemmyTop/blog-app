@@ -8,6 +8,7 @@ import EditPost from "./EditPost";
 import Profile from "./Profile";
 import Premium from "./premium";
 import Settings from "./settings";
+import NotFound from "./NotFound";
 
 export {
   SignUp,
@@ -20,4 +21,5 @@ export {
   Premium,
   Settings,
   Profile,
+  NotFound,
 };
