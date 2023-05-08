@@ -13,7 +13,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
-  const { token, loading, userId, authenticated, error } = useSelector(
+  const { token, loading, userId, authenticated, error, data } = useSelector(
     (state) => state.auth
   );
 
@@ -21,8 +21,17 @@ const SignIn = () => {
     if (token) {
       localStorage.setItem("auth", authenticated);
       localStorage.setItem("token", token);
-      localStorage.setItem("userId", userId);
+      localStorage.setItem("userId", data._id);
 
+      const userInfo = {
+        username: data.username,
+        socialHandles: data.socialHandle,
+        profileImage: data.profileImage ? data.profileImage : "",
+        firstname: data.firstname,
+        lastname: data.lastname,
+        uid: data._id,
+      };
+      localStorage.setItem("data", JSON.stringify(userInfo));
       toast.success("You successfully logged in to Fenkei 😎😃");
 
       setTimeout(() => {

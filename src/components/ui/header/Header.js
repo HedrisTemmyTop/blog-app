@@ -243,7 +243,11 @@ const Header = ({ user }) => {
           open={open}
           handleClose={handleClose}
           token={token}
-          socialHandles={user?.user?.socialHandle && user.user.socialHandle}
+          socialHandles={
+            user?.user?.socialHandle
+              ? user.user.socialHandle
+              : data?.socialHandle && data.socialHandle
+          }
           darkTheme={darkTheme}
         />
       </header>

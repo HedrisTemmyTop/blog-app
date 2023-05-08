@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import API_URL from "../../../api/URL";
 import classes from "../../../styles/Blog.module.css";
 
@@ -7,8 +7,9 @@ import { toast } from "react-toastify";
 import Replies from "../blogReplies/replies";
 import "../../../index.css";
 import AlertMessage from "../../alertMessage/alertMessage";
-import ErrorHandler from "../../../logic/errorHandler";
-const Comment = ({ ownerID, postId, darkTheme, comment }) => {
+import CommentInput from "./commentInput/CommentInput";
+
+const Comment = ({ postId, darkTheme, comment }) => {
   const [commentInput, setCommentInput] = useState("");
   const [commenting, setCommenting] = useState(false);
   const [error, setError] = useState(null);
@@ -62,33 +63,20 @@ const Comment = ({ ownerID, postId, darkTheme, comment }) => {
       });
   };
   return (
-    <ErrorHandler
-      errorMessage={error}
-      duration={error === "Unauthorized" ? 2800 : 5000}
-    >
+    <React.Fragment>
       <div className={darkTheme ? classes.Comment : classes.CommentLight}>
         <Replies darkTheme={darkTheme} comment={comment} />
 
         <AlertMessage duration={2000} />
 
-        <form className={classes.AddPost} onSubmit={handleSubmit}>
-          <textarea
-            className={classes.TextArea}
-            placeholder="Say something..."
-            value={commentInput}
-            onChange={(e) => {
-              setCommentInput(e.target.value);
-            }}
-            required
-          ></textarea>
-          <div className={classes.AddButton}>
-            <button className={classes.Add}>
-              <span>{commenting ? "SENDING..." : "COMMENT"}</span>
-            </button>
-          </div>
-        </form>
+        <CommentInput
+          handleSubmit={handleSubmit}
+          setCommentInput={setCommentInput}
+          commenting={commenting}
+          commentInput={commentInput}
+        />
       </div>
-    </ErrorHandler>
+    </React.Fragment>
   );
 };
 

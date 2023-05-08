@@ -35,15 +35,15 @@ const Layout = () => {
         if (
           userInfo.username &&
           userInfo.uid &&
-          userInfo.profileImage &&
           userInfo.firstname &&
-          userInfo.lastname
-        )
+          userInfo.lastname &&
+          userInfo.socialHandles
+        ) {
           return;
-
-        dispatch(GET_USER_PROFILE(userId, token));
-      }
-      dispatch(GET_USER_PROFILE(userId, token));
+        } else {
+          dispatch(GET_USER_PROFILE(userId, token));
+        }
+      } else dispatch(GET_USER_PROFILE(userId, token));
     }
   }, []);
 
@@ -51,10 +51,11 @@ const Layout = () => {
     if (user) {
       const data = {
         username: user.user.username,
-        profileImage: user.user.profileImage,
+        profileImage: user.user.profileImage ? user.user.profileImage : "",
         lastname: user.user.lastname,
         firstname: user.user.firstname,
         uid: user.user._id,
+        socialHandles: user.user.socialHandle,
       };
       if (id === userId || !data || !id || user.user._id !== data.uid)
         localStorage.setItem("data", JSON.stringify(data));
