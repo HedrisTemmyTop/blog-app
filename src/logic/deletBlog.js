@@ -6,6 +6,7 @@ const deleteBlog = async (id, token) => {
     const response = await axios.delete(API_URL + "blogs/" + id, {
       headers: {
         authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     });
     return response;

@@ -22,6 +22,7 @@ const USER_PROFILE_ERROR = (error) => {
 export const GET_USER_PROFILE = (id, token) => {
   return (dispatch) => {
     dispatch(GETTING_PROFILE());
+
     axios
       .get(API_URL + "users/profile/" + id, {
         headers: {

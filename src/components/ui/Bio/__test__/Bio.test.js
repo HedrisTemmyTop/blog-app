@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Bio from "../Bio";
 import "@testing-library/jest-dom";
-import { useContext } from "react";
+
 import { ThemeContext } from "../../../../context/context";
 const BioProps = {
   username: "JohnDoe",
