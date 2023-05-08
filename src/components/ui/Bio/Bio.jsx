@@ -14,7 +14,7 @@ const Bio = ({ username, job, userImage, bio, socialHandles }) => {
     if (!role && !company) return `No_Job`;
   };
   return (
-    <div className={classes.BioLight}>
+    <div className={darkTheme ? classes.Bio : classes.BioLight}>
       <div className={classes.BioMain}>
         <div className={classes.Left}>
           <div className={classes.Image}>
