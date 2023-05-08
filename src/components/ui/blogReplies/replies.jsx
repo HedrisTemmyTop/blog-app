@@ -20,17 +20,15 @@ const Replies = ({ darkTheme, comment }) => {
   return (
     <React.Fragment>
       <div className={classes.CommentHead}>
-        <div className={classes.HeadLeft}>
+        <div className={classes.HeadLeft} data-testid="comment-total">
           <span className={classes.Cap}>Comments</span>
           <span className={classes.Num}>({comment.length})</span>
         </div>
         <div className={classes.HeadRight}>
-          <Link to="" onClick={handleViewAll}>
-            {!hide ? "Show Less" : "View All"}
-          </Link>
+          <div onClick={handleViewAll}>{!hide ? "Show Less" : "View All"}</div>
         </div>
       </div>
-      <div id="commentContainer">
+      <div id="commentContainer" data-testid="comment-container">
         {hide
           ? sortedComment()
               .slice(0, 2)
@@ -39,6 +37,7 @@ const Replies = ({ darkTheme, comment }) => {
                   className={classes.Comments}
                   key={comment._id}
                   style={i === comment.length - 1 ? { borderBottom: 0 } : null}
+                  data-testid="comment"
                 >
                   <div className={classes.CommentsLeft}>
                     <Link
@@ -51,18 +50,20 @@ const Replies = ({ darkTheme, comment }) => {
                             ? comment.author.profileImage
                             : defaultImage
                         }
-                        alt="comment"
+                        alt="poster"
                       />
                       <div className={classes.CommenterRight}>
                         <div
                           className={classes.CommentName}
                           style={!darkTheme ? { color: "#1e1e1e" } : null}
+                          data-testid="author-username"
                         >
                           {comment.author.username}
                         </div>
                         <div
                           className={classes.Time}
                           style={!darkTheme ? { color: "#999999" } : null}
+                          data-testid="date"
                         >
                           {formartDate(comment.createdAt, "days")}
                         </div>
@@ -71,6 +72,7 @@ const Replies = ({ darkTheme, comment }) => {
                     <i
                       className={classes.comment}
                       style={!darkTheme ? { color: "#999999" } : null}
+                      data-testid="text-content"
                     >
                       {comment.content}
                     </i>
@@ -88,6 +90,7 @@ const Replies = ({ darkTheme, comment }) => {
                 className={classes.Comments}
                 key={comment._id}
                 style={i === comment.length - 1 ? { borderBottom: 0 } : null}
+                data-testid="comment"
               >
                 <div className={classes.CommentsLeft}>
                   <Link
@@ -100,18 +103,20 @@ const Replies = ({ darkTheme, comment }) => {
                           ? comment.author.profileImage
                           : defaultImage
                       }
-                      alt="comment"
+                      alt="poster"
                     />
                     <div className={classes.CommenterRight}>
                       <div
                         className={classes.CommentName}
                         style={!darkTheme ? { color: "#1e1e1e" } : null}
+                        data-testid="author-username"
                       >
                         {comment.author.username}
                       </div>
                       <div
                         className={classes.Time}
                         style={!darkTheme ? { color: "#999999" } : null}
+                        data-testid="date"
                       >
                         {formartDate(comment.createdAt, "days")}
                       </div>
@@ -120,6 +125,7 @@ const Replies = ({ darkTheme, comment }) => {
                   <i
                     className={classes.comment}
                     style={!darkTheme ? { color: "#999999" } : null}
+                    data-testid="text-content"
                   >
                     {comment.content}
                   </i>

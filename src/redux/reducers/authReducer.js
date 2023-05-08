@@ -46,6 +46,7 @@ export const authReducer = (state = initialAuthState, action) => {
       token: action.data.token,
       userId: action.data.userid,
       authenticated: true,
+      data: action.data.data,
     };
   }
 
