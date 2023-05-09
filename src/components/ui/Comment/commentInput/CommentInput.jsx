@@ -7,11 +7,17 @@ const CommentInput = ({
   commentInput,
 }) => {
   return (
-    <form className={classes.AddPost} onSubmit={handleSubmit}>
+    <form
+      className={classes.AddPost}
+      name="submit-comment"
+      onSubmit={handleSubmit}
+    >
       <textarea
         className={classes.TextArea}
         placeholder="Say something..."
+        type="text"
         value={commentInput}
+        name="input"
         onChange={(e) => {
           setCommentInput(e.target.value);
         }}

@@ -11,6 +11,7 @@ const ProfileBlogs = ({ data, darkTheme, username, profileImage }) => {
 
         darkTheme ? classes.BoxDark : classes.BoxLight,
       ].join(" ")}
+      data-testid="profile-blog-container"
     >
       <div className={classes.Image}>
         <img src={data.image[0]} alt="blog" className={classes.ImagesImg} />
@@ -18,7 +19,11 @@ const ProfileBlogs = ({ data, darkTheme, username, profileImage }) => {
       <div className={classes.Block}>
         <div className={classes.Links}>
           {data.tags.slice(0, 3).map((link, i) => (
-            <span key={i} style={{ textTransform: "capitalize" }}>
+            <span
+              key={i}
+              style={{ textTransform: "capitalize" }}
+              data-testid="tag-id"
+            >
               {link}
             </span>
           ))}
@@ -28,6 +33,7 @@ const ProfileBlogs = ({ data, darkTheme, username, profileImage }) => {
             classes.BoxAbout,
             darkTheme ? classes.BoxAboutDark : classes.BoxAboutLight,
           ].join(" ")}
+          data-testid="title"
         >
           {data.title}
         </div>
@@ -53,7 +59,10 @@ const ProfileBlogs = ({ data, darkTheme, username, profileImage }) => {
               <div style={darkTheme ? { color: "#fff" } : { color: "black" }}>
                 {username.slice(0, 30)}
               </div>
-              <i style={darkTheme ? { color: "#fff" } : { color: "#888888" }}>
+              <i
+                style={darkTheme ? { color: "#fff" } : { color: "#888888" }}
+                data-testid="date"
+              >
                 {formartDate(data.createdAt)}
               </i>
             </div>
@@ -67,6 +76,7 @@ const ProfileBlogs = ({ data, darkTheme, username, profileImage }) => {
             <i
               className={classes.Time}
               style={darkTheme ? { color: "#fff" } : { color: "#888888" }}
+              data-testid="reading-time"
             >
               {data.reading_time} min read
             </i>
@@ -75,14 +85,14 @@ const ProfileBlogs = ({ data, darkTheme, username, profileImage }) => {
       </div>
       <div className={classes.Hover}>
         <div className={classes.HoverContent}>
-          <Link to={"/edit-blog/" + data._id}>
+          <Link to={"/edit-blog/" + data._id} title="edit">
             <button>
               <CiEdit />
               <span>Edit</span>
             </button>
           </Link>
           <div style={{ color: "#fff" }}>or</div>
-          <Link to={"/blogs/" + data._id}>
+          <Link to={"/blogs/" + data._id} title="view">
             <GrView style={{ color: "white" }} />
             <span className={classes.Del}>View Post</span>
           </Link>

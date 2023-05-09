@@ -1,11 +1,14 @@
-import { screen, render } from "@testing-library/react";
+import { screen, render, fireEvent } from "@testing-library/react";
 import BlogHeading from "../BlogHeading";
 import "@testing-library/jest-dom";
-
+const mockDelete = jest.fn();
+const mockPublish = jest.fn();
 const state = {
   title: "Testing",
   state: "published",
   isLoading: false,
+  deleteHandler: mockDelete,
+  publishHandler: mockPublish,
   owner: {
     _id: "1",
   },
@@ -50,6 +53,10 @@ describe("should test for a published blog", () => {
     const deleteText = screen.getByText(/delete/i);
 
     expect(deleteText).toBeInTheDocument();
+    fireEvent.click(deleteText);
+
+    expect(state.deleteHandler).toBeCalled();
+    expect(state.publishHandler).not.toBeCalled();
   });
 
   test("should render  processing...", () => {
@@ -62,36 +69,32 @@ describe("should test for a published blog", () => {
     const processingText = screen.getByText(/processing .../i);
 
     expect(processingText).toBeInTheDocument();
+    fireEvent.click(processingText);
+    expect(state.deleteHandler).not.toBeCalled();
+    expect(state.publishHandler).not.toBeCalled();
   });
 });
 
 describe("should test for a draft state", () => {
   const publishedState = {
-    title: "Testing",
+    ...state,
     state: "draft",
-    isLoading: false,
-    owner: {
-      _id: "1",
-    },
-    userId: "1",
-    darkTheme: true,
   };
-  test("should render title", () => {
-    render(<BlogHeading {...publishedState} />);
 
-    const titleText = screen.getByText(publishedState.title);
-    expect(titleText).toBeInTheDocument();
-  });
-
-  test("should render delete button since the blog is published", () => {
+  test("should render publish button since the blog is drafted", () => {
     render(<BlogHeading {...publishedState} />);
 
     const publishText = screen.getByText(/publish/i);
 
     expect(publishText).toBeInTheDocument();
+
+    fireEvent.click(publishText);
+
+    expect(state.deleteHandler).not.toBeCalled();
+    expect(state.publishHandler).toBeCalled();
   });
 
-  test("should render  processing...", () => {
+  test("should render processing...", () => {
     const loadingProps = {
       ...publishedState,
       isLoading: true,
@@ -101,6 +104,9 @@ describe("should test for a draft state", () => {
     const processingText = screen.getByText(/processing .../i);
 
     expect(processingText).toBeInTheDocument();
+    fireEvent.click(processingText);
+    expect(state.publishHandler).not.toBeCalled();
+    expect(state.deleteHandler).not.toBeCalled();
   });
 });
 
