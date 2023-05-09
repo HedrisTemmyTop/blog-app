@@ -271,3 +271,16 @@ test("should render default image if no image is present for the author", () => 
 
   expect(image.getAttribute("src")).toBe(defaultImage);
 });
+
+test("should not render any comment if there is no comment", () => {
+  render(
+    <BrowserRouter>
+      <Replies comment={[]} darkTheme={true} />
+    </BrowserRouter>
+  );
+
+  const commentContainer = screen.queryByTestId("comment-container");
+  const totalComment = screen.getByTestId("comment-total");
+  expect(totalComment.textContent).toBe("Comments(0)");
+  expect(commentContainer.textContent).toMatch("");
+});

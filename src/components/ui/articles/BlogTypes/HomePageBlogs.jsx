@@ -13,6 +13,7 @@ const HomepageBlog = ({ data, darkTheme }) => {
         classes.Box,
         darkTheme ? classes.BoxDark : classes.BoxLight,
       ].join(" ")}
+      data-testid="home-blog-container"
     >
       <Link to={"/blogs/" + data._id}>
         <div className={classes.Image}>
@@ -21,7 +22,11 @@ const HomepageBlog = ({ data, darkTheme }) => {
         <div className={classes.Block}>
           <div className={classes.Links}>
             {data.tags.slice(0, 3).map((link, i) => (
-              <span key={i} style={{ textTransform: "capitalize" }}>
+              <span
+                key={i}
+                style={{ textTransform: "capitalize" }}
+                data-testid="tag-id"
+              >
                 {link}
               </span>
             ))}
@@ -31,6 +36,7 @@ const HomepageBlog = ({ data, darkTheme }) => {
               classes.BoxAbout,
               darkTheme ? classes.BoxAboutDark : classes.BoxAboutLight,
             ].join(" ")}
+            data-testid="title"
           >
             {data.title}
           </div>
@@ -63,7 +69,10 @@ const HomepageBlog = ({ data, darkTheme }) => {
                     ? data.owner.username.slice(0, 30)
                     : data.owner.username}
                 </div>
-                <i style={darkTheme ? { color: "#fff" } : { color: "#888888" }}>
+                <i
+                  style={darkTheme ? { color: "#fff" } : { color: "#888888" }}
+                  data-testid="date"
+                >
                   {formartDate(data.createdAt)}
                 </i>
               </div>
@@ -77,6 +86,7 @@ const HomepageBlog = ({ data, darkTheme }) => {
               <i
                 className={classes.Time}
                 style={darkTheme ? { color: "#fff" } : { color: "#888888" }}
+                data-testid="reading-time"
               >
                 {data.reading_time} min read
               </i>

@@ -11,7 +11,12 @@ const SignInForm = ({
   loading,
 }) => {
   return (
-    <form className={classes.Form} onSubmit={(e) => submitFormHandler(e)}>
+    <form
+      className={classes.Form}
+      onSubmit={(e) => submitFormHandler(e)}
+      data-testid="sign-in-form"
+      name="sign-in-form"
+    >
       <div className={classes.FormHead}>
         <h3 className={classes.FormTitle}>Sign up</h3>
         <p className={[classes.Text, classes.Normal].join(" ")}>
@@ -49,7 +54,10 @@ const SignInForm = ({
         </Link>
       </p>
       {loading ? (
-        <div style={{ display: "grid", placeItems: "center" }}>
+        <div
+          style={{ display: "grid", placeItems: "center" }}
+          data-testid="loading-spinner"
+        >
           <Spinner />
         </div>
       ) : (
