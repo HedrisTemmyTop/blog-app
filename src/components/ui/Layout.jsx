@@ -80,7 +80,7 @@ const Layout = () => {
         }
       >
         <Header user={user} />
-        <div style={{ minHeight: "70vh" }}>
+        <div style={{ minHeight: "50vh" }}>
           <Outlet />
         </div>
         <Footer />
