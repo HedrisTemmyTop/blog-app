@@ -35,7 +35,7 @@ const ProfileBlogs = ({ data, darkTheme, username, profileImage }) => {
           ].join(" ")}
           data-testid="title"
         >
-          {data.title}
+          {data.title.length > 78 ? data.title.slice(0, 78) : data.title}
         </div>
         <div
           className={[

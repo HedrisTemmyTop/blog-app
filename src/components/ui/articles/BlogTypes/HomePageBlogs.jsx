@@ -38,7 +38,7 @@ const HomepageBlog = ({ data, darkTheme }) => {
             ].join(" ")}
             data-testid="title"
           >
-            {data.title}
+            {data.title.length > 78 ? data.title.slice(0,78) : data.title}
           </div>
           <div
             className={[

@@ -16,6 +16,10 @@ const HomeContent = ({ search }) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    let searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+    if (searchHistory) searchHistory.unshift(searchVal);
+    else searchHistory = [searchVal];
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
     window.location = "/search?" + searchVal;
   };
   return (
