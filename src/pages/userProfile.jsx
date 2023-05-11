@@ -12,6 +12,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { GET_USER_PROFILE } from "../redux/reducers/profileReducer";
 import { useContext } from "react";
 import { ThemeContext } from "../context/context";
+import {
+  filterByDrafted,
+  filterByLength,
+  filterByPublished,
+  filterByRelevant,
+  sortBlogInLatest,
+} from "../logic/sortBlogs";
 const UserProfile = () => {
   const { id } = useParams();
   const token = localStorage.getItem("token");
@@ -33,11 +40,16 @@ const UserProfile = () => {
   useEffect(() => {
     if (user) {
       const { posts } = user;
-      const sortData = posts.sort(
-        (a, b) =>
-          new Date(b.createdAt ? b.createdAt : b.updatedAt) -
-          new Date(a.createdAt ? a.createdAt : a.updatedAt)
-      );
+      let sortData = [];
+      const path = window.location.pathname.split("/");
+      if (path.includes("latest")) sortData = sortBlogInLatest(posts);
+      else if (path.includes("published")) sortData = filterByPublished(posts);
+      else if (path.includes("drafted")) sortData = filterByDrafted(posts);
+      else if (path.includes("longest")) sortData = filterByLength(posts);
+      else if (path.includes("relevant")) sortData = filterByRelevant(posts);
+      else if (path.includes("most-viewed")) sortData = filterByRelevant(posts);
+      else if (path.includes("ratings")) sortData = filterByRelevant(posts);
+      else sortData = sortBlogInLatest(posts);
       setSortedBlogs(sortData);
     }
   }, [user]);

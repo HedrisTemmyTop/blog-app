@@ -13,7 +13,7 @@ const Articles = ({
   viewerId,
 }) => {
   const { darkTheme } = useContext(ThemeContext);
-  
+
   return (
     <React.Fragment>
       <div className={classes.Articles}>

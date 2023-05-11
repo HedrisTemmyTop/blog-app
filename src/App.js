@@ -15,6 +15,11 @@ import {
 } from "./pages";
 
 import { ThemeContextProvider } from "./context/context";
+import Latest from "./components/sortBlogs/Latest";
+import Published from "./components/sortBlogs/Published";
+import Longest from "./components/sortBlogs/Longest";
+import Relevant from "./components/sortBlogs/Relevant";
+import Drafted from "./components/sortBlogs/Drafted";
 
 const App = () => {
   return (
@@ -23,7 +28,14 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/profile/:id" element={<Profile />}>
+              <Route path="" element={<Latest />} />
+              <Route path="latest" element={<Latest />} />
+              <Route path="drafted" element={<Drafted />} />
+              <Route path="published" element={<Published />} />
+              <Route path="longest" element={<Longest />} />
+              <Route path="relevant" element={<Relevant />} />
+            </Route>
             <Route path="post-blog" element={<CreateNewPost />} />
             <Route path="edit-blog/:id" element={<EditPost />} />
             <Route path="blogs/:id" element={<Blogs />} />

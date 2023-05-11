@@ -11,6 +11,8 @@ import axios from "axios";
 import API_URL from "../api/URL";
 import { useContext } from "react";
 import { ThemeContext } from "../context/context";
+import arrangeBlogs from "../logic/arrangeBlogs";
+import { sortBlogInLatest } from "../logic/sortBlogs";
 const Home = () => {
   // Component states and variables
 
@@ -26,25 +28,30 @@ const Home = () => {
   // Getting blogs
   useEffect(() => {
     dispatch(GET_BLOGS());
-  }, []);
+  }, [dispatch]);
+  // console.log(result);
 
   // Runs when there's blogs to sort(either filtered blog or response bloh) the blog before displaying
   useEffect(() => {
+    const searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+
     if (filterBlogs) {
-      const sortData = filterBlogs.sort(
-        (a, b) =>
-          new Date(b.createdAt ? b.createdAt : b.updatedAt) -
-          new Date(a.createdAt ? a.createdAt : a.updatedAt)
+      const sortData = arrangeBlogs(
+        sortBlogInLatest(filterBlogs),
+        searchHistory?.length ? searchHistory : [""]
       );
+      console.log(sortData);
       setSortedBlogs(sortData);
     }
     if (blogs && !filterBlogs) {
-      const sortData = blogs.sort(
-        (a, b) =>
-          new Date(b.createdAt ? b.createdAt : b.updatedAt) -
-          new Date(a.createdAt ? a.createdAt : a.updatedAt)
+      // console.log(blogs);
+
+      const sortData = arrangeBlogs(
+        sortBlogInLatest(blogs),
+        searchHistory?.length ? searchHistory : [""]
       );
-      setSortedBlogs(sortData);
+      setSortedBlogs(sortData, searchHistory);
+      console.log(sortData);
     }
   }, [blogs, filterBlogs]);
 

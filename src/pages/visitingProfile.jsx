@@ -12,6 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../context/context";
 import { GET_VISITING_USER_PROFILE } from "../redux/reducers/visitingUserProfile";
+import { sortBlogInLatest } from "../logic/sortBlogs";
 const VisitingProfile = () => {
   const { id } = useParams();
   const token = localStorage.getItem("token");
@@ -35,11 +36,8 @@ const VisitingProfile = () => {
   useEffect(() => {
     if (user) {
       const { posts } = user;
-      const sortData = posts.sort(
-        (a, b) =>
-          new Date(b.createdAt ? b.createdAt : b.updatedAt) -
-          new Date(a.createdAt ? a.createdAt : a.updatedAt)
-      );
+      const sortData = sortBlogInLatest(posts);
+
       setSortedBlogs(sortData);
     }
   }, [user]);

@@ -37,7 +37,12 @@ const Header = ({ user }) => {
 
   const handleLogout = () => {
     setLogout(true);
-    localStorage.clear();
+    // localStorage.clear();
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
+    localStorage.removeItem("data");
+    localStorage.removeItem("auth");
+    localStorage.removeItem("tokenExpiration");
   };
   const handleOpen = () => {
     setOpen(true);
