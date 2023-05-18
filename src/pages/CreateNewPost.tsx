@@ -120,12 +120,12 @@ const CreateNewPost = () => {
   // Post a blog function
   const submitBlogHandler = (event: React.FormEvent<HTMLFormElement>): any => {
     event.preventDefault();
-    console.log("posting");
+
     const data = blogFormValidation(); // Get datas from validated inputs
     if (data !== false) {
       if (data) {
         setIsPublishing(true);
-        console.log(token);
+
         dispatch(POST_BLOG_REQUEST(data, token));
       } // Send it to the backend
     }

@@ -60,7 +60,7 @@ const Home: React.FC = () => {
         sortBlogInLatest(filterBlogs),
         searchHistory?.length ? searchHistory : [""]
       );
-      console.log(sortData);
+
       setSortedBlogs(sortData);
     }
     if (blogs && !filterBlogs) {
@@ -71,7 +71,6 @@ const Home: React.FC = () => {
         searchHistory?.length ? searchHistory : [""]
       );
       setSortedBlogs(sortData);
-      console.log(sortData);
     }
   }, [blogs, filterBlogs]);
 

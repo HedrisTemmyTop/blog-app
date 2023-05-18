@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import classes from "../../../styles/CreateBlog.module.css";
 import TextEditor from "../../Editor/Editor";
-import Draft from "../../Editor/Draft";
 
 interface PropTypes {
   formRef: React.RefObject<HTMLFormElement>;
@@ -52,7 +51,6 @@ const CreateBlogForm = (props: PropTypes) => {
   } = props;
   const editorRef = useRef<HTMLFormElement | null>(null);
 
-  console.log(previewRef);
   const handleKeyUp = (html: string) => {
     setHtml(html);
     const previewEl: HTMLDivElement = previewRef.current!;

@@ -42,7 +42,7 @@ const Blog = () => {
   ); // destructuring the blogs
 
   useEffect(() => {
-    dispatch(GET_BLOG(id)); // fetching the blog
+    dispatch(GET_BLOG(id as string)); // fetching the blog
   }, []);
 
   useEffect(() => {

@@ -37,10 +37,9 @@ export const GET_BLOG = (id: string) => {
 };
 
 export const POST_BLOG_REQUEST = (html: any, token: string) => {
-  console.log(token);
   return async (dispatch: any) => {
     dispatch(POST_START());
-    console.log(html);
+ 
     axios
       .post(API_URL + "blogs", html, {
         headers: {
@@ -49,11 +48,9 @@ export const POST_BLOG_REQUEST = (html: any, token: string) => {
         },
       })
       .then((response) => {
-        console.log(response);
         dispatch(POST_SUCCESS(response));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(
           POST_FAIL(error.response ? error.response.data : error.message)
         );

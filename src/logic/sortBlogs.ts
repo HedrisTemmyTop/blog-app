@@ -15,14 +15,14 @@ export const filterByPublished = (blogs: DataTypes[]) => {
   const published = result.filter(
     (blog: DataTypes) => blog.state === "published"
   );
-  console.log(published);
+
   return published;
 };
 
 export const filterByDrafted = (blogs: DataTypes[]) => {
   const result = sortBlogInLatest(blogs);
   const draft = result.filter((blog) => blog.state === "draft");
-  console.log(draft);
+
   return draft;
 };
 
