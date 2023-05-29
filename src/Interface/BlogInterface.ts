@@ -45,7 +45,7 @@ export interface ContentInterface {
   coverImage: string;
   isDeleting: boolean;
   postId: string;
-  comment: commentInterface[];
+  comments: commentInterface[];
 }
 
 export interface PostBlogInterface {
@@ -67,7 +67,12 @@ interface StateTypes {
     blog: UserTypes;
     loading: boolean;
     error: string;
-    comment: [];
+    
+    
+    
+    
+    
+    : [];
   };
 
   loading: boolean;
