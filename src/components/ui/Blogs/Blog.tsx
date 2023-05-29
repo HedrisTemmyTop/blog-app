@@ -145,7 +145,7 @@ const Blog = () => {
             coverImage={blog.post.image[0]}
             isDeleting={isDeleting}
             postId={blog.post._id}
-            comment={blog.comment}
+            comment={blog.comments}
           />
         </div>
       </div>
