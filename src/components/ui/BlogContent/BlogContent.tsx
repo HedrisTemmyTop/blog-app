@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 // import { AiOutlinePlayCircle, AiOutlinePauseCircle } from "react-icons/ai";
 // import { useTts } from "react-tts";
 import { ContentInterface } from "../../../Interface/BlogInterface";
+import Reactions from "./Reactions/Reaction";
 
 const BlogContent = (props: ContentInterface) => {
   const {
@@ -27,6 +28,9 @@ const BlogContent = (props: ContentInterface) => {
     isDeleting,
     postId,
     comment,
+    views,
+    likes,
+    bookmarked,
   } = props;
   // const { speak, cancel } = useTts();
   // const [isPlaying, setIsPlaying] = useState(false);
@@ -113,7 +117,12 @@ const BlogContent = (props: ContentInterface) => {
         style={!darkTheme ? { color: "#1e1e1e" } : {}}
         id="textContent"
       ></div>
-
+      <Reactions
+        views={views}
+        likes={likes}
+        bookmarked={bookmarked}
+        darkTheme={darkTheme}
+      />
       {buttonJSX}
     </React.Fragment>
   );

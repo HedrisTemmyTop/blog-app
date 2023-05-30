@@ -280,6 +280,77 @@
   font-size: 2.3rem;
   font-weight: lighter;
 }
+.Reaction {
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+
+  border-radius: 10rem;
+  background-color: white;
+  border: 0.05rem solid rgb(226 232 240);
+  color: #181e29;
+  max-width: 40rem;
+  width: auto;
+  font-size: 1.4rem;
+  margin: 2rem auto;
+  box-shadow: 0px 0px 12px 2px rgba(144, 143, 143, 0.2);
+}
+
+.Reaction span svg {
+  margin-right: 0.5rem;
+  font-size: 2.5rem;
+}
+.React {
+  /* flex-basis: 25%; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 1.7rem;
+  height: 5.7rem;
+}
+.React:not(:last-child) {
+  border-right: 1px solid rgb(24, 30, 41, 0.1);
+}
+
+/* .ReactContainer:nth-of-type(2) {
+  padding: 0;
+
+} */
+.ReactContainer {
+  width: 10rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.ReactShare {
+  flex-basis: 25%;
+  display: flex;
+  justify-content: center;
+  border-top-right-radius: 10rem;
+  border-bottom-right-radius: 10rem;
+  cursor: pointer;
+}
+.ReactContainer {
+  border-right: 1px solid #888888;
+  flex-basis: 25%;
+}
+.ReactContainer:nth-of-type(1) {
+  border-top-left-radius: 10rem;
+  border-bottom-left-radius: 10rem;
+  cursor: pointer;
+}
+
+.ReactContainer:hover,
+.ReactShare:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.Liked:hover {
+  text-decoration: underline;
+}
 @media only screen and (max-width: 547px) {
   .TextArea {
     height: 10rem;

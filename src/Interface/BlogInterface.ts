@@ -46,6 +46,9 @@ export interface ContentInterface {
   isDeleting: boolean;
   postId: string;
   comment: commentInterface[];
+  views: number;
+  likes: LikeInterface[];
+  bookmarked: boolean;
 }
 
 export interface PostBlogInterface {
@@ -74,11 +77,23 @@ interface StateTypes {
   error: string;
 }
 
+export interface LikeInterface {
+  createdAt: string;
+  post: string;
+  user: {
+    profileImage: string;
+    username: string;
+    _id: string;
+  };
+  _id: string;
+}
+
 export interface BlogInterface {
   blogs: {
     blog: {
       post: DataTypes;
-      comment: commentInterface[];
+      comments: commentInterface[];
+      likes: LikeInterface[];
     };
     loading: boolean;
     error: string;
