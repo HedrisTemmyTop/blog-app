@@ -46,7 +46,7 @@ export const authReducer = (state = initialAuthState, action: Action) => {
     const currentTime = new Date().getTime();
     localStorage.setItem(
       "tokenExpiration",
-      JSON.stringify(currentTime + 3600000)
+      JSON.stringify(currentTime + 86400000)
     );
 
     return {

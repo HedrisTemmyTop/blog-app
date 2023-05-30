@@ -11,7 +11,7 @@ export const GET_USER = (data: loginData) => {
   return function (dispatch: any) {
     dispatch(REGISTER_START());
     axios
-      .post("https://skyreal-blog-app.cyclic.app/users/login", data)
+      .post("https://skyreal-blog-app.cyclic.app/auth/login", data)
       .then((response) => {
         return dispatch(LOGIN_SUCCESS(response.data));
       })
