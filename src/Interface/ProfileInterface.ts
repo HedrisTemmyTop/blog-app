@@ -3,7 +3,7 @@ import HandleInterface from "./HandleInterface";
 export interface DataTypes {
   image: string[];
   tags: string[];
-
+  read_count: number;
   title: string;
   description: string;
   createdAt: string;

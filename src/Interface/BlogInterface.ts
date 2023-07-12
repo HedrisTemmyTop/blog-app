@@ -45,7 +45,10 @@ export interface ContentInterface {
   coverImage: string;
   isDeleting: boolean;
   postId: string;
-  comments: commentInterface[];
+  comment: commentInterface[];
+  views: number;
+  likes: LikeInterface[];
+  bookmarked: boolean;
 }
 
 export interface PostBlogInterface {
@@ -67,23 +70,30 @@ interface StateTypes {
     blog: UserTypes;
     loading: boolean;
     error: string;
-    
-    
-    
-    
-    
-    : [];
+    comment: [];
   };
 
   loading: boolean;
   error: string;
 }
 
+export interface LikeInterface {
+  createdAt: string;
+  post: string;
+  user: {
+    profileImage: string;
+    username: string;
+    _id: string;
+  };
+  _id: string;
+}
+
 export interface BlogInterface {
   blogs: {
     blog: {
       post: DataTypes;
-      comment: commentInterface[];
+      comments: commentInterface[];
+      likes: LikeInterface[];
     };
     loading: boolean;
     error: string;

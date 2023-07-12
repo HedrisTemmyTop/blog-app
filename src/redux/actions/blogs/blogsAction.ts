@@ -28,6 +28,7 @@ export const GET_BLOG = (id: string) => {
     axios
       .get(`${API_URL}blogs/${id}`)
       .then((response) => {
+        // console.log(response.data);
         dispatch(FETCH_BLOG_SUCCESS(response.data));
       })
       .catch((err) => {
@@ -39,7 +40,7 @@ export const GET_BLOG = (id: string) => {
 export const POST_BLOG_REQUEST = (html: any, token: string) => {
   return async (dispatch: any) => {
     dispatch(POST_START());
- 
+
     axios
       .post(API_URL + "blogs", html, {
         headers: {

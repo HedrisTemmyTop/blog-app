@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { ThemeContext } from "../../../context/context";
 import AlertMessage from "../../alertMessage/alertMessage";
@@ -19,7 +19,8 @@ import {
 } from ".";
 import { toast } from "react-toastify";
 import { BlogInterface } from "../../../Interface/BlogInterface";
-
+import API_URL from "../../../api/URL";
+import axios from "axios";
 interface dataInterface {
   status: number;
 }
@@ -34,6 +35,7 @@ const Blog = () => {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const [isPublished, setIsPublished] = useState<boolean>(false);
+  const [bookmarked, setBookmarked] = useState(false);
 
   const dispatch: any = useDispatch();
 
@@ -45,6 +47,31 @@ const Blog = () => {
     dispatch(GET_BLOG(id as string)); // fetching the blog
   }, []);
 
+  // Getting  bookmarks
+  useEffect(() => {
+    type postObj = { post: string };
+
+    const findPost = (data: postObj[]) => {
+      console.log(data);
+      return data.some((post: postObj) => post.post === id);
+    };
+
+    const getBookmarks = () => {
+      axios
+        .get(API_URL + "bookmark", {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response: any) =>
+          setBookmarked(findPost(response.data.bookmarks))
+        )
+        .catch((e) => console.log(e));
+    };
+
+    if (!token) return;
+    else getBookmarks();
+  }, []);
   useEffect(() => {
     if (isDeleted || isPublished) {
       setTimeout(() => {
@@ -110,6 +137,7 @@ const Blog = () => {
   }
 
   if (!loading && blog && !error) {
+    console.log(blog);
     content = (
       <div className={classes.Blog}>
         <div className={classes.Tag}>
@@ -132,6 +160,7 @@ const Blog = () => {
             darkTheme={darkTheme}
           />
           <BlogContent
+            views={blog.post.read_count}
             owner={blog.post.owner}
             createdAt={blog.post.createdAt}
             readingTime={blog.post.reading_time}
@@ -146,6 +175,8 @@ const Blog = () => {
             isDeleting={isDeleting}
             postId={blog.post._id}
             comment={blog.comments}
+            likes={blog.likes}
+            bookmarked={bookmarked}
           />
         </div>
       </div>

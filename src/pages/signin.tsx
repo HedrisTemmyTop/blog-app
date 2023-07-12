@@ -9,6 +9,7 @@ import { GET_USER } from "../redux/";
 import { FormBottom, SignInForm } from "../components/ui/auth";
 import AuthInterface, { loginData } from "../Interface/AuthInterface";
 import AlertMessage from "../components/alertMessage/alertMessage";
+
 const SignIn = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
