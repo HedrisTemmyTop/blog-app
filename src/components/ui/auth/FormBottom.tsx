@@ -38,16 +38,16 @@ const FormBottom = () => {
       {" "}
       <p className={classes.Break}>or</p>
       <div className={classes.SpecialButtons}>
-        {/* <button className={classes.SpecialButton}>
+        <button className={classes.SpecialButton}>
           <img className={classes.Icon} src={google} alt="google" />
           <span>Google</span>
-        </button> */}
-        <GoogleLogin
+        </button>
+        {/* <GoogleLogin
           clientId="640327187146-9t0mmgkfecocr490j1ca6nolsvibfr99.apps.googleusercontent.com"
           onSuccess={handleSuccess}
           onFailure={handleError}
           // onRequest={handleSuccess}
-        />
+        /> */}
         <button className={classes.SpecialButton}>
           <img className={classes.IconFB} src={facebook} alt="facebook" />
           <span>Facebook</span>
