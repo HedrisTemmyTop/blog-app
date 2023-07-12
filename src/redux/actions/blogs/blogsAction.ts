@@ -28,7 +28,7 @@ export const GET_BLOG = (id: string) => {
     axios
       .get(`${API_URL}blogs/${id}`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         dispatch(FETCH_BLOG_SUCCESS(response.data));
       })
       .catch((err) => {
