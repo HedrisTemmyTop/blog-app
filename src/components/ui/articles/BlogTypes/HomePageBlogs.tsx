@@ -20,7 +20,7 @@ const HomepageBlog = ({ data, darkTheme }: PropTypes) => {
       ].join(" ")}
       data-testid="home-blog-container"
     >
-      <Link to={"/blogs/" + data._id}>
+      <Link to={"/blog/" + data._id}>
         <div className={classes.Image}>
           <img src={data.image[0]} alt="blog" className={classes.ImagesImg} />
         </div>

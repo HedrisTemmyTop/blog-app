@@ -12,16 +12,19 @@ export interface commentInterface {
 }
 
 export interface Heading {
-  title: string;
-  state: string;
   isLoading: boolean;
+  blog: {
+    title: string;
+    state: string;
+    owner: {
+      profileImage: string | null;
+      username: string;
+      _id: string;
+    };
+  };
   deleteHandler: () => void;
   publishHandler: () => void;
-  owner: {
-    profileImage: string | null;
-    username: string;
-    _id: string;
-  };
+
   userId: string;
   darkTheme: boolean;
   isDeleting: boolean;

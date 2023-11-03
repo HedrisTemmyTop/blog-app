@@ -28,8 +28,7 @@ import API_URL from "../api/URL";
 
 const CreateNewPost = () => {
   // local storage variable
-  const token: string = localStorage.getItem("token")!;
-
+  const token = "";
   const dispatch: any = useDispatch();
   const previewRef = useRef<HTMLDivElement | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -137,7 +136,7 @@ const CreateNewPost = () => {
     }
   };
 
-  let content = (
+  return (
     <div>
       <Preview handleShow={handleShowPreview} handleHide={handleHidePreview} />
       <div className={classes.CreateBlogContainer}>
@@ -172,8 +171,6 @@ const CreateNewPost = () => {
       </div>
     </div>
   );
-
-  return token ? content : <Navigate to="/sign-in" replace={true} />;
 };
 
 export default CreateNewPost;

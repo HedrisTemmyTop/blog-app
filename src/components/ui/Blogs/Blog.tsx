@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { ThemeContext } from "../../../context/context";
 import AlertMessage from "../../alertMessage/alertMessage";
 import "../../../styles/spinnerBody.css";
+import { toastSuccess } from "./../../../logic/toast";
 
 import {
   useDispatch,
@@ -20,10 +21,25 @@ import {
 import { toast } from "react-toastify";
 import { BlogInterface } from "../../../Interface/BlogInterface";
 import API_URL from "../../../api/URL";
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { authReq } from "./../../../interceptor/axios";
 interface dataInterface {
   status: number;
 }
+
+const isSuccess = function (data, message, action) {
+  if (data && data?.status >= 200 && data?.status < 300) {
+    action(true);
+
+    return toastSuccess(message, 2000, "toast-success");
+  } else {
+    toast.error("An error occured 😣😥😰", {
+      autoClose: 4000,
+      toastId: "toast-success",
+    });
+  }
+};
+
 const Blog = () => {
   const token: string = localStorage.getItem("token")!; // Getting token
   const userId: string = localStorage.getItem("userId")!; // Current user id
@@ -45,7 +61,7 @@ const Blog = () => {
 
   useEffect(() => {
     dispatch(GET_BLOG(id as string)); // fetching the blog
-  }, []);
+  }, [dispatch, id]);
 
   // Getting  bookmarks
   useEffect(() => {
@@ -57,21 +73,18 @@ const Blog = () => {
     };
 
     const getBookmarks = () => {
-      axios
-        .get(API_URL + "bookmark", {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response: any) =>
+      authReq
+        .get("bookmark")
+        .then((response: AxiosResponse) =>
           setBookmarked(findPost(response.data.bookmarks))
         )
-        .catch((e) => console.log(e));
+        .catch((e: AxiosError) => console.log(e));
     };
 
-    if (!token) return;
-    else getBookmarks();
-  }, []);
+    getBookmarks();
+  }, [id]);
+
+  ///
   useEffect(() => {
     if (isDeleted || isPublished) {
       setTimeout(() => {
@@ -89,19 +102,13 @@ const Blog = () => {
 
     const data: dataInterface = await publishBlog(
       id as string,
-      token,
       route,
       updatedData
     );
 
     setIsPublishing(false);
-    if (data.status === 200) {
-      setIsPublished(true);
-      toast.success("Blog published successfully 😎😍❤❤", {
-        autoClose: 2000,
-        toastId: "toast-success",
-      });
-    }
+
+    isSuccess(data, "Blog published successfully 😎😍❤❤", setIsPublished);
   };
 
   // DELETING A BLOG
@@ -110,18 +117,7 @@ const Blog = () => {
     const data: dataInterface = await deleteBlog(id as string, token);
     setIsDeleting(false);
 
-    if (data && data?.status >= 200 && data?.status < 300) {
-      setIsDeleted(true);
-      toast.success("Blog deleted successfully 😥😏😪😫", {
-        autoClose: 2000,
-        toastId: "toast-success",
-      });
-    } else {
-      toast.error("An error occured 😣😥😰", {
-        autoClose: 4000,
-        toastId: "toast-success",
-      });
-    }
+    isSuccess(data, "Blog deleted successfully 😥😏😪😫", setIsDeleted);
   };
   const handleReload = () => {
     window.location.reload();
@@ -149,12 +145,13 @@ const Blog = () => {
           <AlertMessage duration={2000} />
 
           <BlogHeading
-            title={blog.post.title}
-            state={blog.post.state}
+            // title={blog.post.title}
+            blog={blog as any}
+            // state={blog.post.state}
             isLoading={isPublishing}
             publishHandler={publishBlogHandler}
             deleteHandler={deleteBlogHandler}
-            owner={blog.post.owner}
+            // owner={blog.post.owner}
             userId={userId}
             isDeleting={isDeleting}
             darkTheme={darkTheme}

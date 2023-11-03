@@ -3,12 +3,15 @@ import classes from "../../../styles/Blog.module.css";
 import BlogButton from "../BlogButton/Button";
 const BlogHeading = (props: Heading) => {
   const {
-    title,
-    state,
     isLoading,
     deleteHandler,
     publishHandler,
-    owner,
+    blog: {
+      title,
+
+      state,
+      owner,
+    },
     userId,
     darkTheme,
     isDeleting,

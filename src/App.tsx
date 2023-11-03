@@ -20,6 +20,8 @@ import Published from "./components/sortBlogs/Published";
 import Longest from "./components/sortBlogs/Longest";
 import Relevant from "./components/sortBlogs/Relevant";
 import Drafted from "./components/sortBlogs/Drafted";
+import { protectedRoutes, routes } from "./routes/routes";
+import Auth from "./Auth/Auth";
 
 const App: React.FC = (): JSX.Element => {
   return (
@@ -27,6 +29,19 @@ const App: React.FC = (): JSX.Element => {
       <div>
         <Routes>
           <Route path="/" element={<Layout />}>
+            {routes.map((routeItem, index) => (
+              <Route {...routeItem} key={routeItem.path as string} />
+            ))}
+            {protectedRoutes.map((routeItem) => {
+              console.log(routeItem);
+              return (
+                <Route
+                  path={routeItem.path as string}
+                  element={<Auth>{routeItem.element}</Auth>}
+                  key={routeItem.path as string}
+                />
+              );
+            })}
             <Route path="/" element={<Home />} />
             <Route path="/profile/:id" element={<Profile />}>
               <Route path="" element={<Latest />} />
@@ -36,12 +51,12 @@ const App: React.FC = (): JSX.Element => {
               <Route path="longest" element={<Longest />} />
               <Route path="relevant" element={<Relevant />} />
             </Route>
-            <Route path="post-blog" element={<CreateNewPost />} />
+            {/* <Route path="post-blog" element={<CreateNewPost />} /> */}
             <Route path="edit-blog/:id" element={<EditPost />} />
-            <Route path="blogs/:id" element={<Blogs />} />
-            <Route path="search" element={<Home />} />
-            <Route path="account-settings" element={<Settings />} />
-            <Route path="premium" element={<Premium />} />
+            {/* <Route path="/blogs/:id" element={<Blogs />} /> */}
+            {/* <Route path="search" element={<Home />} /> */}
+            {/* <Route path="account-settings" element={<Settings />} /> */}
+            {/* <Route path="premium" element={<Premium />} /> */}
             <Route path="*" element={<NotFound />} />
             {/* <Route path="/authors" element={<Authors />} /> */}
           </Route>
